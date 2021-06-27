@@ -4,6 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "site" : "collactive",
     "public": "dist/collactive",
     "ignore": [
       "firebase.json",
