@@ -1,0 +1,124 @@
+.screen {
+    padding: 15px;
+    color: #5A3939;
+}
+
+.login-unsuccessful {
+    color: #dc3545;
+    text-align: center;
+    margin-top: 5px;
+    height: 20px;
+}
+
+.toggle-button {
+    width: 80%;
+    height: 36px;
+    margin: auto;
+    margin-top: 100px;
+    background: #C4C4C4;
+    border-radius: 40px;
+    flex-direction: row;
+    display: flex;
+}
+
+
+#hello-text {
+    font-size: 20px;
+    font-weight: 450;   
+}
+
+.sign-up-button {
+    width: 50%;
+    height: 36px;
+    background: #C4C4C4;
+    border-radius: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: #7C7474;
+}
+
+.log-in-button {
+    width: 50%;
+    height: 36px;
+    color: #FFFFFF;
+    border-radius: 40px;
+    background: #E793A2;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.form-control {
+    background-color: #F1ECE9;
+    border-color: #F1ECE9;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    margin-top: -8px;
+}
+
+.btn.btn-primary {
+    background-color: #8090D9;
+    width: 165px;
+    height: 36px;
+    left: 105px;
+    top: 423px;
+    border-color: #8090D9;
+    border-radius: 42px;
+    margin-right: auto;
+    margin-left: auto;
+    filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.25));
+}
+
+.other-signin-btn {
+    background: #FDF9F6;
+    width: 70%;
+    height: 36px;
+    background: #FDF9F6;
+    border: 2px solid #DDBBB1;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#google {
+    margin-top: 5px;
+}
+
+.other-signin-options {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#signUpOptions {
+    display: none;
+}
+#signUpForm {
+    display: none;
+}
+
+.terms {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#terms-text {
+    width: 80%;
+    font-size: 12px;
+}
+
+.form-check-input {
+    margin-right: 5px;
+    width: 1.25em;
+    height: 1.25em;
+    border-radius: 0.4em;
+    background: #F1ECE9;
+    border-color: #F1ECE9;
+    color: black;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
