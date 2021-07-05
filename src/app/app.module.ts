@@ -12,6 +12,7 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingComponent } from './landing/landing.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { TopbarComponent } from './topbar/topbar.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AppComponent,
     LoginComponent,
     HomeComponent,
-    LandingComponent
+    LandingComponent,
+    TopbarComponent
   ],
   imports: [
     BrowserModule,

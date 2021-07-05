@@ -1,0 +1,11 @@
+.fa-arrow-left {
+    margin-top: -2px;
+    margin-left: 30px;
+    position: absolute;
+}
+
+.logo-box {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}

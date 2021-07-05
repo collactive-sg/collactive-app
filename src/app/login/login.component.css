@@ -1,6 +1,8 @@
 .screen {
     padding: 15px;
     color: #5A3939;
+    max-width: 500px;
+    margin: auto;
 }
 
 .login-unsuccessful {
@@ -14,7 +16,7 @@
     width: 80%;
     height: 36px;
     margin: auto;
-    margin-top: 100px;
+    margin-top: 70px;
     background: #C4C4C4;
     border-radius: 40px;
     flex-direction: row;
@@ -25,6 +27,10 @@
 #hello-text {
     font-size: 20px;
     font-weight: 450;   
+}
+
+.font-weight-bold {
+    font-weight: 790;   
 }
 
 .sign-up-button {

@@ -120,6 +120,8 @@ export class LoginComponent implements OnInit {
   }
 
   onChangeToSignUp() {
+    
+    console.log(this.router);
     document.getElementById('loginForm').style.display = "none";
     document.getElementById('logInOptions').style.display = "none";
     document.getElementById('login-toggle-button').style.color = "#7C7474";

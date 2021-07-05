@@ -1,5 +1,5 @@
+<app-topbar [isShowBackButton]="true" [backButtonPath]=""></app-topbar>
 <div class = "screen">
-
     <div class="toggle-button mb-4">
         <div class="sign-up-button" id="signup-toggle-button" (click)="onChangeToSignUp()">
             Sign up
@@ -50,7 +50,9 @@
             <input type="password" formControlName="confirmPassword" class="form-control" id="confirm-password-signup">
         </div>
         <div class="terms mb-3"> 
-            <span id="terms-text"> I have read and agreed to the Terms of Service and Privacy Policy </span>
+            <span id="terms-text"> I have read and agreed to the
+                <span class="font-weight-bold"> Terms of Service </span>and
+                <span class="font-weight-bold"> Privacy Policy</span>.</span>
             <input class="form-check-input"type="checkbox" id="invalidCheck2" required checked (click)="onCheckBoxClick()"> 
         </div> 
         <div style="width: 100%">
@@ -71,5 +73,5 @@
         <div class="other-signin-btn" id="google">Sign up with Google</div>
         <div class="other-signin-btn" id="facebook">Sign up with Facebook</div>
     </div>
-
+    
 </div>
