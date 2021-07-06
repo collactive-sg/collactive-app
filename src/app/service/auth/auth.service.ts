@@ -33,9 +33,16 @@ export class AuthService {
   }
 
   async register(email: string, password: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password).then(
-      result => console.log(result)
+    return await this.afAuth.createUserWithEmailAndPassword(email, password).then(
+      res => this.addFirstUser(res.user.email, res.user.uid)
     )
+  }
+
+  async addFirstUser(email, uid) {
+    return await this.afs.collection('users').doc(uid).set({
+      'email' : email,
+      'isFirstTimeUser' : true
+    });
   }
 
   getUserAuthState() {

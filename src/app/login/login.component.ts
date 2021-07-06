@@ -84,8 +84,12 @@ export class LoginComponent implements OnInit {
       }).catch(err => {
         if (err.code == "auth/weak-password") {
           this.signUpErrorMessage = "Password should be at least 6 characters.";
+        } else if (err.code == "auth/invalid-email") {
+          this.signUpErrorMessage = "Please key in a valid email";
+        } else if (err.code == "auth/email-already-in-use") {
+          this.signUpErrorMessage = "This email is already in use.";
         } else {
-          this.signUpErrorMessage = "Something went wrong, please try again later.";
+          this.signUpErrorMessage = "Please try again later.";
         }
       })
 
@@ -93,7 +97,7 @@ export class LoginComponent implements OnInit {
       this.alertWrongEmail();
     } else if (!hasCheckedTerms.checked) {
       document.getElementById('invalidCheck2').style.borderColor = "#dc3545"
-    }else if (this.SignUpPassword.value != this.SignUpConfirmPassword.value) {
+    } else if (this.SignUpPassword.value != this.SignUpConfirmPassword.value) {
       this.signUpErrorMessage = "The passwords do not match."
     }
   }
@@ -120,8 +124,6 @@ export class LoginComponent implements OnInit {
   }
 
   onChangeToSignUp() {
-    
-    console.log(this.router);
     document.getElementById('loginForm').style.display = "none";
     document.getElementById('logInOptions').style.display = "none";
     document.getElementById('login-toggle-button').style.color = "#7C7474";
