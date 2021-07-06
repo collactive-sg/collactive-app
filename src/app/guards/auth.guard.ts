@@ -15,7 +15,6 @@ export class AuthGuard implements CanActivate {
       this.auth
           .getUserAuthState()
           .onAuthStateChanged((user) => {
-            console.log(user);
               if (user) {
                   resolve(true);
               } else {
