@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
       this.SignUpPassword.value == this.SignUpConfirmPassword.value) {
       this.auth.register(this.SignUpEmail.value, this.SignUpPassword.value).then(res => {
         this.signUpErrorMessage = "";
-        this.router.navigate(['/home']);
+        this.router.navigate(['/profile-setup/type-setup']);
       }).catch(err => {
         if (err.code == "auth/weak-password") {
           this.signUpErrorMessage = "Password should be at least 6 characters.";

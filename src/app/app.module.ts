@@ -12,7 +12,8 @@ import { HomeComponent } from './home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LandingComponent } from './landing/landing.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { TopbarComponent } from './topbar/topbar.component';
+import { ProfileSetupModule } from './profile-setup/profile-setup.module';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -21,7 +22,6 @@ import { TopbarComponent } from './topbar/topbar.component';
     LoginComponent,
     HomeComponent,
     LandingComponent,
-    TopbarComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +30,7 @@ import { TopbarComponent } from './topbar/topbar.component';
     AngularFireAuthModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

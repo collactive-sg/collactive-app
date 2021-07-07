@@ -7,22 +7,19 @@ import {
 import { Router } from  "@angular/router";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-   user: any;
+  user: any;
 
   constructor(
-    private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router,
-  ) { 
-
-    this.afAuth.authState.subscribe(user => {
-      if (user){
+    private afAuth: AngularFireAuth, 
+    private afs: AngularFirestore) {
+    this.afAuth.authState.subscribe((user) => {
+      if (user) {
         this.user = user;
       }
-    })
+    });
   }
 
   async login(email: string, password: string) {
@@ -30,20 +27,19 @@ export class AuthService {
   }
 
   async register(email: string, password: string) {
-    return await this.afAuth.createUserWithEmailAndPassword(email, password).then(
-      res => this.addFirstUser(res.user.email, res.user.uid)
-    )
+    return await this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((res) => this.addFirstUser(res.user.email, res.user.uid));
   }
 
   async addFirstUser(email, uid) {
-    return await this.afs.collection('users').doc(uid).set({
-      'email' : email,
-      'isFirstTimeUser' : true
+    return await this.afs.collection("users").doc(uid).set({
+      email: email,
+      isFirstTimeUser: true,
     });
   }
 
   getUserAuthState() {
     return this.afAuth;
   }
-
 }
