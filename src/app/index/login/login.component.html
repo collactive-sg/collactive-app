@@ -21,12 +21,13 @@
                 </span>
             </div>
         </div>
-        <div class="mb-4">
+        <div>
             <label for="exampleInputPassword1" class="form-label">Password</label>
             <input type="password" formControlName="password" class="form-control" id="password-login">
         </div>
-        <div style="width: 100%">
-            <button type="submit" class="btn btn-primary" style="display: inherit;">Log In</button>
+        <a href="/forget-password" style="color: #5A3939;">Forget Password</a>
+        <div style="width: 100%; margin-top:1rem;">
+            <button type="submit" class="btn btn-primary" >Log In</button>
             <div class="login-unsuccessful">{{this.loginErrorMessage}}</div>
         </div>
     </form>
@@ -53,14 +54,13 @@
             <span id="terms-text"> I have read and agreed to the
                 <span class="font-weight-bold"> Terms of Service </span>and
                 <span class="font-weight-bold"> Privacy Policy</span>.</span>
-            <input class="form-check-input"type="checkbox" id="invalidCheck2" required checked (click)="onCheckBoxClick()"> 
+            <input class="form-check-input" type="checkbox" id="invalidCheck2" required checked (click)="onCheckBoxClick()"> 
         </div> 
         <div style="width: 100%">
-            <button type="submit" class="btn btn-primary" style="display: inherit;">Sign Up</button>
+            <button type="submit" class="btn btn-primary" >Sign Up</button>
             <div class="login-unsuccessful">{{this.signUpErrorMessage}}</div>
         </div>
     </form>
-
 
     <hr style="margin-top: 20px; color: #5A3939;" />
     

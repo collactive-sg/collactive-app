@@ -29,7 +29,10 @@ export class AuthService {
   async register(email: string, password: string) {
     return await this.afAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((res) => this.addFirstUser(res.user.email, res.user.uid));
+      .then((res) => {
+        res.user.sendEmailVerification();
+        this.addFirstUser(res.user.email, res.user.uid)
+      })
   }
 
   async addFirstUser(email, uid) {
@@ -37,6 +40,10 @@ export class AuthService {
       email: email,
       isFirstTimeUser: true,
     });
+  }
+
+  async sendPasswordResetEmail(email) {
+    return this.afAuth.sendPasswordResetEmail(email);
   }
 
   getUserAuthState() {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../service/auth/auth.service';
+import { AuthService } from '../../service/auth/auth.service';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
     document.getElementById('logInOptions').style.display = "flex";
     document.getElementById('login-toggle-button').style.color = "#FFFFFF";
     document.getElementById('login-toggle-button').style.background = "#E793A2";
-    document.getElementById('hello-text').innerHTML = "Hello, welcome back";
+    document.getElementById('header-text').innerHTML = "Hello, welcome back";
   }
 
   onChangeToSignUp() {
@@ -132,7 +132,7 @@ export class LoginComponent implements OnInit {
     document.getElementById('signUpOptions').style.display = "flex";
     document.getElementById('signup-toggle-button').style.color = "#FFFFFF";
     document.getElementById('signup-toggle-button').style.background = "#E793A2";
-    document.getElementById('hello-text').innerHTML = "Create account";
+    document.getElementById('header-text').innerHTML = "Create account";
   }
 
 }
