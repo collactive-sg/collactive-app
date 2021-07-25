@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './topbar/topbar.component';
+import { ListingComponent } from './listing/listing.component';
 
 
 @NgModule({
   declarations: [
-    TopbarComponent
+    TopbarComponent,
+    ListingComponent
   ],
   imports: [
     CommonModule
