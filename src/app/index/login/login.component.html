@@ -1,0 +1,76 @@
+<app-topbar [isShowBackButton]="true" [backButtonPath]=""></app-topbar>
+<div>
+    <div class="toggle-button mb-4">
+        <div class="sign-up-button" id="signup-toggle-button" (click)="onChangeToSignUp()">
+            Sign up
+        </div>
+        <div class="log-in-button" id="login-toggle-button"  (click)="onChangeToLogIn()">
+            Log in
+        </div>
+    </div>
+
+    <div id="header-text" class="mb-4">Hello, welcome back</div>
+
+    <form [formGroup]="loginForm" id="loginForm" (ngSubmit)="onLoginButtonClick()" >
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input type="text" formControlName="email" class="form-control" id="email-login" aria-describedby="emailHelp">
+            <div class="col-auto" *ngIf='this.LoginEmail.invalid'>
+                <span id="passwordHelpInline" class="form-text">
+                Please key in a valid email.
+                </span>
+            </div>
+        </div>
+        <div>
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control" id="password-login">
+        </div>
+        <a href="/forget-password" style="color: #5A3939;">Forget Password</a>
+        <div style="width: 100%; margin-top:1rem;">
+            <button type="submit" class="btn btn-primary" >Log In</button>
+            <div class="login-unsuccessful">{{this.loginErrorMessage}}</div>
+        </div>
+    </form>
+
+    <form [formGroup]="signUpForm" id="signUpForm" (ngSubmit)="onSignUpButtonClick()" >
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <input type="text" formControlName="email" class="form-control" id="email-signup" aria-describedby="emailHelp">
+            <div class="col-auto" *ngIf='this.SignUpEmail.invalid'>
+                <span id="passwordHelpInline" class="form-text">
+                Please key in a valid email.
+                </span>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" formControlName="password" class="form-control" id="password-signup">
+        </div>
+        <div class="mb-1">
+            <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+            <input type="password" formControlName="confirmPassword" class="form-control" id="confirm-password-signup">
+        </div>
+        <div class="terms mb-3"> 
+            <span id="terms-text"> I have read and agreed to the
+                <span class="font-weight-bold"> Terms of Service </span>and
+                <span class="font-weight-bold"> Privacy Policy</span>.</span>
+            <input class="form-check-input" type="checkbox" id="invalidCheck2" required checked (click)="onCheckBoxClick()"> 
+        </div> 
+        <div style="width: 100%">
+            <button type="submit" class="btn btn-primary" >Sign Up</button>
+            <div class="login-unsuccessful">{{this.signUpErrorMessage}}</div>
+        </div>
+    </form>
+
+    <hr style="margin-top: 20px; color: #5A3939;" />
+    
+    <div class= "other-signin-options" id="logInOptions">
+        <div class="other-signin-btn" id="google">Log in with Google</div>
+        <div class="other-signin-btn" id="facebook">Log in with Facebook</div>
+    </div>
+
+    <div class= "other-signin-options" id="signUpOptions">
+        <div class="other-signin-btn" id="google">Sign up with Google</div>
+        <div class="other-signin-btn" id="facebook">Sign up with Facebook</div>
+    </div>
+</div>

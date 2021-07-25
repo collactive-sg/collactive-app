@@ -1,0 +1,33 @@
+.section-header {
+    margin-top: 1.5rem;
+}
+
+.details {
+    margin-top: 15px;
+}
+
+.profile-photo {
+    margin: auto;
+    width: 40vw;
+}
+
+.photo-upload {
+    height: 40vw;
+
+    margin-top: 5px;
+    /* darker beige */
+
+    background: #EFEFEF;
+    /* drop big */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.fa.fa-plus {
+    color: #E793A2; 
+    font-size: 24px;
+}

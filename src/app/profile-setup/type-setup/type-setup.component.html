@@ -1,0 +1,26 @@
+<app-topbar [isShowBackButton]="false" [backButtonPath]=""></app-topbar>
+<div class="overall">
+    <div class="header-text">Welcome to the community<br/>Join as a</div>
+    <div class="options">
+        <div>
+            <div class="type-option" id="donor">
+                <img class="type-setup-img" src="../../assets/type-setup-donor.png" alt="Donor" (click)="onClickDonor()" />
+                <span class="type-setup-text">Donor</span>
+            </div>
+            <i class="fa fa-question-circle-o"> </i>
+        </div>
+        <div>
+            <div class="type-option" id="receiver" (click)="onClickReceiver()">
+                <img class="type-setup-img" src="../../assets/type-setup-receiver.png" alt="Receiver" />
+                <span class="type-setup-text">Receiver</span>
+            </div>
+            <div class="undecided-text" (click)="onClickNotDecided()">
+                <span id="not-decided">I have not decided</span>
+            </div>
+        </div>
+    </div>
+    <div class="next-button" (click)="onNextButtonClick()">
+        <div style="margin-right: 10px;">Next</div>
+        <i class="fa fa-arrow-right"></i>
+    </div>
+</div>
