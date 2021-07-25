@@ -22,6 +22,7 @@ const routes: Routes = [
   {path: 'profile-setup/lifestyle-information', component: LifestyleInformationComponent, canActivate: [AuthGuard]},
 ];
 
+
 @NgModule({
   imports: [
     RouterModule.forRoot(
