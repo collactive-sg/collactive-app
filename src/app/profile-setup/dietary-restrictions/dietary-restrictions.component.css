@@ -1,0 +1,30 @@
+.section-header {
+    margin-top: 1.5rem;
+}
+
+.list-gap {
+    margin-bottom: 0.5rem;
+}
+
+.unsuccessful-text {
+    color: #dc3545;
+    text-align: center;
+    margin-top: 5px;
+    height: 20px;
+}
+
+.form-check-input {
+    margin: 5px;
+    width: 1.25em;
+    height: 1.25em;
+    border-radius: 0.4em;
+    background: #F1ECE9;
+    border-color: #F1ECE9;
+    color: black;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.form-check-input:checked[type=checkbox] {
+    background-image: url('../../../assets/check-solid.svg');
+    opacity: 0.4;
+}
