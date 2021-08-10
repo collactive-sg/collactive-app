@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, FormArray, FormControl } from '@angular/forms';
+import { UserDataService } from 'src/app/service/user-data/user-data.service';
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
   selector: 'app-dietary-restrictions',
@@ -8,17 +11,52 @@ import { Router } from '@angular/router';
 })
 export class DietaryRestrictionsComponent implements OnInit {
 
-  preferences = ["Halal", "Vegan", "Vegetarian", "Kosher", "Pescatarian", "Dairy-free", "Gluten-free", "Nut-free", "Health supplements"]
+  preferences = [
+    { name: "Halal", checked: false },
+    { name: "Vegan", checked: false },
+    { name: "Vegetarian", checked: false },
+    { name: "Kosher", checked: false },
+    { name: "Pescatarian", checked: false },
+    { name: "Dairy-free", checked: false },
+    { name: "Gluten-free", checked: false },
+    { name: "Nut-free", checked: false },
+    { name: "Health supplements", checked: false }
+  ]
+
+  dietaryPreferenceForm: FormGroup;
+  currentUser;
   
   constructor(
     private router: Router,
-  ) { }
+    private auth: AuthService,
+    private userDataService: UserDataService,
+    private formBuilder: FormBuilder,
+  ) { 
+    this.dietaryPreferenceForm = this.formBuilder.group({
+      preferences: new FormArray([])
+    });
+    this.currentUser = this.auth.getUserAuthState();
+  }
 
   ngOnInit(): void {
   }
 
+  addDietaryPreference(preference, index, isChecked: boolean) {
+    let newObj = preference;
+    newObj.checked = isChecked;
+    this.preferences[index] = newObj;
+  }
+
   onNextButtonClick() {
     this.router.navigate(['profile-setup/child-profile']);
+
+    var dietaryRestrictions = []
+    for (var preference of this.preferences) {
+      if (preference.checked) {
+        dietaryRestrictions.push(preference.name);
+      }
+    }
+    this.userDataService.setDietaryRestrictions(this.currentUser.uid, {"dietary-restrictions": dietaryRestrictions});
   }
 
 }

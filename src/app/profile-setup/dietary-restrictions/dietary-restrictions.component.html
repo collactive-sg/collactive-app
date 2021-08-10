@@ -10,9 +10,10 @@
     
     <ul class="list-group list-group-flush">
         <div class="list-gap"></div>
-        <li class="list-group-item" *ngFor="let preference of preferences">
-            {{preference}}
-            <input class="form-check-input pull-right" type="checkbox" value="" id="flexCheckDefault">
+        <li class="list-group-item" *ngFor="let preference of preferences; let i = index">
+            {{preference.name}}
+            <input class="form-check-input pull-right" (change)="addDietaryPreference(preference, i, !preference.checked)"
+            type="checkbox" value="" id="flexCheckDefault">
         </li>
     </ul>
 

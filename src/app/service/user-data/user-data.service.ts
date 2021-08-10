@@ -25,4 +25,8 @@ export class UserDataService {
   async setIsDonor(uid: String, data) {
     await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
   }
+
+  async setDietaryRestrictions(uid: String, data) {
+    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  }
 }
