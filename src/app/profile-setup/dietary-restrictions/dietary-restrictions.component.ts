@@ -25,6 +25,7 @@ export class DietaryRestrictionsComponent implements OnInit {
 
   dietaryPreferenceForm: FormGroup;
   currentUser;
+  dietaryRestrictions: any = [];
   
   constructor(
     private router: Router,
@@ -49,14 +50,14 @@ export class DietaryRestrictionsComponent implements OnInit {
 
   onNextButtonClick() {
     this.router.navigate(['profile-setup/child-profile']);
+    this.dietaryRestrictions = <FormArray>this.dietaryPreferenceForm.controls.preferences;
 
-    var dietaryRestrictions = []
     for (var preference of this.preferences) {
       if (preference.checked) {
-        dietaryRestrictions.push(preference.name);
+        this.dietaryRestrictions.push(new FormControl(preference.name));
       }
     }
-    this.userDataService.setDietaryRestrictions(this.currentUser.uid, {"dietary-restrictions": dietaryRestrictions});
+    this.userDataService.setDietaryRestrictions(this.currentUser.uid, {"dietary-restrictions": this.dietaryRestrictions.value});
   }
 
 }
