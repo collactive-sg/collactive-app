@@ -36,7 +36,11 @@ export class DietaryRestrictionsComponent implements OnInit {
     this.dietaryPreferenceForm = this.formBuilder.group({
       preferences: new FormArray([])
     });
-    this.currentUser = this.auth.getUserAuthState();
+    this.auth.getUserAuthState().authState.subscribe((user) => {
+      if (user) {
+        this.currentUser = user;
+      }
+    });;
   }
 
   ngOnInit(): void {
