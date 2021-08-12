@@ -9,9 +9,12 @@
   </div>
   <div class="details">
     <div class="profile-photo">
-      <span style="display:flex; justify-content:center;">Set Profile Photo</span>
-      <div class="photo-upload">
-        <i class="fa fa-plus"></i>
+      <div>
+        <span style="display:flex; justify-content:center;">Set Profile Photo</span>
+        <div class="photo-upload" id="frame" onclick="document.getElementById('getFile').click()">
+          <i class="fa fa-plus" id="plus-icon"></i>
+        </div>
+        <input type='file' id="getFile" style="display:none" (change)="onFileSelected($event)">
       </div>
     </div>
   </div>

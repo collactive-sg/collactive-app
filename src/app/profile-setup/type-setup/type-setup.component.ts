@@ -22,13 +22,10 @@ export class TypeSetupComponent implements OnInit {
       .onAuthStateChanged((user) => {
         if (user) {
           this.currentUser = user;
-          console.log(user)
         } else {
           this.currentUser = ''
         }
       })
-
-    console.log(this.isDonor);
   }
 
   ngOnInit(): void {
