@@ -13,17 +13,25 @@ export class UserDataService {
   private afs: AngularFirestore,
   private afStorage: AngularFireStorage,
   ) { }
-
+  
   baseProfileImagesPath = "userProfileImages"
-    
-    async getUserDoc(uid) {
-      await this.afs.collection('users').get(uid);
-    }
-    
-    async uploadProfilePhoto(uid: any, file: any) {
-      let storageRef = this.afStorage.storage.ref();
-      return await storageRef.child(`${this.baseProfileImagesPath}/${uid}`).put(file);
-    }
+  
+  getProfileImg(uid: any) {
+    return this.afStorage.ref(`${this.baseProfileImagesPath}/${uid}`).getDownloadURL();
+  }
+
+  getUserDoc(uid) {
+    return this.afs.doc(`users/${uid}`).valueChanges();
+  }
+
+  updateUserDoc(uid, data) {
+    this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  }
+  
+  async uploadProfileImg(uid: String, file: any) {
+    let storageRef = this.afStorage.storage.ref();
+    return await storageRef.child(`${this.baseProfileImagesPath}/${uid}`).put(file);
+  }
   
   async setIsDonor(uid: String, data) {
     await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
