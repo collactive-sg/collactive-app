@@ -9,7 +9,7 @@ import {
 })
 export class UserDataService {
   
-  
+  userDetails;
   
   constructor(
     private afs: AngularFirestore
@@ -21,6 +21,9 @@ export class UserDataService {
     await this.afs.collection('users').get(uid);
   }
   
+  getUserDetails(uid: String) {
+    return this.afs.firestore.collection('users').doc(`${uid}`).get();
+  }
   
   async setIsDonor(uid: String, data) {
     await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})

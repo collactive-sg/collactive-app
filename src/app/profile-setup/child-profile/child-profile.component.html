@@ -66,11 +66,12 @@
   </form>
 
   <!-- second form -->
-  <a type="button" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild1($event)">
+  <a type="button" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
+  <!-- (click)="onChangeChild1($event)"> -->
     I have another child
   </a>
   
-  <div class="collapse" id="collapse1">
+  <!-- <div class="collapse" id="collapse1">
     <div class="row mt-3">
       <div class="col-sm">
         <form class="form-inline" [formGroup]="childProfileForm">
@@ -125,10 +126,10 @@
       </div>
       </div>
       </div>
-    </form>
+    </form> -->
 
     <!-- third form -->
-    <a type="button" data-bs-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild2($event)">
+    <!-- <a type="button" data-bs-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild2($event)">
       I have another child
     </a>
 
@@ -187,14 +188,14 @@
         </div>
         </div>
         </div>
-      </form>
+      </form> -->
 
       <!-- fourth form -->
-      <a type="button" data-bs-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild3($event)">
+      <!-- <a type="button" data-bs-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild3($event)">
         I have another child
-      </a>
+      </a> -->
 
-      <div class="collapse" id="collapse3">
+      <!-- <div class="collapse" id="collapse3">
         <div class="row mt-3">
           <div class="col-sm">
             <form class="form-inline" [formGroup]="childProfileForm">
@@ -224,9 +225,9 @@
               </div>
             </form>
           </div>
-        </div>
+        </div> -->
         
-        <form class="form-inline mt-2" [formGroup]="childProfileForm">
+        <!-- <form class="form-inline mt-2" [formGroup]="childProfileForm">
           <div class="form-group">
           <div>Child's allergies</div>
           <div class="accordion" id="allergenListAccordion3">
@@ -249,10 +250,10 @@
           </div>
           </div>
           </div>
-        </form>
+        </form> -->
 
         <!-- fifth form -->
-        <a type="button" data-bs-toggle="collapse" href="#collapse4" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild4($event)">
+        <!-- <a type="button" data-bs-toggle="collapse" href="#collapse4" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild4($event)">
           I have another child
         </a>
 
@@ -315,7 +316,7 @@
       </div>
     </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="next-button" (click)="onNextButtonClick()">
     <div style="margin-right: 10px;">Next</div>

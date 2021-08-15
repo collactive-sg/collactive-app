@@ -1,1 +1,22 @@
-<p>completed-profile-setup works!</p>
+<app-topbar [isShowBackButton]="true" [backButtonPath]="'profile-setup/child-profile'"></app-topbar>
+<div>
+  <div class="section-header">
+    <h3>Complete</h3>
+    <div style="margin-top: -5px; line-height: 20px;">All fields are completed!</div>
+    <div class="progress" style="height:3px; margin-top:10px">
+      <div class="progress-bar" style="width: 100%; background: #E793A2;" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+  </div>
+
+  <div class="mt-2">
+    <div style="text-align:center;"><h4>Thank you for completing your profile</h4></div>
+    <div style="text-align:center;" *ngIf="isDonor"><h4>as a Donor</h4></div>
+    <div style="text-align:center;"><img src="../../assets/complete-profile.svg"/></div>
+    <div class="mt-3" style="text-align:center;"><h4>Welcome to the community</h4></div>
+  </div>
+
+  <div class="next-button" (click)="onNextButtonClick()">
+    <div>Done</div>
+  </div>
+  
+</div>
