@@ -22,9 +22,14 @@ export class BasicDetailsComponent implements OnInit {
   basicDetailsForm: FormGroup;
   currentUser;
   areaOfResidency;
-  dateOfBirth = {day: 20, month:4, year:1969};
+  dateOfBirth;
   areasOptions = ["North", "East", "West", "South", "Central"];
-
+  maxDate = {
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate(),
+  }
+  isDonor: boolean;
   constructor(
     public configDatePicker: NgbInputDatepickerConfig,
     public calendarDatePicker: NgbCalendar,
@@ -35,7 +40,6 @@ export class BasicDetailsComponent implements OnInit {
     ) { 
      // setting datepicker popup to close only on click outside
       configDatePicker.autoClose = 'outside';
-
       this.auth.getUserAuthState()
       .onAuthStateChanged((user) => {
         if (user) {
@@ -46,15 +50,14 @@ export class BasicDetailsComponent implements OnInit {
           }, err => {});
 
           this.userDataService.getUserDoc(this.currentUser.uid).subscribe(userDoc => {
+            this.isDonor = userDoc['isDonor'];
             if (userDoc['dateOfBirth'] !== undefined) {
               let dobArr = userDoc['dateOfBirth'].split('-');
               this.dateOfBirth = {
-                day: dobArr[0],
-                month: dobArr[1],
-                year: dobArr[2],
+                day: parseInt(dobArr[0]),
+                month: parseInt(dobArr[1]),
+                year: parseInt(dobArr[2]),
               }
-              //TODO CHECK ON THIS
-              console.log(this.dateOfBirth);
             }
             if (userDoc['areaOfResidency'] !== undefined) {
               this.areaOfResidency = this.areasOptions.indexOf(userDoc['areaOfResidency']) >= 0
@@ -83,7 +86,11 @@ export class BasicDetailsComponent implements OnInit {
       'dateOfBirth' : dobStr,
       'areaOfResidency' : this.areasOptions[this.areaOfResidency],
     })
-    this.router.navigate(['profile-setup/health-declaration']);
+    if (this.isDonor) {
+      this.router.navigate(['profile-setup/health-declaration']);
+    } else {
+      this.router.navigate(['profile-setup/child-details']);
+    }
   }
 
   onImgSelected(e) {

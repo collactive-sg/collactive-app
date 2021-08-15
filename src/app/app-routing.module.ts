@@ -7,6 +7,7 @@ import { LandingComponent } from './index/landing/landing.component';
 import { LoginComponent } from './index/login/login.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { BasicDetailsComponent } from './profile-setup/basic-details/basic-details.component';
+import { ChildDetailsComponent } from './profile-setup/child-details/child-details.component';
 import { HealthDeclarationComponent } from './profile-setup/health-declaration/health-declaration.component';
 import { LifestyleInformationComponent } from './profile-setup/lifestyle-information/lifestyle-information.component';
 import { TypeSetupComponent } from './profile-setup/type-setup/type-setup.component';
@@ -21,6 +22,7 @@ const routes: Routes = [
   {path: 'profile-setup/basic-details', component: BasicDetailsComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/health-declaration', component: HealthDeclarationComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/lifestyle-information', component: LifestyleInformationComponent, canActivate: [AuthGuard]},
+  {path: 'profile-setup/child-details', component: ChildDetailsComponent, canActivate: [AuthGuard]},
   {path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]},
 ];
 

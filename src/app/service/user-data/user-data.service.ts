@@ -32,8 +32,4 @@ export class UserDataService {
     let storageRef = this.afStorage.storage.ref();
     return await storageRef.child(`${this.baseProfileImagesPath}/${uid}`).put(file);
   }
-  
-  async setIsDonor(uid: String, data) {
-    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
-  }
 }

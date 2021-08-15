@@ -36,7 +36,7 @@ export class TypeSetupComponent implements OnInit {
       window.alert("Please choose a role.");
     } else {
       this.router.navigate(['profile-setup/basic-details']);
-      this.userDataService.setIsDonor(this.currentUser.uid, {"isDonor": this.isDonor});
+      this.userDataService.updateUserDoc(this.currentUser.uid, {"isDonor": this.isDonor});
     }
   }
 

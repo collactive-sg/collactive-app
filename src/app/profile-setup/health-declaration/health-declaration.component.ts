@@ -37,22 +37,25 @@ export class HealthDeclarationComponent implements OnInit {
 
   onNextButtonClick() {
     var checkBoxes = document.getElementsByClassName("form-check-input");
+    var areAllCheckBoxesChecked = true;
     for (let i = 0; i < checkBoxes.length; i++) {
       const element = checkBoxes[i] as HTMLInputElement;
       if (!element.checked) {
-        //trigger modal
-        if (window.confirm("You did not check all boxes, would you like to proceed with the set up of a normal user")) {
-          this.router.navigate(['child-profile-details']);
-          this.userDataService.setIsDonor(this.currentUser.uid, {"isDonor": false});
-        } else {
-          this.didNotCheckAllBoxesMessage = "You did not check all boxes"
-        }
-        return;
+        areAllCheckBoxesChecked = false;
+        break;
       }
     }
-    this.router.navigate(['profile-setup/lifestyle-information']);
+    if (!areAllCheckBoxesChecked) {
+      // TODO How to phrase this message?
+      if (window.confirm("You did not check all boxes, would you like to proceed with the set up of a normal user?")) {
+        this.router.navigate(['profile-setup/child-details']);
+        this.userDataService.updateUserDoc(this.currentUser.uid, {"isDonor": false});
+      } else {
+        this.didNotCheckAllBoxesMessage = "You did not check all boxes"
+      }
+    } else {
+      this.router.navigate(['profile-setup/lifestyle-information']);
+    }
   }
-
-  
 
 }
