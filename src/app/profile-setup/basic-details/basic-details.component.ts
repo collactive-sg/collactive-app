@@ -86,10 +86,11 @@ export class BasicDetailsComponent implements OnInit {
       'dateOfBirth' : dobStr,
       'areaOfResidency' : this.areasOptions[this.areaOfResidency],
     })
+    console.log(this.isDonor);
     if (this.isDonor) {
       this.router.navigate(['profile-setup/health-declaration']);
     } else {
-      this.router.navigate(['profile-setup/child-details']);
+      this.router.navigate(['profile-setup/child-profile']);
     }
   }
 

@@ -24,7 +24,6 @@ export class HealthDeclarationComponent implements OnInit {
       .onAuthStateChanged((user) => {
         if (user) {
           this.currentUser = user;
-          console.log(user)
         } else {
           this.currentUser = ''
         }
