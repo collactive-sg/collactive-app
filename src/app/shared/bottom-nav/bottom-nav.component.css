@@ -1,0 +1,19 @@
+.fa {
+    padding: 10px;
+}
+
+.bottom-navbar {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0px;
+    width: 100vw;
+    position: absolute;
+    /* max-width: 500px; */
+    bottom: 1px;
+    left: 0px;
+    box-shadow: 0px -1px 10px 0px #00000040;
+
+}
+.fa {
+    color: #5A3939;
+}

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
   AngularFirestore,
-  AngularFirestoreDocument,
 } from "@angular/fire/firestore"; 
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +10,23 @@ import {
 export class UserDataService {
   
   userDetails;
-  
   constructor(
-    private afs: AngularFirestore
-  ) {
-      
-  }
+  private afs: AngularFirestore,
+  private afStorage: AngularFireStorage,
+  ) { }
   
-  async getUserDoc(uid) {
-    await this.afs.collection('users').get(uid);
+  baseProfileImagesPath = "userProfileImages"
+  
+  getProfileImg(uid: any) {
+    return this.afStorage.ref(`${this.baseProfileImagesPath}/${uid}`).getDownloadURL();
+  }
+
+  getUserDoc(uid) {
+    return this.afs.doc(`users/${uid}`).valueChanges();
+  }
+
+  updateUserDoc(uid, data) {
+    this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
   }
   
   getUserDetails(uid: String) {
@@ -27,6 +35,11 @@ export class UserDataService {
   
   async setIsDonor(uid: String, data) {
     await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  }
+  
+  async uploadProfileImg(uid: String, file: any) {
+    let storageRef = this.afStorage.storage.ref();
+    return await storageRef.child(`${this.baseProfileImagesPath}/${uid}`).put(file);
   }
 
   async setDietaryRestrictions(uid: String, data) {

@@ -9,9 +9,12 @@
   </div>
   <div class="details">
     <div class="profile-photo">
-      <span style="display:flex; justify-content:center;">Set Profile Photo</span>
-      <div class="photo-upload">
-        <i class="fa fa-plus"></i>
+      <div>
+        <span style="display:flex; justify-content:center;">Set Profile Photo</span>
+        <div class="photo-upload" id="frame" onclick="document.getElementById('getFile').click()">
+          <i class="fa fa-plus" id="plus-icon"></i>
+        </div>
+        <input type='file' id="getFile" style="display:none" (change)="onImgSelected($event)">
       </div>
     </div>
   </div>
@@ -19,7 +22,7 @@
     <div class="form-group" style="margin-top:50px;">
     <div>Date of Birth</div>
       <div class="input-group" style="display: flex; align-items:center">
-        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" [maxDate]="maxDate" [(ngModel)]='dateOfBirth'>
         <div class="input-group-append">
           <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d.toggle()" type="button"></i>
         </div>
@@ -29,13 +32,12 @@
 
   <div  style="margin-top:20px;">
     <div>Area of Residency</div>
-    <select class="form-select" aria-label="Default select example">
-      <option selected>Area of Residency</option>
-      <option value="1">North</option>
-      <option value="2">East</option>
-      <option value="3">West</option>
-      <option value="4">South</option>
-      <option value="5">Central</option>
+    <select class="form-select" aria-label="Default select example" [(ngModel)]='areaOfResidency'>
+      <option value="0">North</option>
+      <option value="1">East</option>
+      <option value="2">West</option>
+      <option value="3">South</option>
+      <option value="4">Central</option>
     </select>
   </div>
   <div class="next-button" (click)="onNextButtonClick()">
