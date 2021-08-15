@@ -29,4 +29,8 @@ export class UserDataService {
   async setDietaryRestrictions(uid: String, data) {
     await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
   }
+
+  async setChildProfile(uid: String, data) {
+    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  }
 }

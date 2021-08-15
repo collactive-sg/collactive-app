@@ -10,6 +10,7 @@ import { HealthDeclarationComponent } from './profile-setup/health-declaration/h
 import { LifestyleInformationComponent } from './profile-setup/lifestyle-information/lifestyle-information.component';
 import { DietaryRestrictionsComponent } from './profile-setup/dietary-restrictions/dietary-restrictions.component';
 import { ChildProfileComponent } from './profile-setup/child-profile/child-profile.component';
+import { CompletedProfileSetupComponent } from './profile-setup/completed-profile-setup/completed-profile-setup.component';
 import { TypeSetupComponent } from './profile-setup/type-setup/type-setup.component';
 
 
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'profile-setup/lifestyle-information', component: LifestyleInformationComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/dietary-restrictions', component: DietaryRestrictionsComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/child-profile', component: ChildProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile-setup/completed-profile-setup', component: CompletedProfileSetupComponent, canActivate: [AuthGuard]},
 ];
 
 

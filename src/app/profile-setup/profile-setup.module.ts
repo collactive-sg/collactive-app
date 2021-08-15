@@ -9,10 +9,11 @@ import { HealthDeclarationComponent } from './health-declaration/health-declarat
 import { LifestyleInformationComponent } from './lifestyle-information/lifestyle-information.component';
 import { DietaryRestrictionsComponent } from './dietary-restrictions/dietary-restrictions.component';
 import { ChildProfileComponent } from './child-profile/child-profile.component';
+import { CompletedProfileSetupComponent } from './completed-profile-setup/completed-profile-setup.component';
 
 
 @NgModule({
-  declarations: [TypeSetupComponent, BasicDetailsComponent, HealthDeclarationComponent, LifestyleInformationComponent, DietaryRestrictionsComponent, ChildProfileComponent],
+  declarations: [TypeSetupComponent, BasicDetailsComponent, HealthDeclarationComponent, LifestyleInformationComponent, DietaryRestrictionsComponent, ChildProfileComponent, CompletedProfileSetupComponent],
   imports: [
     CommonModule,
     SharedModule,
