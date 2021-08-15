@@ -1,4 +1,5 @@
-<app-topbar [isShowBackButton]="true" [backButtonPath]="'profile-setup/dietary-restrictions'"></app-topbar>
+<app-topbar *ngIf="isDonor, else elseBlock" [isShowBackButton]="true" [backButtonPath]="'profile-setup/dietary-restrictions'"></app-topbar>
+<ng-template #elseBlock><app-topbar [isShowBackButton]="true" [backButtonPath]="'profile-setup/basic-details'"></app-topbar></ng-template>
 <div>
   <div class="section-header">
     <h3>My child's profile</h3>

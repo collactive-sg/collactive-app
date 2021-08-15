@@ -14,6 +14,9 @@ export class ChildProfileComponent implements OnInit {
   childProfileForm: FormGroup;
   
   currentUser;
+  doc;
+  isDonor;
+
   minDate;
   allergens = [
     {name: "Shellfish (lobster, prawn, shrimp, crab etc.)", checked: false},
@@ -111,8 +114,14 @@ export class ChildProfileComponent implements OnInit {
       this.auth.getUserAuthState().authState.subscribe((user) => {
         if (user) {
           this.currentUser = user;
-        }
-      })
+          this.doc = this.userDataService.getUserDetails(this.currentUser.uid).then(
+            response => {
+              this.doc = response.data();
+              this.isDonor = this.doc['isDonor'];
+            }
+          );
+        };
+      });
   }
 
   ngOnInit(): void {
