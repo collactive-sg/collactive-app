@@ -17,7 +17,12 @@ export class ChildProfileComponent implements OnInit {
   doc;
   isDonor;
 
-  minDate;
+  maxDate = {
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate(),
+  }
+  
   allergens = [
     {name: "Shellfish (lobster, prawn, shrimp, crab etc.)", checked: false},
     {name:"Eggs", checked: false},

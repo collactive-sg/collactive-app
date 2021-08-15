@@ -16,7 +16,7 @@
         <div class="form-group">
         <div>Date of Birth</div>
           <div class="input-group" style="display:flex; align-items:center;">
-            <input formControlName="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" ngbDatepicker #d="ngbDatepicker">
+            <input formControlName="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" [maxDate]="maxDate" ngbDatepicker #d="ngbDatepicker">
             <div class="input-group-append">
               <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d.toggle()" type="button"></i>
             </div>
@@ -78,7 +78,7 @@
           <div class="form-group">
           <div>Date of Birth</div>
             <div class="input-group" style="display:flex; align-items:center;">
-              <input formControlName="dateOfBirth1" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth1" ngbDatepicker #d1="ngbDatepicker">
+              <input formControlName="dateOfBirth1" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth1" [maxDate]="maxDate" ngbDatepicker #d1="ngbDatepicker">
               <div class="input-group-append">
                 <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d1.toggle()" type="button"></i>
               </div>
@@ -140,7 +140,7 @@
             <div class="form-group">
             <div>Date of Birth</div>
               <div class="input-group" style="display:flex; align-items:center;">
-                <input formControlName="dateOfBirth2" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth2" ngbDatepicker #d2="ngbDatepicker">
+                <input formControlName="dateOfBirth2" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth2" [maxDate]="maxDate" ngbDatepicker #d2="ngbDatepicker">
                 <div class="input-group-append">
                   <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d2.toggle()" type="button"></i>
                 </div>
@@ -202,7 +202,7 @@
               <div class="form-group">
               <div>Date of Birth</div>
                 <div class="input-group" style="display:flex; align-items:center;">
-                  <input formControlName="dateOfBirth3" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth3" ngbDatepicker #d3="ngbDatepicker">
+                  <input formControlName="dateOfBirth3" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth3" [maxDate]="maxDate" ngbDatepicker #d3="ngbDatepicker">
                   <div class="input-group-append">
                     <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d3.toggle()" type="button"></i>
                   </div>
@@ -264,7 +264,7 @@
               <div class="form-group">
               <div>Date of Birth</div>
                 <div class="input-group" style="display:flex; align-items:center;">
-                  <input formControlName="dateOfBirth4" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth4" ngbDatepicker #d4="ngbDatepicker">
+                  <input formControlName="dateOfBirth4" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth4" [maxDate]="maxDate" ngbDatepicker #d4="ngbDatepicker">
                   <div class="input-group-append">
                     <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d4.toggle()" type="button"></i>
                   </div>
