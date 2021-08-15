@@ -16,11 +16,13 @@ import { ProfileSetupModule } from './profile-setup/profile-setup.module';
 import { SharedModule } from './shared/shared.module';
 import { IndexModule } from './index/index.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    MarketplaceComponent,
   ],
   imports: [
     BrowserModule,
