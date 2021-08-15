@@ -7,11 +7,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HealthDeclarationComponent } from './health-declaration/health-declaration.component';
 import { LifestyleInformationComponent } from './lifestyle-information/lifestyle-information.component';
-import { ChildDetailsComponent } from './child-details/child-details.component';
 
 
 @NgModule({
-  declarations: [TypeSetupComponent, BasicDetailsComponent, HealthDeclarationComponent, LifestyleInformationComponent, ChildDetailsComponent],
+  declarations: [TypeSetupComponent, BasicDetailsComponent, HealthDeclarationComponent, LifestyleInformationComponent],
   imports: [
     CommonModule,
     SharedModule,

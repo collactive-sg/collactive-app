@@ -48,7 +48,7 @@ export class HealthDeclarationComponent implements OnInit {
     if (!areAllCheckBoxesChecked) {
       // TODO How to phrase this message?
       if (window.confirm("You did not check all boxes, would you like to proceed with the set up of a normal user?")) {
-        this.router.navigate(['profile-setup/child-details']);
+        this.router.navigate(['profile-setup/child-profile']);
         this.userDataService.updateUserDoc(this.currentUser.uid, {"isDonor": false});
       } else {
         this.didNotCheckAllBoxesMessage = "You did not check all boxes"
