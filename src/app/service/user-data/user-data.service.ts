@@ -9,6 +9,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 export class UserDataService {
   
+  userDetails;
   constructor(
   private afs: AngularFirestore,
   private afStorage: AngularFireStorage,
@@ -28,8 +29,24 @@ export class UserDataService {
     this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
   }
   
+  getUserDetails(uid: String) {
+    return this.afs.firestore.collection('users').doc(`${uid}`).get();
+  }
+  
+  async setIsDonor(uid: String, data) {
+    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  }
+  
   async uploadProfileImg(uid: String, file: any) {
     let storageRef = this.afStorage.storage.ref();
     return await storageRef.child(`${this.baseProfileImagesPath}/${uid}`).put(file);
+  }
+
+  async setDietaryRestrictions(uid: String, data) {
+    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  }
+
+  async setChildProfile(uid: String, data) {
+    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
   }
 }

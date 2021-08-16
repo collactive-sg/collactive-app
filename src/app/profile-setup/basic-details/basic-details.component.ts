@@ -7,8 +7,10 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserDataService } from 'src/app/service/user-data/user-data.service';
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { UserDataService } from 'src/app/service/user-data/user-data.service';
+
+
 
 @Component({
   selector: 'app-basic-details',
@@ -20,7 +22,9 @@ export class BasicDetailsComponent implements OnInit {
 
   model: NgbDateStruct;
   basicDetailsForm: FormGroup;
+
   currentUser;
+
   areaOfResidency;
   dateOfBirth;
   areasOptions = ["North", "East", "West", "South", "Central"];
@@ -29,6 +33,7 @@ export class BasicDetailsComponent implements OnInit {
     month: new Date().getMonth() + 1,
     day: new Date().getDate(),
   }
+  
   isDonor: boolean;
   constructor(
     public configDatePicker: NgbInputDatepickerConfig,

@@ -2,24 +2,9 @@
     margin-top: 1.5rem;
 }
 
-.statement {
-    margin-top: 20px;
+.list-gap {
+    margin-bottom: 0.5rem;
 }
-
-
-.agree-checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.unsuccessful-text {
-    color: #dc3545;
-    text-align: center;
-    margin-top: 5px;
-    height: 20px;
-}
-
 
 .form-check-input {
     margin: 5px;

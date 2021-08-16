@@ -1,0 +1,25 @@
+<app-topbar [isShowBackButton]="true" [backButtonPath]="'profile-setup/lifestyle-information'"></app-topbar>
+<div>
+    <div class="section-header">
+        <h3>Dietary Restrictions</h3>
+        <div style="margin-top: -5px; line-height: 20px;">Fill in these details to help us better meet your needs</div>
+        <div class="progress" style="height:3px; margin-top:10px">
+        <div class="progress-bar" style="width: 66.67%; background: #E793A2;" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+    
+    <ul class="list-group list-group-flush">
+        <div class="list-gap"></div>
+        <li class="list-group-item" *ngFor="let preference of preferences; let i = index">
+            {{preference.name}}
+            <input class="form-check-input pull-right" (change)="addDietaryPreference(preference, i, !preference.checked)"
+            type="checkbox" value="" id="flexCheckDefault">
+        </li>
+    </ul>
+
+    <div class="next-button" (click)="onNextButtonClick()">
+        <div style="margin-right: 10px;">Next</div>
+        <i class="fa fa-arrow-right"></i>
+    </div>
+
+</div>

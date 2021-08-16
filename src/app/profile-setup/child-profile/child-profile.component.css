@@ -2,24 +2,10 @@
     margin-top: 1.5rem;
 }
 
-.statement {
-    margin-top: 20px;
+.fa.fa-plus {
+    color: #E793A2; 
+    font-size: 24px;
 }
-
-
-.agree-checkbox {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-.unsuccessful-text {
-    color: #dc3545;
-    text-align: center;
-    margin-top: 5px;
-    height: 20px;
-}
-
 
 .form-check-input {
     margin: 5px;
@@ -32,7 +18,8 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.form-check-input:checked[type=checkbox] {
+.form-check-input:checked[type=checkbox],
+.form-check-input:checked[type=radio] {
     background-image: url('../../../assets/check-solid.svg');
     opacity: 0.4;
 }

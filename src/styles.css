@@ -1,4 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+.section-header {
+    margin-top: 1.5rem;
+}
+
 .next-button {
     display: flex;
     width: 35%;

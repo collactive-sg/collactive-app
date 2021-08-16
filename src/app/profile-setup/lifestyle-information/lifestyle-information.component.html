@@ -1,1 +1,47 @@
-<p>lifestyle-information works!</p>
+<app-topbar [isShowBackButton]="true" [backButtonPath]="'profile-setup/health-declaration'"></app-topbar>
+<div>
+    <div class="section-header">
+        <h3>Lifestyle Information</h3>
+        <div style="margin-top: -5px; line-height: 20px;">Fill in these details to help us better meet your needs</div>
+        <div class="progress" style="height:3px; margin-top:10px">
+        <div class="progress-bar" style="width: 50.0%; background: #E793A2;" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+    
+    <div class="statement">
+        <div>I do not smoke</div>
+        <div class="agree-checkbox">
+            <span>Agree</span>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            </div>
+        </div>
+    </div>
+
+    <div class="statement">
+        <div>I do not drink alcohol</div>
+        <div class="agree-checkbox">
+            <span>Agree</span>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            </div> 
+       </div>
+    </div>
+
+    <div class="statement">
+        <div>Do not routinely consume three or more cups of coffee, tea, or other caffeine stimulant drinks per day including cola and stimulant drinks.</div>
+        <div class="agree-checkbox">
+            <span>Agree</span>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+            </div>
+        </div>
+    </div>
+
+    <div class="next-button" (click)="onNextButtonClick()">
+        <div style="margin-right: 10px;">Next</div>
+        <i class="fa fa-arrow-right"></i>
+    </div>
+    <div class="unsuccessful-text">{{this.didNotCheckAllBoxesMessage}}</div>
+
+</div>
