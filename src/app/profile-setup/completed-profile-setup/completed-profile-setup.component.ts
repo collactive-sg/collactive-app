@@ -37,7 +37,6 @@ export class CompletedProfileSetupComponent implements OnInit {
   }
 
   onNextButtonClick() {
-    console.log(this.isDonor);
     this.router.navigate(['home']);
   }
 
