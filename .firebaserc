@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "collactive-stg-4f947"
+  },
+  "targets": {
+    "collactive-stg-4f947": {
+      "hosting": {
+        "collactive": [
+          "collactive-stg-4f947"
+        ]
+      }
+    }
   }
 }
