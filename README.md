@@ -17,6 +17,8 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 To get staging build: `ng build --configuration=staging`
 To get production build: `ng build --configuration=production`
 
+## Deploy 
+
 To deploy the build, install firebase tools.
 `firebase login` to login w credentials
 `firebase deploy` to deploy the build
