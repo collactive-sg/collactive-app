@@ -10,7 +10,6 @@ export class BottomNavComponent implements OnInit {
   @Input() isDonor;
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

@@ -1,7 +1,7 @@
 <app-topbar [isShowBackButton]="false"></app-topbar>
 <div class="container">
     <div *ngFor="let listing of this.allLiveListings" class="listings" >
-        <app-listing [listing]="listing" [listingID]="listing.listingID"></app-listing>
+        <app-listing [listing]="listing" [currentUserID]="this.currentUser.uid" [listingID]="listing.listingID"></app-listing>
     </div>
 </div>
-<app-bottom-nav></app-bottom-nav> 
+<app-bottom-nav [isDonor]="this.isDonor"></app-bottom-nav> 

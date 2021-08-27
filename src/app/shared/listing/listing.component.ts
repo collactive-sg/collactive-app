@@ -36,7 +36,6 @@ export class ListingComponent implements OnInit {
 
   ngOnInit(): void {
     this.userDataService.getUserDoc(this.listing.donorID).pipe().subscribe(donorDoc => {
-      console.log(donorDoc)
       this.donorFirstName = donorDoc['firstName'];
     });
     this.userDataService.getProfileImg(this.listing.donorID).pipe().subscribe(imgUrl => {
