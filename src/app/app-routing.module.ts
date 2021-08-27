@@ -5,7 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { ForgetPasswordComponent } from './index/forget-password/forget-password.component';
 import { LandingComponent } from './index/landing/landing.component';
 import { LoginComponent } from './index/login/login.component';
-import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { MarketplaceComponent } from './marketplace/marketplace/marketplace.component';
 import { BasicDetailsComponent } from './profile-setup/basic-details/basic-details.component';
 import { HealthDeclarationComponent } from './profile-setup/health-declaration/health-declaration.component';
 import { LifestyleInformationComponent } from './profile-setup/lifestyle-information/lifestyle-information.component';

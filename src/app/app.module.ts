@@ -16,13 +16,12 @@ import { ProfileSetupModule } from './profile-setup/profile-setup.module';
 import { SharedModule } from './shared/shared.module';
 import { IndexModule } from './index/index.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { MarketplaceModule } from './marketplace/marketplace.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MarketplaceComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,9 +29,10 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     SharedModule,
+    MarketplaceModule,
     IndexModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    NgbModule
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

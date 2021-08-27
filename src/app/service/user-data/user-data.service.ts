@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  AngularFirestore,
-} from "@angular/fire/firestore"; 
+import { AngularFirestore } from "@angular/fire/firestore"; 
 import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
@@ -11,14 +9,14 @@ export class UserDataService {
   
   userDetails;
   constructor(
-  private afs: AngularFirestore,
-  private afStorage: AngularFireStorage,
+    private afs: AngularFirestore,
+    private afStorage: AngularFireStorage,
   ) { }
   
   baseProfileImagesPath = "userProfileImages"
   
   getProfileImg(uid: any) {
-    return this.afStorage.ref(`${this.baseProfileImagesPath}/${uid}`).getDownloadURL();
+      return this.afStorage.ref(`${this.baseProfileImagesPath}/${uid}`).getDownloadURL();
   }
 
   getUserDoc(uid) {

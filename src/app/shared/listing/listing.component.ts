@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserDataService } from 'src/app/service/user-data/user-data.service';
 
 @Component({
   selector: 'app-listing',
@@ -7,9 +9,66 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListingComponent implements OnInit {
 
-  constructor() { }
+
+  @Input() currentUserID;
+  @Input() listingID;
+  @Input() listing;
+  donorFirstName;
+  donorProfilePhotoUrl;
+  dateExpressed;
+  isLiked = false;
+
+  constructor(
+    private router: Router,
+    private userDataService: UserDataService,
+    // private listingService: ListingService,
+  ) { 
+      // document.getElementById("like-button").style.color = "#F38397";
+      // this.listingService.getListingDoc(this.listingID).subscribe(userDoc => {
+      //   this.dateExpressed = userDoc['dateExpressed'];
+      //   var likedUsers = userDoc['likedUsers'];
+      //   if (this.currentUserID in likedUsers) {
+      //     this.isLiked = true;
+      //   }
+      // });
+      
+  }
 
   ngOnInit(): void {
+    this.userDataService.getUserDoc(this.listing.donorID).pipe().subscribe(donorDoc => {
+      console.log(donorDoc)
+      this.donorFirstName = donorDoc['firstName'];
+    });
+    this.userDataService.getProfileImg(this.listing.donorID).pipe().subscribe(imgUrl => {
+        this.donorProfilePhotoUrl = imgUrl;
+        this.showProfileImg(imgUrl);
+    }, err => {})
+    this.dateExpressed = new Date(this.listing['dateExpressed']);
+  }
+
+  viewUser() {
+    this.router.navigate([`/user/${this.listing.donorID}`]);
+  }
+
+  viewListing() {
+    this.router.navigate([`/listing/${this.listingID}`]);
+  }
+
+  likeListing() {
+    this.isLiked = !this.isLiked
+    if(this.isLiked) {
+      document.getElementById("like-button").style.color = "#F38397";
+    } else {
+      document.getElementById("like-button").style.color = "#F38397";
+    }
+    // todo update be
+  }
+
+  showProfileImg(url) {
+    const frame = document.getElementById('frame');
+    frame.style.backgroundImage = `url(${url})`;
+    frame.style.backgroundSize = 'contain';
+    document.getElementById('profile-icon').style.display = 'none';
   }
 
 }

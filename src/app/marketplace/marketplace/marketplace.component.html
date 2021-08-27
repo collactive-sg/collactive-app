@@ -1,0 +1,7 @@
+<app-topbar [isShowBackButton]="false"></app-topbar>
+<div class="container">
+    <div *ngFor="let listing of this.allLiveListings" class="listings" >
+        <app-listing [listing]="listing" [listingID]="listing.listingID"></app-listing>
+    </div>
+</div>
+<app-bottom-nav></app-bottom-nav> 
