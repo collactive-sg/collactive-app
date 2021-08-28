@@ -43,12 +43,9 @@ export class ListingComponent implements OnInit {
         this.showProfileImg(imgUrl);
     }, err => {})
     this.dateExpressed = new Date(this.listing['dateExpressed']);
-    console.log(this.dateExpressed);
-    console.log(this.listingID);
   }
 
   viewUser() {
-    console.log(this.donorProfilePhotoUrl);
     this.router.navigate([`/user/${this.listing.donorID}`]);
   }
 
@@ -57,7 +54,6 @@ export class ListingComponent implements OnInit {
   }
 
   likeListing() {
-    console.log(this.isLiked);
     this.isLiked = !this.isLiked;
     if(this.isLiked) {
       document.getElementById(`like-button-${this.listingID}`).style.color = "#F38397";
@@ -69,7 +65,6 @@ export class ListingComponent implements OnInit {
   }
 
   showProfileImg(url) {
-    console.log(url)
     const frame = document.getElementById(`frame-${this.listingID}`);
     frame.style.backgroundImage = `url(${url})`;
     frame.style.backgroundSize = 'contain';
