@@ -43,9 +43,12 @@ export class ListingComponent implements OnInit {
         this.showProfileImg(imgUrl);
     }, err => {})
     this.dateExpressed = new Date(this.listing['dateExpressed']);
+    console.log(this.dateExpressed);
+    console.log(this.listingID);
   }
 
   viewUser() {
+    console.log(this.donorProfilePhotoUrl);
     this.router.navigate([`/user/${this.listing.donorID}`]);
   }
 
@@ -54,20 +57,22 @@ export class ListingComponent implements OnInit {
   }
 
   likeListing() {
-    this.isLiked = !this.isLiked
+    console.log(this.isLiked);
+    this.isLiked = !this.isLiked;
     if(this.isLiked) {
-      document.getElementById("like-button").style.color = "#F38397";
+      document.getElementById(`like-button-${this.listingID}`).style.color = "#F38397";
     } else {
-      document.getElementById("like-button").style.color = "#F38397";
+      document.getElementById(`like-button-${this.listingID}`).style.color = "#F9F9F9";
     }
+
     // todo update be
   }
 
   showProfileImg(url) {
-    const frame = document.getElementById('frame');
+    console.log(url)
+    const frame = document.getElementById(`frame-${this.listingID}`);
     frame.style.backgroundImage = `url(${url})`;
     frame.style.backgroundSize = 'contain';
-    document.getElementById('profile-icon').style.display = 'none';
+    document.getElementById(`profile-icon-${this.listingID}`).style.display = 'none';
   }
-
 }

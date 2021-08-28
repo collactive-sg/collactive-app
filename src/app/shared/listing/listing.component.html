@@ -1,12 +1,13 @@
 <div class="listing-box">
-    <div class="profile-photo" id="frame" (click)="viewUser()">
-        <i class="fa fa-user" id="profile-icon"></i>
+    <div class="profile-photo" id="{{'frame-' + this.listingID}}" (click)="viewUser()">
+        <i class="fa fa-user" id="{{'profile-icon-' + this.listingID}}"></i>
     </div>
-    <div (click)=viewListing()>
-        <div class="name-row">
+    <div class="description">
+        <div class="details" (click)=viewListing()>
             <div class="name">{{this.donorFirstName}}</div> 
-            <i class="fa fa-heart" id="like-button" (click)="likeListing()"></i>
+            <div class="date-expressed">Expressed on {{this.dateExpressed.toLocaleString('en-US').split(',')[0]}}</div>
         </div>
-        <div class="date-expressed">Expressed on {{this.dateExpressed.toLocaleString('en-US').split(',')[0]}}</div>
+        <i class="fa fa-heart" id="{{'like-button-' + this.listingID}}" (click)="likeListing()"></i>
     </div>
+
 </div>
