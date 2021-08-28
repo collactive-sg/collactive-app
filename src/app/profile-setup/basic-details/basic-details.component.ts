@@ -21,7 +21,7 @@ import { UserDataService } from 'src/app/service/user-data/user-data.service';
 export class BasicDetailsComponent implements OnInit {
 
   model: NgbDateStruct;
-  basicDetailsForm: FormGroup;
+  nameForm: FormGroup;
 
   currentUser;
 
@@ -69,6 +69,9 @@ export class BasicDetailsComponent implements OnInit {
                 ? this.areasOptions.indexOf(userDoc['areaOfResidency']) 
                 : 0;
             }
+            if (userDoc['firstName'] !== undefined && userDoc['lastName'] !== undefined) {
+              this.nameForm.setValue({firstName: userDoc['firstName'], lastName: userDoc['lastName']});
+            }
           })
 
         } else {
@@ -76,20 +79,54 @@ export class BasicDetailsComponent implements OnInit {
         }
       });
 
+      this.nameForm = new FormGroup({
+        firstName: new FormControl('', Validators.required),
+        lastName: new FormControl('', Validators.required)
+      });
 
   }
 
   ngOnInit(): void {
   }
 
-
-  // get DateOfBirth() { return this.basicDetailsForm.get('dateOfBirth') }
-
+  get FirstName() { return this.nameForm.get('firstName') }
+  get LastName() { return this.nameForm.get('lastName') }
+  
   onNextButtonClick() {
+
+    if (this.FirstName.invalid && this.LastName.invalid) {
+      window.alert("Please key in your first and last name.");
+      document.getElementById("firstName").style.borderColor = "red";
+      document.getElementById("lastName").style.borderColor = "red";
+      return;
+
+    } else if (this.FirstName.invalid) {
+      window.alert("Please key in your first name");
+      document.getElementById("firstName").style.borderColor = "red";
+      return;
+
+    } else if (this.LastName.invalid) {
+      window.alert("Please key in your last name");
+      document.getElementById("lastName").style.borderColor = "red";
+      return;
+
+    } else if (this.dateOfBirth == undefined) {
+      window.alert("Please key in your date of birth");
+      document.getElementById("dateOfBirth").style.borderColor = "red";
+      return;
+
+    } else if (this.areaOfResidency == undefined) {
+      window.alert("Please key in your area of residency");
+      document.getElementById("areaOfResidency").style.borderColor = "red";
+      return;
+    }
+
     let dobStr = `${this.dateOfBirth.day}-${this.dateOfBirth.month}-${this.dateOfBirth.year}`;
     this.userDataService.updateUserDoc(this.currentUser.uid, {
       'dateOfBirth' : dobStr,
       'areaOfResidency' : this.areasOptions[this.areaOfResidency],
+      'firstName': this.FirstName.value,
+      'lastName': this.LastName.value
     })
     if (this.isDonor) {
       this.router.navigate(['profile-setup/health-declaration']);

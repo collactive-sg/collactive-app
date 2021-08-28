@@ -1,0 +1,79 @@
+.listing-box {
+height: 40vw;
+width: 35vw;
+margin-left: 10px;
+margin-top: 10px;
+background: #F9F9F9;
+box-shadow: 0px 3px 10px -1px rgba(0, 0, 0, 0.15);
+border-radius: 10px;
+padding: 5px;
+}
+
+.fa-heart {
+    color:#F9F9F9;
+    margin-top: 3px;
+    text-shadow: -1px -1px 0 #5A3939, 1px -1px 0 #5A3939, -1px 1px 0 #5A3939, 1px 1px 0 #5A3939; ;
+}
+
+.profile-photo {
+    width: 30vw;
+    height: 30vw;
+    border-radius: 10px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fa-user {
+    font-size: 30px;
+}
+
+.description {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 576px) {
+    .listing-box {
+        width: 30vw;
+        height: 35vw;
+    }
+    .profile-photo {
+        width: 25vw;
+        height: 25vw;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .listing-box {
+        width: 23vw;
+        height: 27vw;
+    }
+    .profile-photo {
+        width: 20vw;
+        height: 20vw;
+    }
+}
+
+@media screen and (min-width: 992px) {
+    .listing-box {
+        width: 18vw;
+        height: 21vw;
+    }
+    .profile-photo {
+        width: 15vw;
+        height: 15vw;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .listing-box {
+        width: 15vw;
+    }
+    .profile-photo {
+        width: 13vw;
+        height: 13vw;
+    }
+}
