@@ -1,0 +1,147 @@
+<app-topbar [isShowBackButton]="true" [backButtonPath]="'home'" (click)="onPrevButtonClick()"></app-topbar>
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card p-3">
+        <div class="profile-photo">
+            <div class="image photo-upload" id="frame" onclick="document.getElementById('getFile').click()">
+                <i class="fa fa-plus" id="plus-icon"></i>
+            </div>
+            <input type='file' id="getFile" style="display:none" (change)="onImgSelected($event)">
+        </div>
+        <br>
+        <div class="d-flex align-items-center">
+            <div class="ml-10 w-100">
+                <h6>Name: <strong>{{firstName}} {{lastName}}</strong></h6>
+                <h6>Date of birth: <strong>{{dobString}}</strong></h6>
+                <h6>Area of residency: <strong>{{areasOptions[areaOfResidency]}}</strong></h6>
+                <h6>Dietary restrictions: 
+                    <div *ngFor="let restriction of dietaryRestrictions">
+                        <strong>{{restriction.checked ? "- " + restriction.name : null}}</strong>
+                    </div>
+                </h6>
+                <hr>
+                
+                <h4>
+                    Children
+                </h4>
+                <div *ngFor="let child of childProfiles;">
+                    <h5><strong>{{child['child-profile']['date-of-birth']['year'] !== maxDate.year 
+                        ? maxDate.year - child['child-profile']['date-of-birth']['year'] + " year"
+                        : child['child-profile']['date-of-birth']['month'] !== maxDate.month
+                            ? maxDate.month - child['child-profile']['date-of-birth']['month'] + " month"
+                            : maxDate.day - child['child-profile']['date-of-birth']['day'] + " day"}}
+                        old 
+                    {{child['child-profile']['gender'] === 'F' ? "daughter" : "son"}}</strong></h5>
+                    <h6>Allergies: 
+                        <div *ngIf="child['child-profile']['allergies'].length === 0">
+                            No allergies
+                        </div>
+                        <span>
+                            <div *ngFor="let allergy of child['child-profile']['allergies'];"><span>- {{allergy}}</span></div>
+                        </span>
+                    </h6>
+                </div>
+            </div>
+        </div>
+        <br>
+        <button type="button" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
+            Edit profile
+        </button>
+        <div class="collapse" id="collapse1">
+            <form class="form-inline">
+                <div class="form-group" style="margin-top:50px;">
+                <div>Date of Birth</div>
+                  <div class="input-group" style="display: flex; align-items:center">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" [maxDate]="maxDate" [(ngModel)]='dateOfBirth'>
+                    <div class="input-group-append">
+                      <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d.toggle()" type="button"></i>
+                    </div>
+                  </div>
+                </div>
+            </form> 
+            
+            <div style="margin-top:20px;">
+            <div>Area of Residency</div>
+                <select class="form-select" aria-label="Default select example" [(ngModel)]='areaOfResidency'>
+                    <option value="0">North</option>
+                    <option value="1">East</option>
+                    <option value="2">West</option>
+                    <option value="3">South</option>
+                    <option value="4">Central</option>
+                </select>
+            </div>
+
+            <div style="margin-top:20px;">
+            <div>Dietary Restrictions</div>
+            <ul class="list-group list-group-flush">
+                <div class="list-gap"></div>
+                <li class="list-group-item" *ngFor="let restriction of dietaryRestrictions; let i = index">
+                    {{restriction.name}}
+                    <input class="form-check-input pull-right" [(ngModel)]="restriction.checked"
+                    type="checkbox" value="true" id="flexCheckDefault">
+                </li>
+            </ul>
+            </div>
+            
+            <div style="margin-top:20px;">
+                <div>Lifestyle Information</div>
+                    <div class="statement">
+                        <div>I do not smoke</div>
+                        <div class="agree-checkbox">
+                        <form class="form-inline" [formGroup]="lifestyleInfoForm">
+                            <div class="form-group">
+                                <div class="form-check form-check-inline">
+                                    <input formControlName="isSmoker" class="form-check-input" type="radio" name="isSmoker" id="doesNotSmoke" [value]="false">
+                                    <label class="form-check-label" for="doesNotSmoke">Yes</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input formControlName="isSmoker" class="form-check-input" type="radio" name="isSmoker" id="smokes" [value]="true">
+                                    <label class="form-check-label" for="smokes">No</label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                
+                    <div class="statement">
+                        <div>I do not drink alcohol</div>
+                        <div class="agree-checkbox">
+                            <form class="form-inline" [formGroup]="lifestyleInfoForm">
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input formControlName="isDrinker" class="form-check-input" type="radio" name="isDrinker" id="doesNotDrink" [value]="false">
+                                        <label class="form-check-label" for="doesNotDrink">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input formControlName="isDrinker" class="form-check-input" type="radio" name="isDrinker" id="drinks" [value]="true">
+                                        <label class="form-check-label" for="drinks">No</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                
+                    <div class="statement">
+                        <div>Do not routinely consume three or more cups of coffee, tea, or other caffeine stimulant drinks per day including cola and stimulant drinks.</div>
+                        <div class="agree-checkbox">
+                            <form class="form-inline" [formGroup]="lifestyleInfoForm">
+                                <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                        <input formControlName="isCaffeineConsumer" class="form-check-input" type="radio" name="isCaffeineConsumer" id="doesNotDrinkCoffee" [value]="false">
+                                        <label class="form-check-label" for="doesNotDrinkCoffee">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input formControlName="isCaffeineConsumer" class="form-check-input" type="radio" name="isCaffeineConsumer" id="drinksCoffee" [value]="true">
+                                        <label class="form-check-label" for="drinksCoffee">No</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample" (click)="onDoneButtonClick()">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

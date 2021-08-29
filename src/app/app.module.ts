@@ -17,12 +17,14 @@ import { SharedModule } from './shared/shared.module';
 import { IndexModule } from './index/index.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     MarketplaceComponent,
+    ProfileSettingsComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +34,9 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
     SharedModule,
     IndexModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    NgbModule
+    NgbModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
