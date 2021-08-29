@@ -39,6 +39,7 @@ export class AuthService {
     return await this.afs.collection("users").doc(uid).set({
       email: email,
       isFirstTimeUser: true,
+      userID: uid
     });
   }
 

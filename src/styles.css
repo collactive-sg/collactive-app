@@ -16,3 +16,7 @@
     color: white;
     align-items: center;
 }
+
+.next-button:hover {
+    cursor: pointer;
+}

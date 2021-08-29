@@ -17,6 +17,7 @@ import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
   exports: [
     TopbarComponent,
     BottomNavComponent,
+    ListingComponent
   ]
 })
 export class SharedModule { }

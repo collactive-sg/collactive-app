@@ -18,21 +18,30 @@
       </div>
     </div>
   </div>
-  <form class="form-inline">
-    <div class="form-group" style="margin-top:50px;">
-    <div>Date of Birth</div>
+  <form class="form-inline" [formGroup]="nameForm">
+    <div class="form-group" style="margin-top:20px;">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="">
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control" formControlName="lastName" id="lastName" placeholder="">
+    </div>
+
+  </form> 
+    <div class="form-group" >
+      <div>Date of Birth</div>
       <div class="input-group" style="display: flex; align-items:center">
-        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" [maxDate]="maxDate" [(ngModel)]='dateOfBirth'>
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" id="dateOfBirth" ngbDatepicker #d="ngbDatepicker" [maxDate]="maxDate" [(ngModel)]='dateOfBirth'>
         <div class="input-group-append">
           <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d.toggle()" type="button"></i>
         </div>
       </div>
     </div>
-  </form> 
 
-  <div  style="margin-top:20px;">
+  <div style="margin-top:10px;">
     <div>Area of Residency</div>
-    <select class="form-select" aria-label="Default select example" [(ngModel)]='areaOfResidency'>
+    <select class="form-select" aria-label="Default select example" id="areaOfResidency" [(ngModel)]='areaOfResidency'>
       <option value="0">North</option>
       <option value="1">East</option>
       <option value="2">West</option>

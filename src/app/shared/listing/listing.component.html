@@ -1,1 +1,13 @@
-<p>listing works!</p>
+<div class="listing-box">
+    <div class="profile-photo" id="{{'frame-' + this.listingID}}" (click)="viewUser()">
+        <i class="fa fa-user" id="{{'profile-icon-' + this.listingID}}"></i>
+    </div>
+    <div class="description">
+        <div class="details" (click)=viewListing()>
+            <div class="name">{{this.donorFirstName}}</div> 
+            <div class="date-expressed">Expressed on {{this.dateExpressed.toLocaleString('en-US').split(',')[0]}}</div>
+        </div>
+        <i class="fa fa-heart" id="{{'like-button-' + this.listingID}}" (click)="likeListing()"></i>
+    </div>
+
+</div>
