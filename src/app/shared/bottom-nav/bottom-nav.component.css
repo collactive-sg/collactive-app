@@ -30,20 +30,25 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #F38397;
     border: 2px solid #F38397;
     z-index: 90;
 }
 
 .fa.fa-plus {
-    color: #F38397;
+    color: white;
 }
 
 
 @media screen and (min-width: 500px) {
     .bottom-navbar {
-        max-width: 500px;
+        max-width: 470px;
         bottom: 1px;
         left: 50%;
         margin-left: -250px;
+    }
+    .add-button {
+        left: 50%;
+        margin-left: 160px;
     }
 }

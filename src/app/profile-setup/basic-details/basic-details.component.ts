@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
   NgbCalendar,
-  NgbDate,
   NgbDateStruct,
   NgbInputDatepickerConfig
 } from '@ng-bootstrap/ng-bootstrap';
@@ -37,7 +36,6 @@ export class BasicDetailsComponent implements OnInit {
   isDonor: boolean;
   constructor(
     public configDatePicker: NgbInputDatepickerConfig,
-    public calendarDatePicker: NgbCalendar,
     private formBuilder: FormBuilder,
     private router: Router,
     private userDataService: UserDataService,

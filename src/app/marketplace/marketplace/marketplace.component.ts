@@ -30,6 +30,7 @@ export class MarketplaceComponent implements OnInit {
           this.userDataService.getUserDoc(user.uid).pipe().subscribe(userData => {
             this.currentUserData = userData;
             this.isDonor = userData['isDonor'];
+            console.log(this.isDonor)
           })
         }
       });
