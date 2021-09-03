@@ -11,30 +11,54 @@
     <div class="statement">
         <div>I do not smoke</div>
         <div class="agree-checkbox">
-            <span>Agree</span>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <form class="form-inline" [formGroup]="lifestyleInfoForm">
+            <div class="form-group">
+                <div class="form-check form-check-inline">
+                    <input formControlName="isSmoker" class="form-check-input" type="radio" name="isSmoker" id="doesNotSmoke" [value]="false">
+                    <label class="form-check-label" for="doesNotSmoke">Yes</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input formControlName="isSmoker" class="form-check-input" type="radio" name="isSmoker" id="smokes" [value]="true">
+                    <label class="form-check-label" for="smokes">No</label>
+                </div>
             </div>
+        </form>
         </div>
     </div>
 
     <div class="statement">
         <div>I do not drink alcohol</div>
         <div class="agree-checkbox">
-            <span>Agree</span>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            </div> 
+            <form class="form-inline" [formGroup]="lifestyleInfoForm">
+                <div class="form-group">
+                    <div class="form-check form-check-inline">
+                        <input formControlName="isDrinker" class="form-check-input" type="radio" name="isDrinker" id="doesNotDrink" [value]="false">
+                        <label class="form-check-label" for="doesNotDrink">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input formControlName="isDrinker" class="form-check-input" type="radio" name="isDrinker" id="drinks" [value]="true">
+                        <label class="form-check-label" for="drinks">No</label>
+                    </div>
+                </div>
+            </form>
        </div>
     </div>
 
     <div class="statement">
         <div>Do not routinely consume three or more cups of coffee, tea, or other caffeine stimulant drinks per day including cola and stimulant drinks.</div>
         <div class="agree-checkbox">
-            <span>Agree</span>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-            </div>
+            <form class="form-inline" [formGroup]="lifestyleInfoForm">
+                <div class="form-group">
+                    <div class="form-check form-check-inline">
+                        <input formControlName="isCaffeineConsumer" class="form-check-input" type="radio" name="isCaffeineConsumer" id="doesNotDrinkCoffee" [value]="false">
+                        <label class="form-check-label" for="doesNotDrinkCoffee">Yes</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input formControlName="isCaffeineConsumer" class="form-check-input" type="radio" name="isCaffeineConsumer" id="drinksCoffee" [value]="true">
+                        <label class="form-check-label" for="drinksCoffee">No</label>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -42,6 +66,5 @@
         <div style="margin-right: 10px;">Next</div>
         <i class="fa fa-arrow-right"></i>
     </div>
-    <div class="unsuccessful-text">{{this.didNotCheckAllBoxesMessage}}</div>
 
 </div>

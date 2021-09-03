@@ -13,6 +13,7 @@ import { DietaryRestrictionsComponent } from './profile-setup/dietary-restrictio
 import { ChildProfileComponent } from './profile-setup/child-profile/child-profile.component';
 import { CompletedProfileSetupComponent } from './profile-setup/completed-profile-setup/completed-profile-setup.component';
 import { TypeSetupComponent } from './profile-setup/type-setup/type-setup.component';
+import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'profile-setup/dietary-restrictions', component: DietaryRestrictionsComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/child-profile', component: ChildProfileComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/completed-profile-setup', component: CompletedProfileSetupComponent, canActivate: [AuthGuard]},
+  {path: 'home/profile-settings', component: ProfileSettingsComponent, canActivate: [AuthGuard]},
   {path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]},
 ];
 

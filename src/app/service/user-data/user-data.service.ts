@@ -47,4 +47,8 @@ export class UserDataService {
   async setChildProfile(uid: String, data) {
     await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
   }
+
+  async setLifestyleInfo(uid: String, data) {
+    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  }
 }
