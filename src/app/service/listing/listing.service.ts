@@ -21,8 +21,8 @@ export class ListingService {
 
   addNewListing(data) {
     return this.afs.collection('listings').add(data).then(res => {
-      this.afs.collection('listing').doc(res.id).set({listingID:res.id} , {merge:true});
-      return res.id;
-    });
+      this.afs.collection('listings').doc(res.id).set({listingID:res.id} , {merge:true});
+      return res.id
+    })
   }
 }
