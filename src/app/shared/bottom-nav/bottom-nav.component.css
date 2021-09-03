@@ -14,8 +14,8 @@
     z-index: 90;
     background-color: white;
     box-shadow: 0px -1px 10px 0px #00000040;
-
 }
+
 .fa {
     color: #5A3939;
 }
@@ -36,4 +36,14 @@
 
 .fa.fa-plus {
     color: #F38397;
+}
+
+
+@media screen and (min-width: 500px) {
+    .bottom-navbar {
+        max-width: 500px;
+        bottom: 1px;
+        left: 50%;
+        margin-left: -250px;
+    }
 }
