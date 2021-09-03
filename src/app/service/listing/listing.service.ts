@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from "@angular/fire/firestore"; 
+import { merge } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +17,12 @@ export class ListingService {
 
   getListingByID(listingID) {
     return this.afs.collection('listings').doc(`${listingID}`).valueChanges();
+  }
+
+  addNewListing(data) {
+    return this.afs.collection('listings').add(data).then(res => {
+      this.afs.collection('listing').doc(res.id).set({listingID:res.id} , {merge:true});
+      return res.id;
+    });
   }
 }
