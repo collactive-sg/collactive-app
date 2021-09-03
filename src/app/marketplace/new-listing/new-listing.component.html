@@ -1,0 +1,57 @@
+<app-topbar [isShowBackButton]="true" [backButtonPath]="'marketplace'"></app-topbar>
+<div>
+    <div class="header">Make a posting</div>
+    <form class="form-inline" [formGroup]="listingDetailsForm">
+        <div class="milk-type-form">
+            <div class="section-title">Type of Breast Milk</div>
+            <div id="milk-type-choices">
+                <div class="form-check form-check-inline" id="fresh-choice">
+                    <input formControlName="milkType" class="form-check-input" type="radio" name="milkType" id="fresh" value='Fresh'>
+                    <label class="form-check-label" for="female">Fresh</label>
+                </div>
+                <div class="form-check form-check-inline" id="frozen-choice">
+                    <input formControlName="milkType" class="form-check-input" type="radio" name="milkType" id="frozen" value='Frozen'>
+                    <label class="form-check-label" for="male">Frozen</label>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="expressed-date">
+        <div class="section-title" id="expressed-date-title">
+            <span style="margin-right: 80px;">
+                Expressed on
+            </span>
+            <i class="fa fa-info"></i>
+        </div>
+        <div class="form-group" >
+            <div class="input-group" style="display: flex; align-items:center">
+            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" id="expressedDate" ngbDatepicker #d="ngbDatepicker" [maxDate]="maxDate" [(ngModel)]='expressedDate'>
+            <div class="input-group-append">
+                <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d.toggle()" type="button"></i>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <form class="form-inline" [formGroup]="listingDetailsForm">
+        <div class="row-number-input">
+            <div class="section-title">Number of packs</div>
+            <input class="form-control number-input" formControlName="numberOfPacks" id="numberOfPacks" type="number" placeholder="" aria-label="number">
+        </div>
+        <div class="row-number-input">
+            <div class="section-title">Volume per pack (in ml)</div>
+            <input class="form-control number-input" formControlName="volPerPack" id="volPerPack" type="number" placeholder="" aria-label="number">
+        </div>
+        <div class="form-group">
+            <div class="section-title" style="margin-top: 20px;">Additional Comments</div>
+            <textarea class="form-control" id="additional-comments" formControlName="additionalComments" 
+            placeholder="eg. I can meet up at Serangoon, Sengkang and Pasir Ris mrt stations!" 
+            rows="3"></textarea>
+          </div>
+    </form>
+    <div class="next-button" (click)="onNextButtonClick()">
+        <div style="margin-right: 10px;">Next</div>
+        <i class="fa fa-arrow-right"></i>
+    </div>
+</div>

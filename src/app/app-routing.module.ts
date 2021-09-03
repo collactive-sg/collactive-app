@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { HomeComponent } from './home/home.component';
 import { ForgetPasswordComponent } from './index/forget-password/forget-password.component';
 import { LandingComponent } from './index/landing/landing.component';
 import { LoginComponent } from './index/login/login.component';
@@ -13,13 +12,15 @@ import { DietaryRestrictionsComponent } from './profile-setup/dietary-restrictio
 import { ChildProfileComponent } from './profile-setup/child-profile/child-profile.component';
 import { CompletedProfileSetupComponent } from './profile-setup/completed-profile-setup/completed-profile-setup.component';
 import { TypeSetupComponent } from './profile-setup/type-setup/type-setup.component';
+import { ListingPageComponent } from './marketplace/listing-page/listing-page.component';
+import { NewListingComponent } from './marketplace/new-listing/new-listing.component';
 import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
-
+import { HomePageComponent } from './home/home-page/home-page.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
+  {path: 'home', component: HomePageComponent, canActivate: [AuthGuard]},
   {path: 'forget-password', component: ForgetPasswordComponent},
   {path: 'profile-setup/type-setup', component: TypeSetupComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/basic-details', component: BasicDetailsComponent, canActivate: [AuthGuard]},
@@ -28,6 +29,8 @@ const routes: Routes = [
   {path: 'profile-setup/dietary-restrictions', component: DietaryRestrictionsComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/child-profile', component: ChildProfileComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/completed-profile-setup', component: CompletedProfileSetupComponent, canActivate: [AuthGuard]},
+  {path: 'listing/:id', component: ListingPageComponent, canActivate: [AuthGuard]},
+  {path: 'new-listing', component: NewListingComponent, canActivate: [AuthGuard]},
   {path: 'home/profile-settings', component: ProfileSettingsComponent, canActivate: [AuthGuard]},
   {path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]},
 ];
