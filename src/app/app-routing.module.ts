@@ -28,7 +28,7 @@ const routes: Routes = [
   {path: 'profile-setup/child-profile', component: ChildProfileComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/completed-profile-setup', component: CompletedProfileSetupComponent, canActivate: [AuthGuard]},
   {path: 'listing/:id', component: ListingPageComponent, canActivate: [AuthGuard]},
-  {path: 'news-listing', component: NewListingComponent, canActivate: [AuthGuard]},
+  {path: 'new-listing', component: NewListingComponent, canActivate: [AuthGuard]},
   {path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]},
 ];
 
