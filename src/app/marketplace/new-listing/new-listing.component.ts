@@ -100,7 +100,6 @@ export class NewListingComponent implements OnInit {
 
     var listingID = this.listingService.addNewListing(listingData);
     listingID.then(res => {
-      console.log(res);
       this.router.navigate([`/listing/${res}`]);
     });
   }

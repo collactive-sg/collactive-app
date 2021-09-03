@@ -40,7 +40,6 @@ export class ListingComponent implements OnInit {
     });
     this.userDataService.getProfileImg(this.listing.donorID).pipe().subscribe(imgUrl => {
         this.donorProfilePhotoUrl = imgUrl;
-        console.log(imgUrl);
         this.showProfileImg(imgUrl);
     }, err => {})
     this.dateExpressed = new Date(this.listing['dateExpressed']);

@@ -7,13 +7,12 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./listing-page.component.css']
 })
 export class ListingPageComponent implements OnInit {
-  id: string;
+  listingID: string;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.id = params['id']; 
-      console.log(this.id);
+      this.listingID = params['id']; 
    });
   }
 
