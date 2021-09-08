@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from "@angular/fire/firestore"; 
 import { AngularFireStorage } from '@angular/fire/storage';
+import { element } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -40,15 +41,28 @@ export class UserDataService {
     return await storageRef.child(`${this.baseProfileImagesPath}/${uid}`).put(file);
   }
 
-  async setDietaryRestrictions(uid: String, data) {
-    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  // For children collection
+  addNewChildProfile(uid: String, data) {
+    return this.afs.collection('users').doc(`${uid}`).collection('children').add(data).then(res => {
+      this.afs.collection('users').doc(`${uid}`).collection('children').doc(res.id).set({childID:res.id} , {merge:true});
+      return res.id
+    })
   }
 
-  async setChildProfile(uid: String, data) {
-    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  updateChildProfile(uid: String, cid: String, data) {
+    return this.afs.collection('users').doc(`${uid}`).collection('children').doc(`${cid}`).set(data, {merge: true})
   }
 
-  async setLifestyleInfo(uid: String, data) {
-    await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
+  getChildProfile(uid: String, cid: String) {
+    return this.afs.collection('users').doc(`${uid}`).collection('children').doc(`${cid}`).get();
   }
+
+  getChildren(uid: String) {
+    return this.afs.collection('users').doc(`${uid}`).collection('children').ref.get()
+  }
+
+  deleteChildProfile(uid: String, cid: String) {
+    return this.afs.collection('users').doc(`${uid}`).collection('children').doc(`${cid}`).delete();
+  }
+
 }

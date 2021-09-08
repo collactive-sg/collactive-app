@@ -9,14 +9,30 @@
     </div>
   </div>
 
-  <!-- first form -->
+  <div *ngIf="childrenProfiles.length !== 0">
+    <ul class="list-group list-group-flush">
+      Currently saved children
+      <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let child of childrenProfiles">
+          <h6>{{child.name}}</h6>
+          <div class="pull-right" (click)="selectChildProfile(child.childID)">Edit</div>
+          <div class="pull-right" (click)="deleteChildProfile(child.childID)">Delete</div>
+      </li>
+    </ul>
+  </div>
+
   <div class="row mt-3">
-    <div class="col-sm">
+    <form class="form-inline mb-2" [formGroup]="childProfileForm">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input formControlName="name" type="text" class="form-control" id="name" placeholder="">
+      </div>
+    </form>
+    <div class="col-sm mb-2">
       <form class="form-inline" [formGroup]="childProfileForm">
         <div class="form-group">
         <div>Date of Birth</div>
           <div class="input-group" style="display:flex; align-items:center;">
-            <input formControlName="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" [maxDate]="maxDate" ngbDatepicker #d="ngbDatepicker">
+            <input formControlName="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth" [maxDate]="maxDate" ngbDatepicker #d="ngbDatepicker" id="childDateOfBirth">
             <div class="input-group-append">
               <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d.toggle()" type="button"></i>
             </div>
@@ -27,7 +43,7 @@
     <div class="col-sm">
       <form class="form-inline" [formGroup]="childProfileForm">
         <div class="form-group">
-        <div>Gender of child</div>
+        <div id="gender">Gender of child</div>
         <div class="form-check form-check-inline">
           <input formControlName="gender" class="form-check-input" type="radio" name="gender" id="female" value='F'>
           <label class="form-check-label" for="female">F</label>
@@ -41,7 +57,7 @@
     </div>
   </div>
   
-  <form class="form-inline mt-2" [formGroup]="childProfileForm">
+  <div class="form-inline mt-2">
     <div class="form-group">
     <div>Child's allergies</div>
     <div class="accordion" id="allergenListAccordion">
@@ -54,9 +70,9 @@
       <div id="allergenList" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#allergenListAccordion">
         <div class="accordion-body">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item" *ngFor="let allergen of allergens; let i = index">
+            <li class="list-group-item" *ngFor="let allergen of allergens">
                 {{allergen.name}}
-                <input formArrayName="allergies" class="form-check-input pull-right" type="checkbox" value="" id="flexCheckDefault" (change)="addAllergen(allergen, i, !allergen.checked)">
+                <input class="form-check-input pull-right" type="checkbox" value="" id="flexCheckDefault" [(ngModel)]="allergen.checked">
             </li>
         </ul>
         </div>
@@ -64,260 +80,11 @@
     </div>
     </div>
     </div>
-  </form>
-
-  <!-- second form -->
-  <a type="button" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild1($event)">
+  </div>
+  <a class="mt-2 pull-left" type="button" (click)="saveChild()">
     I have another child
   </a>
   
-  <div class="collapse" id="collapse1">
-    <div class="row mt-3">
-      <div class="col-sm">
-        <form class="form-inline" [formGroup]="childProfileForm">
-          <div class="form-group">
-          <div>Date of Birth</div>
-            <div class="input-group" style="display:flex; align-items:center;">
-              <input formControlName="dateOfBirth1" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth1" [maxDate]="maxDate" ngbDatepicker #d1="ngbDatepicker">
-              <div class="input-group-append">
-                <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d1.toggle()" type="button"></i>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="col-sm">
-        <form class="form-inline" [formGroup]="childProfileForm">
-          <div class="form-group">
-          <div>Gender of child</div>
-          <div class="form-check form-check-inline">
-            <input formControlName="gender1" class="form-check-input" type="radio" name="gender1" id="female" value='F'>
-            <label class="form-check-label" for="female">F</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input formControlName="gender1" class="form-check-input" type="radio" name="gender1" id="male" value='M'>
-            <label class="form-check-label" for="male">M</label>
-          </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    
-    <form class="form-inline mt-2" [formGroup]="childProfileForm">
-      <div class="form-group">
-      <div>Child's allergies</div>
-      <div class="accordion" id="allergenListAccordion1">
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allergenList1" aria-expanded="false" aria-controls="allergenList1">
-            Eg. Nuts
-          </button>
-        </h2>
-        <div id="allergenList1" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#allergenListAccordion1">
-          <div class="accordion-body">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let allergen of allergens1; let i = index">
-                  {{allergen.name}}
-                  <input formArrayName="allergies1" class="form-check-input pull-right" type="checkbox" value="" id="flexCheckDefault" (change)="addAllergen1(allergen, i, !allergen.checked)">
-              </li>
-          </ul>
-          </div>
-        </div>
-      </div>
-      </div>
-      </div>
-    </form>
-
-    <!-- third form -->
-    <a type="button" data-bs-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild2($event)">
-      I have another child
-    </a>
-
-    <div class="collapse" id="collapse2">
-      <div class="row mt-3">
-        <div class="col-sm">
-          <form class="form-inline" [formGroup]="childProfileForm">
-            <div class="form-group">
-            <div>Date of Birth</div>
-              <div class="input-group" style="display:flex; align-items:center;">
-                <input formControlName="dateOfBirth2" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth2" [maxDate]="maxDate" ngbDatepicker #d2="ngbDatepicker">
-                <div class="input-group-append">
-                  <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d2.toggle()" type="button"></i>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-        <div class="col-sm">
-          <form class="form-inline" [formGroup]="childProfileForm">
-            <div class="form-group">
-            <div>Gender of child</div>
-            <div class="form-check form-check-inline">
-              <input formControlName="gender2" class="form-check-input" type="radio" name="gender2" id="female" value='F'>
-              <label class="form-check-label" for="female">F</label>
-            </div>
-            <div class="form-check form-check-inline">
-              <input formControlName="gender2" class="form-check-input" type="radio" name="gender2" id="male" value='M'>
-              <label class="form-check-label" for="male">M</label>
-            </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      
-      <form class="form-inline mt-2" [formGroup]="childProfileForm">
-        <div class="form-group">
-        <div>Child's allergies</div>
-        <div class="accordion" id="allergenListAccordion2">
-        <div class="accordion-item">
-          <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allergenList2" aria-expanded="false" aria-controls="allergenList2">
-              Eg. Nuts
-            </button>
-          </h2>
-          <div id="allergenList2" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#allergenListAccordion2">
-            <div class="accordion-body">
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item" *ngFor="let allergen of allergens2; let i = index">
-                    {{allergen.name}}
-                    <input formArrayName="allergies2" class="form-check-input pull-right" type="checkbox" value="" id="flexCheckDefault" (change)="addAllergen2(allergen, i, !allergen.checked)">
-                </li>
-            </ul>
-            </div>
-          </div>
-        </div>
-        </div>
-        </div>
-      </form>
-
-      <!-- fourth form -->
-      <a type="button" data-bs-toggle="collapse" href="#collapse3" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild3($event)">
-        I have another child
-      </a>
-
-      <div class="collapse" id="collapse3">
-        <div class="row mt-3">
-          <div class="col-sm">
-            <form class="form-inline" [formGroup]="childProfileForm">
-              <div class="form-group">
-              <div>Date of Birth</div>
-                <div class="input-group" style="display:flex; align-items:center;">
-                  <input formControlName="dateOfBirth3" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth3" [maxDate]="maxDate" ngbDatepicker #d3="ngbDatepicker">
-                  <div class="input-group-append">
-                    <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d3.toggle()" type="button"></i>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="col-sm">
-            <form class="form-inline" [formGroup]="childProfileForm">
-              <div class="form-group">
-              <div>Gender of child</div>
-              <div class="form-check form-check-inline">
-                <input formControlName="gender3" class="form-check-input" type="radio" name="gender3" id="female" value='F'>
-                <label class="form-check-label" for="female">F</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input formControlName="gender3" class="form-check-input" type="radio" name="gender3" id="male" value='M'>
-                <label class="form-check-label" for="male">M</label>
-              </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        
-        <form class="form-inline mt-2" [formGroup]="childProfileForm">
-          <div class="form-group">
-          <div>Child's allergies</div>
-          <div class="accordion" id="allergenListAccordion3">
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allergenList3" aria-expanded="false" aria-controls="allergenList3">
-                Eg. Nuts
-              </button>
-            </h2>
-            <div id="allergenList3" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#allergenListAccordion3">
-              <div class="accordion-body">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item" *ngFor="let allergen of allergens3; let i = index">
-                      {{allergen.name}}
-                      <input formArrayName="allergies3" class="form-check-input pull-right" type="checkbox" value="" id="flexCheckDefault" (change)="addAllergen3(allergen, i, !allergen.checked)">
-                  </li>
-              </ul>
-              </div>
-            </div>
-          </div>
-          </div>
-          </div>
-        </form>
-
-        <!-- fifth form -->
-        <a type="button" data-bs-toggle="collapse" href="#collapse4" aria-expanded="false" aria-controls="collapseExample" (click)="onChangeChild4($event)">
-          I have another child
-        </a>
-
-      <div class="collapse" id="collapse4">
-        <div class="row mt-3">
-          <div class="col-sm">
-            <form class="form-inline" [formGroup]="childProfileForm">
-              <div class="form-group">
-              <div>Date of Birth</div>
-                <div class="input-group" style="display:flex; align-items:center;">
-                  <input formControlName="dateOfBirth4" class="form-control" placeholder="yyyy-mm-dd" name="dateOfBirth4" [maxDate]="maxDate" ngbDatepicker #d4="ngbDatepicker">
-                  <div class="input-group-append">
-                    <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d4.toggle()" type="button"></i>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <div class="col-sm">
-            <form class="form-inline" [formGroup]="childProfileForm">
-              <div class="form-group">
-              <div>Gender of child</div>
-              <div class="form-check form-check-inline">
-                <input formControlName="gender4" class="form-check-input" type="radio" name="gender4" id="female" value='F'>
-                <label class="form-check-label" for="female">F</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input formControlName="gender4" class="form-check-input" type="radio" name="gender4" id="male" value='M'>
-                <label class="form-check-label" for="male">M</label>
-              </div>
-              </div>
-            </form>
-          </div>
-        </div>
-        
-        <form class="form-inline mt-2" [formGroup]="childProfileForm">
-          <div class="form-group">
-          <div>Child's allergies</div>
-          <div class="accordion" id="allergenListAccordion4">
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allergenList4" aria-expanded="false" aria-controls="allergenList4">
-                Eg. Nuts
-              </button>
-            </h2>
-            <div id="allergenList4" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#allergenListAccordion4">
-              <div class="accordion-body">
-                <ul class="list-group list-group-flush">
-                  <li class="list-group-item" *ngFor="let allergen of allergens4; let i = index">
-                      {{allergen.name}}
-                      <input formArrayName="allergies4" class="form-check-input pull-right" type="checkbox" value="" id="flexCheckDefault" (change)="addAllergen4(allergen, i, !allergen.checked)">
-                  </li>
-              </ul>
-              </div>
-            </div>
-          </div>
-          </div>
-          </div>
-        </form>
-      </div>
-    </div>
-    </div>
-  </div>
-
   <div class="next-button" (click)="onNextButtonClick()">
     <div style="margin-right: 10px;">Next</div>
     <i class="fa fa-arrow-right"></i>
