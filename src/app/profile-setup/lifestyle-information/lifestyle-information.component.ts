@@ -48,7 +48,7 @@ export class LifestyleInformationComponent implements OnInit {
 
   onNextButtonClick() {
     this.router.navigate(['profile-setup/dietary-restrictions']);
-    this.userDataService.setLifestyleInfo(this.currentUser.uid, {"lifestyle-info": this.lifestyleInfoForm.value});
+    this.userDataService.updateUserDoc(this.currentUser.uid, {"lifestyle-info": this.lifestyleInfoForm.value});
   }
 
 }
