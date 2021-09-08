@@ -52,7 +52,7 @@ export class ChildProfileComponent implements OnInit {
               let doc = response.data();
               this.isDonor = doc['isDonor'];
               this.userDataService.getChildren(this.currentUser.uid).then(collection => {
-                collection.docs.forEach(doc => this.childrenProfiles.push(doc.data()))
+                collection.docs.forEach(docu => this.childrenProfiles.push(docu.data()))
               });
             }
           );

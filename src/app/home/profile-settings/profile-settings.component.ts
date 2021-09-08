@@ -32,7 +32,17 @@ export class ProfileSettingsComponent implements OnInit {
   }
   lifestyleInfoForm;
   dietaryRestrictions;
-  childProfiles;
+  allergens = [
+    {name: "Shellfish (lobster, prawn, shrimp, crab etc.)", checked: false},
+    {name:"Eggs", checked: false},
+    {name:"Cow’s milk", checked: false},
+    {name:"Peanuts and other tree nuts", checked: false},
+    {name:"Grains such as wheat, oat, and barley", checked: false},
+    {name:"Soy", checked: false},
+    {name:"Fish", checked: false},
+  ]
+  currentChildID
+  childrenProfiles = [];
   childProfileForm;
 
   constructor(public configDatePicker: NgbInputDatepickerConfig,
@@ -50,6 +60,12 @@ export class ProfileSettingsComponent implements OnInit {
       isSmoker: new FormControl(true, Validators.required),
       isDrinker: new FormControl(true, Validators.required),
       isCaffeineConsumer: new FormControl(true, Validators.required),
+    });
+
+    this.childProfileForm = this.formBuilder.group({
+      name: new FormControl('', Validators.required),
+      dateOfBirth: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required)
     });
 
     // setting datepicker popup to close only on click outside
@@ -96,6 +112,12 @@ export class ProfileSettingsComponent implements OnInit {
           if (userDoc['dietary-restrictions'] !== undefined) {
             this.dietaryRestrictions = userDoc['dietary-restrictions'];
           }
+
+          this.childrenProfiles = [];
+          this.userDataService.getChildren(this.currentUser.uid).then(collection => {
+            collection.docs.forEach(docu => this.childrenProfiles.push(docu.data()))
+          });
+
         })
 
       } else {
@@ -119,7 +141,6 @@ export class ProfileSettingsComponent implements OnInit {
       'lifestyle-info': this.lifestyleInfoForm.value,
       'isDonor': this.donorForm.value["isDonor"]
     });
-    
   }
 
   onPrevButtonClick() {
@@ -146,5 +167,99 @@ export class ProfileSettingsComponent implements OnInit {
     frame.style.backgroundImage = `url(${url})`;
     frame.style.backgroundSize = 'contain';
     document.getElementById('plus-icon').style.display = 'none';
+  }
+
+  // Children settings
+
+  addChild() {
+    // reset form and childID
+    this.currentChildID = undefined;
+    this.childProfileForm = this.formBuilder.group({
+      name: new FormControl('', Validators.required),
+      dateOfBirth: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required)
+    });
+    this.allergens = [
+      {name: "Shellfish (lobster, prawn, shrimp, crab etc.)", checked: false},
+      {name:"Eggs", checked: false},
+      {name:"Cow’s milk", checked: false},
+      {name:"Peanuts and other tree nuts", checked: false},
+      {name:"Grains such as wheat, oat, and barley", checked: false},
+      {name:"Soy", checked: false},
+      {name:"Fish", checked: false},
+    ]
+  }
+
+  get name() { return this.childProfileForm.get('name'); }
+  get childDateOfBirth() { return this.childProfileForm.get('dateOfBirth'); }
+  get gender() { return this.childProfileForm.get('gender'); }
+
+  correctFields() {
+    if (this.name.invalid) {
+      window.alert("Please input your child's name.");
+      document.getElementById("name").style.borderColor = "red";
+      return false;
+    } else if (this.dateOfBirth.invalid) {
+      window.alert("Please input your child's date of birth.");
+      document.getElementById("childDateOfBirth").style.borderColor = "red";
+      return false;
+    } else if (this.gender.invalid) {
+      window.alert("Please input your child's gender");
+      document.getElementById("gender").style.borderColor = "red";
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  saveChild() {
+    if (!this.correctFields()) {
+      return false;
+    }
+
+    let childProfile = {
+      "name": this.childProfileForm.controls.name.value,
+      "dateOfBirth": this.childProfileForm.controls.dateOfBirth.value, 
+      "gender": this.childProfileForm.controls.gender.value,
+      "allergies": this.allergens
+    }
+    
+    if (this.currentChildID === undefined) {
+      this.userDataService.addNewChildProfile(this.currentUser.uid, childProfile);
+    } else {
+      childProfile["childID"] = this.currentChildID;
+      this.userDataService.updateChildProfile(this.currentUser.uid, this.currentChildID, childProfile);
+    }
+    this.updateExistingChildren();
+    this.addChild();
+    return true;
+  }
+
+  selectChildProfile(childID: String) {
+    if (childID === undefined) {
+      window.location.reload();
+    }
+    this.userDataService.getChildProfile(this.currentUser.uid, childID).subscribe(
+      doc => {
+        let currentChild = doc.data();
+        this.childProfileForm.controls.name.setValue(currentChild["name"]);
+        this.childProfileForm.controls.dateOfBirth.setValue(currentChild["dateOfBirth"]);
+        this.childProfileForm.controls.gender.setValue(currentChild["gender"]);
+        this.allergens = currentChild["allergies"];
+        this.currentChildID = childID;
+      } 
+    );
+  }
+
+  updateExistingChildren() {
+    this.childrenProfiles = [];
+    this.userDataService.getChildren(this.currentUser.uid).then(collection => {
+      collection.docs.forEach(doc => this.childrenProfiles.push(doc.data()))
+    });
+  }
+
+  deleteChildProfile(childID: String) {
+    this.userDataService.deleteChildProfile(this.currentUser.uid, childID);
+    this.updateExistingChildren();
   }
 }

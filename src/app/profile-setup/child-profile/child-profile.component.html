@@ -14,8 +14,8 @@
       Currently saved children
       <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let child of childrenProfiles">
           <h6>{{child.name}}</h6>
-          <div class="pull-right" (click)="selectChildProfile(child.childID)">Edit</div>
-          <div class="pull-right" (click)="deleteChildProfile(child.childID)">Delete</div>
+          <div class="pull-right" (click)="selectChildProfile(child.childID)"><a class="text-primary">Edit</a></div>
+          <div class="pull-right" (click)="deleteChildProfile(child.childID)"><a class="text-danger">Delete</a></div>
       </li>
     </ul>
   </div>
