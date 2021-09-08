@@ -17,6 +17,7 @@ export class ProfileSettingsComponent implements OnInit {
   firstName;
   lastName;
   isDonor: boolean;
+  donorForm;
 
   // Basic details
   model: NgbDateStruct;
@@ -41,6 +42,10 @@ export class ProfileSettingsComponent implements OnInit {
     private userDataService: UserDataService,
     private auth: AuthService
   ) { 
+    this.donorForm = this.formBuilder.group({
+      isDonor: new FormControl(true, Validators.required),
+    });
+
     this.lifestyleInfoForm = this.formBuilder.group({
       isSmoker: new FormControl(true, Validators.required),
       isDrinker: new FormControl(true, Validators.required),
@@ -60,6 +65,10 @@ export class ProfileSettingsComponent implements OnInit {
 
         this.userDataService.getUserDoc(this.currentUser.uid).subscribe(userDoc => {
           this.isDonor = userDoc['isDonor'];
+          this.donorForm = this.formBuilder.group({
+            isDonor: new FormControl(userDoc['isDonor'], Validators.required),
+          });
+
           this.firstName = userDoc['firstName'];
           this.lastName = userDoc['lastName'];
           
@@ -106,7 +115,9 @@ export class ProfileSettingsComponent implements OnInit {
     this.userDataService.updateUserDoc(this.currentUser.uid, {
       'dateOfBirth' : dobStr,
       'areaOfResidency' : this.areasOptions[this.areaOfResidency],
-      'dietary-restrictions': this.dietaryRestrictions
+      'dietary-restrictions': this.dietaryRestrictions,
+      'lifestyle-info': this.lifestyleInfoForm.value,
+      'isDonor': this.donorForm.value["isDonor"]
     });
     
   }

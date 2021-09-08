@@ -46,10 +46,10 @@
         <button type="button" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample">
             Edit profile
         </button>
-        <div class="collapse" id="collapse1">
+        <div class="collapse mt-3" id="collapse1">
             <form class="form-inline">
-                <div class="form-group" style="margin-top:50px;">
-                <div>Date of Birth</div>
+                <div class="form-group">
+                <h6>Date of Birth</h6>
                   <div class="input-group" style="display: flex; align-items:center">
                     <input class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #d="ngbDatepicker" [maxDate]="maxDate" [(ngModel)]='dateOfBirth'>
                     <div class="input-group-append">
@@ -60,7 +60,7 @@
             </form> 
             
             <div style="margin-top:20px;">
-            <div>Area of Residency</div>
+            <h6>Area of Residency</h6>
                 <select class="form-select" aria-label="Default select example" [(ngModel)]='areaOfResidency'>
                     <option value="0">North</option>
                     <option value="1">East</option>
@@ -71,7 +71,7 @@
             </div>
 
             <div style="margin-top:20px;">
-            <div>Dietary Restrictions</div>
+            <h6>Dietary Restrictions</h6>
             <ul class="list-group list-group-flush">
                 <div class="list-gap"></div>
                 <li class="list-group-item" *ngFor="let restriction of dietaryRestrictions; let i = index">
@@ -83,7 +83,7 @@
             </div>
             
             <div style="margin-top:20px;">
-                <div>Lifestyle Information</div>
+                <h6>Lifestyle Information</h6>
                     <div class="statement">
                         <div>I do not smoke</div>
                         <div class="agree-checkbox">
@@ -137,10 +137,31 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample" (click)="onDoneButtonClick()">
+                <button class="mt-3" type="button" data-bs-toggle="collapse" href="#collapse1" aria-expanded="false" aria-controls="collapseExample" (click)="onDoneButtonClick()">
                     Save
                 </button>
             </div>
+        </div>
+        <button class="mt-3" type="button" data-bs-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapseExample">
+            Change status
+        </button>
+        <div class="collapse mt-3" id="collapse2">
+            <form class="form-inline" [formGroup]="donorForm">
+                <div class="form-group">
+                <h6>Donor status</h6>
+                <div class="form-check form-check-inline">
+                    <input formControlName="isDonor" class="form-check-input" type="radio" name="isDonor" id="donor" [value]="true">
+                    <label class="form-check-label" for="donor">Donor</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input formControlName="isDonor" class="form-check-input" type="radio" name="isDonor" id="isNotDonor" [value]="false">
+                    <label class="form-check-label" for="isNotDonor">Receiver/Undecided</label>
+                  </div>
+                </div>
+            </form> 
+            <button class="mt-3" type="button" data-bs-toggle="collapse" href="#collapse2" aria-expanded="false" aria-controls="collapseExample" (click)="onDoneButtonClick()">
+                Save
+            </button>
         </div>
     </div>
 </div>
