@@ -46,7 +46,7 @@ export class DietaryRestrictionsComponent implements OnInit {
 
   onNextButtonClick() {
     this.router.navigate(['profile-setup/child-profile']);
-    this.userDataService.setDietaryRestrictions(this.currentUser.uid, {"dietary-restrictions": this.dietaryRestrictions});
+    this.userDataService.updateUserDoc(this.currentUser.uid, {"dietary-restrictions": this.dietaryRestrictions});
   }
 
 }
