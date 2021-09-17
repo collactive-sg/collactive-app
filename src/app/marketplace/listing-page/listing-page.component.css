@@ -1,0 +1,59 @@
+.photo-upload {
+    height: 40vw;
+    width: 40vw;
+    margin-top: 20px;
+    /* darker beige */
+    margin-left: auto;
+    margin-right: auto;
+    background: #EFEFEF;
+    /* drop big */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.loading {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bold {
+    font-weight: bold;
+}
+
+.donor-details-card {
+    background: #F9F9F9;
+    box-shadow: 0px 3px 11px -5px rgb(0 0 0 / 15%);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.donor-details {
+    margin-top: 10px;
+}
+
+.row-details {
+    padding: 5px;
+}
+
+.listing-details {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.donor-details-card-entry {
+    padding: 5px;
+}
+
+.donor-card-field {
+    opacity: 0.6;
+    margin-right: 10px;
+}
+
+.child-desc {
+    
+}

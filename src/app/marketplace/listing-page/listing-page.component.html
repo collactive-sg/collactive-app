@@ -1,1 +1,72 @@
-<p>{{this.listingID}}</p>
+<app-topbar [isShowBackButton]="true" [backButtonPath]="'marketplace'"></app-topbar>
+<div class="loading"  *ngIf="this.listingOwnerDetails === undefined">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+</div>
+<div *ngIf="this.listingOwnerDetails !== undefined" >
+    <div class="photo-upload" id="frame"></div>
+    <div class="name-header" style="margin-top:20px;" >
+        <h3 style="text-align:center;">
+            {{this.listingOwnerDetails.firstName|| ""}} {{this.listingOwnerDetails.lastName || ""}}
+        </h3>
+        <span *ngIf="this.listingOwnerChildren.length > 0">
+            <h5 style="text-align:center; opacity:0.6; margin-top:-5px"> 
+                <span *ngIf="this.listingOwnerChildren.length > 1">Mother of {{this.listingOwnerChildren.length}} beautiful children</span> 
+                <span *ngIf="this.listingOwnerChildren.length == 1">Mother of a beautiful {{this.listingOwnerChildren[0].gender == "F" ? 'daughter' : 'son'}}</span> 
+            </h5>
+        </span>
+    </div>
+    <div class="listing-details">
+        <div class="row-details">
+            <i class="fa fa-calendar"></i> Expressed on <span class="bold">{{this.convertExpressedDateTimestampToDateString()}}</span>
+        </div>
+        <div class="row-details">
+            <img src="../../../assets/milk-bottle.png" width="18px" style="margin-left: -3px;" >
+            {{this.listingData.typeOfMilk}}
+        </div>
+        <div class="row-details">
+            <img src="../../../assets/packet.svg" width="18px" style="margin-left: -3px;" >
+            <span class="bold"> {{this.listingData.numberOfPacks}}</span> packs of <span class="bold">{{this.listingData.volumePerPack}}ml</span>
+        </div>
+        <div class="row-details" *ngIf="this.listingData.additionalComments != '' ">
+            <i class="fa fa-comment"></i>
+            {{this.listingData.additionalComments}}
+        </div>
+    </div>
+    <div class="donor-details" style="margin-top:20px;">
+        <h4>Donor Details</h4>
+        <div  class="donor-details-card">
+            <div class="donor-details-card-entry">
+                <span class="donor-card-field">Name:</span>{{this.listingOwnerDetails.firstName|| ""}} {{this.listingOwnerDetails.lastName || ""}}
+            </div>
+            <div class="donor-details-card-entry">
+                <span class="donor-card-field">Date Of Birth:</span>{{this.convertDOBToDateString()}}
+            </div>
+            <div class="donor-details-card-entry">
+                <span class="donor-card-field">Dietary Restrictions:</span>{{this.convertDietaryRestrictionsToString()}}
+            </div>
+            <div class="donor-details-card-entry">
+                <span class="donor-card-field">Area of Residency:</span>{{this.listingOwnerDetails.areaOfResidency}}
+            </div>
+            <hr/>
+            <div *ngFor="let child of this.listingOwnerChildren;" style="margin-bottom: 10px;">
+                <h5>{{child['dateOfBirth']['year'] !== maxDate.year 
+                    ? maxDate.year - child['dateOfBirth']['year'] + " year"
+                    : child['dateOfBirth']['month'] !== maxDate.month
+                        ? maxDate.month - child['dateOfBirth']['month'] + " month"
+                        : maxDate.day - child['dateOfBirth']['day'] + " day"}}
+                    old 
+                {{child['gender'] === 'F' ? "daughter" : "son"}}</h5>
+                 
+                    <div *ngIf="child['allergies'].length === 0">
+                        No allergies
+                    </div>
+                    <span>
+                        <span style="text-decoration: underline;">Allergic to: <br></span>
+                        <div *ngFor="let allergy of child['allergies'];"><span>{{allergy['checked'] ? allergy['name'] : null}}</span></div>
+                    </span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -86,6 +86,12 @@ export class NewListingComponent implements OnInit {
     }
 
     var expressedTimestamp = new Date(this.expressedDate['year'],this.expressedDate['month'],this.expressedDate['day']).getTime();
+    
+    if (isNaN(expressedTimestamp)) {
+      window.alert("Please fill in a valid date for the date expressed");
+      document.getElementById("expressedDate").style.border = "1px solid red";
+      return;
+    }
 
     var listingData = {
       donorID: this.currentUser.uid,
