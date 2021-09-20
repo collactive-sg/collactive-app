@@ -74,7 +74,7 @@
         <div class="bottom-donor-bar" *ngIf="this.listingOwnerUID !== this.currentUser.uid">
           
             <div class="like-button">
-                <i class="fa fa-heart" id="{{'like-button-' + this.listingID}}" (click)="likeListing()"></i>
+                <i class="fa fa-heart" id="{{'like-button-' + this.listingID}}" (click)="likeListing()" [ngStyle]="{'color': this.isLiked ? '#F38397' : '#F9F9F9'}"></i>
             </div>
             <div class="chat-button">
                 Chat with donor

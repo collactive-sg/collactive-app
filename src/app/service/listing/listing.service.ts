@@ -29,4 +29,20 @@ export class ListingService {
       return res.id
     })
   }
+
+  addLikeListing(userID: string, listingID: string) {
+    return this.afs.collection(`users`).doc(userID).collection(`likes`).doc(listingID).set({
+      listingID: listingID,
+      dateLiked: Date.now()
+    })
+  }
+
+  deleteLikeListing(userID, listingID) {
+    return this.afs.collection(`users`).doc(userID).collection(`likes`).doc(listingID).delete();
+  }
+
+  getLikedListingIDsByUserID(userID: string) {
+    return this.afs.collection('users').doc(`${userID}`).collection('likes').ref.get()
+  }
+
 }

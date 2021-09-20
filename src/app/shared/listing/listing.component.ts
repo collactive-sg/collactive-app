@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 
 @Component({
@@ -21,16 +22,12 @@ export class ListingComponent implements OnInit {
   constructor(
     private router: Router,
     private userDataService: UserDataService,
-    // private listingService: ListingService,
+    private listingService: ListingService,
   ) { 
-      // document.getElementById("like-button").style.color = "#F38397";
-      // this.listingService.getListingDoc(this.listingID).subscribe(userDoc => {
-      //   this.dateExpressed = userDoc['dateExpressed'];
-      //   var likedUsers = userDoc['likedUsers'];
-      //   if (this.currentUserID in likedUsers) {
-      //     this.isLiked = true;
-      //   }
-      // });
+      
+    this.listingService.getLikedListingIDsByUserID(this.currentUserID).then(collection => {
+      this.isLiked = collection.docs.filter(docu => docu.data().listingID === this.listingID).length !== 0 
+    });
       
   }
 
@@ -55,13 +52,11 @@ export class ListingComponent implements OnInit {
 
   likeListing() {
     this.isLiked = !this.isLiked;
-    if(this.isLiked) {
-      document.getElementById(`like-button-${this.listingID}`).style.color = "#F38397";
+    if (this.isLiked) {
+      this.listingService.addLikeListing(this.currentUserID, this.listingID);
     } else {
-      document.getElementById(`like-button-${this.listingID}`).style.color = "#F9F9F9";
+      this.listingService.deleteLikeListing(this.currentUserID, this.listingID);
     }
-
-    // todo update be
   }
 
   showProfileImg(url) {

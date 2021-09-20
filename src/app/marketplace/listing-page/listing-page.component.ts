@@ -16,6 +16,7 @@ export class ListingPageComponent implements OnInit {
   listingOwnerUID: string;
   listingOwnerDetails:any;
   listingOwnerChildren: any[];
+  likedListing: any[]
   maxDate = {
     year: new Date().getFullYear(),
     month: new Date().getMonth() + 1,
@@ -40,6 +41,10 @@ export class ListingPageComponent implements OnInit {
    .onAuthStateChanged((user) => {
      if (user) {
        this.currentUser = user;
+
+       this.listingService.getLikedListingIDsByUserID(this.currentUser.uid).then(collection => {
+        this.isLiked = collection.docs.filter(docu => docu.data().listingID === this.listingID).length !== 0 
+      });
      }})
     
     this.listingService.getListingByID(this.listingID).pipe().subscribe((res:any) => {
@@ -61,8 +66,9 @@ export class ListingPageComponent implements OnInit {
           collection.docs.forEach(docu => this.listingOwnerChildren.push(docu.data()))
         });
       }
+      
     })
-
+  
     
   }
 
@@ -113,13 +119,11 @@ export class ListingPageComponent implements OnInit {
 
   likeListing() {
     this.isLiked = !this.isLiked;
-    if(this.isLiked) {
-      document.getElementById(`like-button-${this.listingID}`).style.color = "#F38397";
+    if (this.isLiked) {
+      this.listingService.addLikeListing(this.currentUser.uid, this.listingID);
     } else {
-      document.getElementById(`like-button-${this.listingID}`).style.color = "#F9F9F9";
+      this.listingService.deleteLikeListing(this.currentUser.uid, this.listingID);
     }
-
-    // todo update be
   }
 
 }
