@@ -6,7 +6,7 @@
 </div>
 <div *ngIf="this.listingOwnerDetails !== undefined" class="listingInformation"  [ngStyle]="{'height':this.listingOwnerUID === this.currentUser.uid ? '95vh' : '85vh'}" >
     <div>
-        <a *ngIf="this.listingOwnerUID === this.currentUser.uid" class="edit-button"  >Edit</a>
+        <a *ngIf="this.listingOwnerUID === this.currentUser.uid" class="edit-button" href="listing/{{this.listingID}}/edit" >Edit</a>
         <div class="photo-upload" id="frame"></div>
         <div class="name-header" style="margin-top:20px;" >
             <h3 style="text-align:center;">

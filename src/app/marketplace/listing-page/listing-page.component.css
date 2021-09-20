@@ -110,4 +110,6 @@
     cursor: pointer;
     text-align: right;
     margin-right: 1rem;
+    margin-left: 85%;
+    color: #5A3939;
 }

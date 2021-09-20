@@ -48,21 +48,23 @@ export class EditListingComponent implements OnInit {
     });
     this.listingService.getListingByID(this.listingID).pipe().subscribe((res:any) => {
       this.listingData = res;
-console.log(this.listingData)
-        if (this.listingData.donorID !== this.currentUser.uid) this.router.navigate([`listing/${this.listingID}`])
-  
-        this.editListingDetailsForm = new FormGroup({
-          milkType: new FormControl(this.listingData.typeOfMilk, Validators.required),
-          numberOfPacks: new FormControl(this.listingData.numberOfPacks, Validators.required),
-          volPerPack: new FormControl(this.listingData.volumePerPack, Validators.required),
-          additionalComments: new FormControl(this.listingData.additionalComments, Validators.required)
-        });
-        var expressedDateTimestamp = this.listingData.dateExpressed;
-        this.expressedDate = {
-          day: new Date(expressedDateTimestamp).getDate(),
-          month: new Date(expressedDateTimestamp).getMonth() + 1,
-          year: new Date(expressedDateTimestamp).getFullYear(),
-        };
+        if (this.listingData.donorID !== this.currentUser.uid) {
+          this.router.navigate([`listing/${this.listingID}`])
+        } else {
+
+          this.editListingDetailsForm = new FormGroup({
+            milkType: new FormControl(this.listingData.typeOfMilk, Validators.required),
+            numberOfPacks: new FormControl(this.listingData.numberOfPacks, Validators.required),
+            volPerPack: new FormControl(this.listingData.volumePerPack, Validators.required),
+            additionalComments: new FormControl(this.listingData.additionalComments, Validators.required)
+          });
+          var expressedDateTimestamp = this.listingData.dateExpressed;
+          this.expressedDate = {
+            day: new Date(expressedDateTimestamp).getDate(),
+            month: new Date(expressedDateTimestamp).getMonth() + 1,
+            year: new Date(expressedDateTimestamp).getFullYear(),
+          };
+        }
       
 
     });
