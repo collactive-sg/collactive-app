@@ -6,10 +6,11 @@ import { ListingPageComponent } from './listing-page/listing-page.component';
 import { NewListingComponent } from './new-listing/new-listing.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditListingComponent } from './edit-listing/edit-listing.component';
 
 
 @NgModule({
-  declarations: [MarketplaceComponent, ListingPageComponent, NewListingComponent],
+  declarations: [MarketplaceComponent, ListingPageComponent, NewListingComponent, EditListingComponent],
   imports: [
     CommonModule,
     SharedModule,

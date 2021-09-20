@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
@@ -21,9 +21,11 @@ export class ListingPageComponent implements OnInit {
     month: new Date().getMonth() + 1,
     day: new Date().getDate(),
   }
+  isLiked: boolean;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private auth: AuthService,
     private listingService: ListingService,
     private userDataService: UserDataService,
@@ -32,7 +34,7 @@ export class ListingPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.listingID = params['id']; 
-   });
+    });
 
    this.auth.getUserAuthState()
    .onAuthStateChanged((user) => {
@@ -42,19 +44,23 @@ export class ListingPageComponent implements OnInit {
     
     this.listingService.getListingByID(this.listingID).pipe().subscribe((res:any) => {
       this.listingData = res;
-      this.listingOwnerUID = res.donorID;
-      this.userDataService.getProfileImg(this.listingOwnerUID).pipe().subscribe(url => {       
-        this.showProfileImg(url);
-      });
-
-      this.userDataService.getUserDetails(this.listingOwnerUID).then(res => {
-        this.listingOwnerDetails = res.data();
-      });
-
-      this.listingOwnerChildren = [];
+      if (this.listingData == undefined) {
+        this.router.navigate([`marketplace`]) 
+      } else {
+        this.listingOwnerUID = res.donorID;
+        this.userDataService.getProfileImg(this.listingOwnerUID).pipe().subscribe(url => {       
+          this.showProfileImg(url);
+        });
+  
+        this.userDataService.getUserDetails(this.listingOwnerUID).then(res => {
+          this.listingOwnerDetails = res.data();
+        });
+  
+        this.listingOwnerChildren = [];
         this.userDataService.getChildren(this.listingOwnerUID).then(collection => {
           collection.docs.forEach(docu => this.listingOwnerChildren.push(docu.data()))
         });
+      }
     })
 
     
@@ -93,7 +99,7 @@ export class ListingPageComponent implements OnInit {
         return "None"
       } else {
         return this.listingOwnerDetails['dietary-restrictions']
-                .filter(ele=> ele.checked).map(ele=>ele.name);
+                .filter(ele=> ele.checked).map(ele=>" " + ele.name);
       }
     } else {
       return "";
@@ -104,4 +110,16 @@ export class ListingPageComponent implements OnInit {
     console.log(child)
     return child.filter(ele => ele.checked).map(ele=>ele.name)
   }
+
+  likeListing() {
+    this.isLiked = !this.isLiked;
+    if(this.isLiked) {
+      document.getElementById(`like-button-${this.listingID}`).style.color = "#F38397";
+    } else {
+      document.getElementById(`like-button-${this.listingID}`).style.color = "#F9F9F9";
+    }
+
+    // todo update be
+  }
+
 }

@@ -3,20 +3,23 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 import { 
   NgbInputDatepickerConfig
  } from '@ng-bootstrap/ng-bootstrap';
- import { FormGroup, FormControl, Validators } from '@angular/forms';
+ import { FormGroup,  FormControl, Validators } from '@angular/forms';
 import { ListingService } from 'src/app/service/listing/listing.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
-  selector: 'app-new-listing',
-  templateUrl: './new-listing.component.html',
-  styleUrls: ['./new-listing.component.css']
+  selector: 'app-edit-listing',
+  templateUrl: './edit-listing.component.html',
+  styleUrls: ['./edit-listing.component.css']
 })
-export class NewListingComponent implements OnInit {
+export class EditListingComponent implements OnInit {
 
   currentUser;
-  listingDetailsForm;
+  editListingDetailsForm;
   expressedDate;
+  listingData;
+  listingID: string;
+
   maxDate = {
     day: new Date().getDate(),
     month: new Date().getMonth() + 1,
@@ -27,6 +30,7 @@ export class NewListingComponent implements OnInit {
     private auth: AuthService,
     private listingService: ListingService,
     public configDatePicker: NgbInputDatepickerConfig,
+    private route: ActivatedRoute,
     private router: Router,
   ) { 
      configDatePicker.autoClose = 'outside';
@@ -39,20 +43,37 @@ export class NewListingComponent implements OnInit {
           this.currentUser = user;
         }
     });
-    this.listingDetailsForm = new FormGroup({
-      milkType: new FormControl('', Validators.required),
-      numberOfPacks: new FormControl("", Validators.required),
-      volPerPack: new FormControl("", Validators.required),
-      additionalComments: new FormControl("", Validators.required)
+    this.route.params.subscribe(params => {
+      this.listingID = params['id']; 
+    });
+    this.listingService.getListingByID(this.listingID).pipe().subscribe((res:any) => {
+      this.listingData = res;
+console.log(this.listingData)
+        if (this.listingData.donorID !== this.currentUser.uid) this.router.navigate([`listing/${this.listingID}`])
+  
+        this.editListingDetailsForm = new FormGroup({
+          milkType: new FormControl(this.listingData.typeOfMilk, Validators.required),
+          numberOfPacks: new FormControl(this.listingData.numberOfPacks, Validators.required),
+          volPerPack: new FormControl(this.listingData.volumePerPack, Validators.required),
+          additionalComments: new FormControl(this.listingData.additionalComments, Validators.required)
+        });
+        var expressedDateTimestamp = this.listingData.dateExpressed;
+        this.expressedDate = {
+          day: new Date(expressedDateTimestamp).getDate(),
+          month: new Date(expressedDateTimestamp).getMonth() + 1,
+          year: new Date(expressedDateTimestamp).getFullYear(),
+        };
+      
+
     });
   }
 
-  get MilkType() { return this.listingDetailsForm.get('milkType') }
-  get NumberOfPacks() { return this.listingDetailsForm.get('numberOfPacks') }
-  get VolPerPack() { return this.listingDetailsForm.get('volPerPack') }
-  get AdditionalComments() { return this.listingDetailsForm.get('additionalComments') }
+  get MilkType() { return this.editListingDetailsForm.get('milkType') }
+  get NumberOfPacks() { return this.editListingDetailsForm.get('numberOfPacks') }
+  get VolPerPack() { return this.editListingDetailsForm.get('volPerPack') }
+  get AdditionalComments() { return this.editListingDetailsForm.get('additionalComments') }
 
-  onNextButtonClick() {
+  onSaveButtonClick() {
     document.getElementById("milk-type-choices").style.border = "";
     document.getElementById("expressedDate").style.border = "";
     document.getElementById("numberOfPacks").style.border = "";
@@ -101,9 +122,8 @@ export class NewListingComponent implements OnInit {
       typeOfMilk: this.MilkType.value,
     }
 
-    var listingID = this.listingService.addNewListing(listingData);
-    listingID.then(res => {
-      this.router.navigate([`/listing/${res}`]);
-    });
+    this.listingService.editlisting(listingData, this.listingID);
+    this.router.navigate([`/listing/${this.listingID}`]);
+    
   }
 }

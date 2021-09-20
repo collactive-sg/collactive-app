@@ -16,6 +16,7 @@ import { ListingPageComponent } from './marketplace/listing-page/listing-page.co
 import { NewListingComponent } from './marketplace/new-listing/new-listing.component';
 import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
+import { EditListingComponent } from './marketplace/edit-listing/edit-listing.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'profile-setup/child-profile', component: ChildProfileComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/completed-profile-setup', component: CompletedProfileSetupComponent, canActivate: [AuthGuard]},
   {path: 'listing/:id', component: ListingPageComponent, canActivate: [AuthGuard]},
+  {path: 'listing/:id/edit', component: EditListingComponent, canActivate: [AuthGuard]},
   {path: 'new-listing', component: NewListingComponent, canActivate: [AuthGuard]},
   {path: 'home/profile-settings', component: ProfileSettingsComponent, canActivate: [AuthGuard]},
   {path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]},

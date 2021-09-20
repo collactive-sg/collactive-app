@@ -6,6 +6,10 @@ import { merge } from 'rxjs';
   providedIn: 'root'
 })
 export class ListingService {
+  
+  editlisting(listingData:any, listingID:string ) {
+    return this.afs.collection('listings').doc(`${listingID}`).set(listingData, {merge:true} )
+  }
 
   constructor(
     private afs: AngularFirestore
