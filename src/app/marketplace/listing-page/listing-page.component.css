@@ -13,8 +13,7 @@
     box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.25);
     border-radius: 50%;
 
-}
-
+} 
 .loading {
     height: 100vh;
     display: flex;
@@ -108,7 +107,7 @@
 }
 .owner-options { 
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
 }
 .edit-button {
