@@ -40,11 +40,13 @@ export class ListingPageComponent implements OnInit {
    this.auth.getUserAuthState()
    .onAuthStateChanged((user) => {
      if (user) {
-       this.currentUser = user;
+      this.currentUser = user;
 
-       this.listingService.getLikedListingIDsByUserID(this.currentUser.uid).then(collection => {
-        this.isLiked = collection.docs.filter(docu => docu.data().listingID === this.listingID).length !== 0 
+       
+      this.listingService.getLikedListingIDsByUserID(this.currentUser.uid).then(arr => {
+        this.isLiked = arr.filter((listingID:any) => listingID === this.listingID).length !== 0 
       });
+       
      }})
     
     this.listingService.getListingByID(this.listingID).pipe().subscribe((res:any) => {
@@ -66,10 +68,7 @@ export class ListingPageComponent implements OnInit {
           collection.docs.forEach(docu => this.listingOwnerChildren.push(docu.data()))
         });
       }
-      
-    })
-  
-    
+    }) 
   }
 
   showProfileImg(url) {

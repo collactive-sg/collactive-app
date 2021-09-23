@@ -25,10 +25,6 @@ export class ListingComponent implements OnInit {
     private listingService: ListingService,
   ) { 
       
-    this.listingService.getLikedListingIDsByUserID(this.currentUserID).then(collection => {
-      this.isLiked = collection.docs.filter(docu => docu.data().listingID === this.listingID).length !== 0 
-    });
-      
   }
 
   ngOnInit(): void {
@@ -40,6 +36,10 @@ export class ListingComponent implements OnInit {
         this.showProfileImg(imgUrl);
     }, err => {})
     this.dateExpressed = new Date(this.listing['dateExpressed']);
+    
+    this.listingService.getLikedListingIDsByUserID(this.currentUserID).then(arr => {
+      this.isLiked = arr.filter((listingID:any) => listingID === this.listingID).length !== 0 
+    });
   }
 
   viewUser() {

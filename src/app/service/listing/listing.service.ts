@@ -31,18 +31,27 @@ export class ListingService {
   }
 
   addLikeListing(userID: string, listingID: string) {
-    return this.afs.collection(`users`).doc(userID).collection(`likes`).doc(listingID).set({
+    return this.afs.collection(`likes_listings`).add({
       listingID: listingID,
+      userID:userID,
       dateLiked: Date.now()
+    }).then(res => {
+      this.afs.collection('likes_listings').doc(res.id).set({likeListingID:res.id} , {merge:true});
     })
   }
 
   deleteLikeListing(userID, listingID) {
-    return this.afs.collection(`users`).doc(userID).collection(`likes`).doc(listingID).delete();
+    return this.afs.collection(`likes_listings`).ref.where("userID", "==", userID).where("listingID", "==", listingID).get().then(res => {
+      res.forEach( res => {
+        this.afs.collection(`likes_listings`).doc(`${res.id}`).delete();
+      })
+    })
   }
 
   getLikedListingIDsByUserID(userID: string) {
-    return this.afs.collection('users').doc(`${userID}`).collection('likes').ref.get()
+    return this.afs.collection('likes_listings').ref.where("userID", "==", userID).get().then(col => {
+      return col.docs.map((each:any) => each.data()['listingID'])
+    });
   }
 
 }
