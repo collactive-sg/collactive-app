@@ -1,0 +1,121 @@
+.photo-upload {
+    height: 60vw;
+    width: 60vw;
+    margin-top: 20px;
+    /* darker beige */
+    background: #EFEFEF;
+    /* drop big */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: auto;
+    box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+
+}
+
+.loading {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bold {
+    font-weight: bold;
+}
+
+.donor-details-card {
+    background: #F9F9F9;
+    box-shadow: 0px 3px 11px -5px rgb(0 0 0 / 15%);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.row-details {
+    padding: 5px;
+}
+
+.listing-details {
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+.donor-details-card-entry {
+    padding: 5px;
+}
+
+.donor-card-field {
+    opacity: 0.6;
+    margin-right: 10px;
+}
+
+.child-desc {
+    
+}
+.bottom-donor-bar {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    width: 100vw;
+    position: absolute;
+    /* max-width: 500px; */
+    bottom: 1px;
+    left: 0px;
+    z-index: 90;
+    background-color: white;
+    box-shadow: 0px -1px 10px 0px #00000040;
+}
+.listingInformation {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: 95%;
+    overflow-y: scroll;
+    height: 85vh;
+    margin-top: 10px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
+}
+.listingInformation::-webkit-scrollbar {
+    display: none;
+  }
+.chat-button {
+    background: #546684;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    margin-left: 30px;
+}
+.like-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 2px solid #F38397;
+    z-index: 90;
+}
+.fa-heart {
+    color:white;
+    margin-top: 3px;
+    text-shadow: -1px -1px 0 #F38397, 1px -1px 0 #F38397, -1px 1px 0 #F38397, 1px 1px 0 #F38397; ;
+}
+.owner-options { 
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.edit-button {
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: right;
+    margin-right: 4px;
+    margin-left: 4px;
+    color: #5A3939;
+}
