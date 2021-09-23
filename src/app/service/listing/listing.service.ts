@@ -6,10 +6,6 @@ import { merge } from 'rxjs';
   providedIn: 'root'
 })
 export class ListingService {
-  
-  editlisting(listingData:any, listingID:string ) {
-    return this.afs.collection('listings').doc(`${listingID}`).set(listingData, {merge:true} )
-  }
 
   constructor(
     private afs: AngularFirestore
@@ -52,6 +48,15 @@ export class ListingService {
     return this.afs.collection('likes_listings').ref.where("userID", "==", userID).get().then(col => {
       return col.docs.map((each:any) => each.data()['listingID'])
     });
+  }
+
+  deleteListing(listingID:string) {
+    return this.afs.collection('listings').doc(`${listingID}`).delete();
+
+  }
+  
+  editlisting(listingData:any, listingID:string ) {
+    return this.afs.collection('listings').doc(`${listingID}`).set(listingData, {merge:true} )
   }
 
 }

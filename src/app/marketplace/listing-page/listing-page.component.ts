@@ -132,4 +132,14 @@ export class ListingPageComponent implements OnInit {
     }
   }
 
+  deleteListing() {
+    if (this.currentUser.uid === this.listingOwnerUID) {
+      if (window.confirm("Are you sure you want to delete this listing?")) {
+        this.listingService.deleteListing(this.listingID).then(() => this.router.navigate(['marketplace']));
+      }
+    } else {
+      window.alert("You cannot delete this listing.")
+    }
+  }
+
 }

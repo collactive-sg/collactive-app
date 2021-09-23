@@ -106,11 +106,16 @@
     margin-top: 3px;
     text-shadow: -1px -1px 0 #F38397, 1px -1px 0 #F38397, -1px 1px 0 #F38397, 1px 1px 0 #F38397; ;
 }
+.owner-options { 
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
 .edit-button {
     text-decoration: underline;
     cursor: pointer;
     text-align: right;
-    margin-right: 1rem;
-    margin-left: 85%;
+    margin-right: 4px;
+    margin-left: 4px;
     color: #5A3939;
 }
