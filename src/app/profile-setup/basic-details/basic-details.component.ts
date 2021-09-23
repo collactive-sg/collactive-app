@@ -150,7 +150,7 @@ export class BasicDetailsComponent implements OnInit {
   showProfileImg(url) {
     const frame = document.getElementById('frame');
     frame.style.backgroundImage = `url(${url})`;
-    frame.style.backgroundSize = 'contain';
+    frame.style.backgroundSize = `cover`;
     document.getElementById('plus-icon').style.display = 'none';
   }
 }
