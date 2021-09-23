@@ -1,0 +1,26 @@
+<div class="sidebar">
+    
+    <div class="close">
+        <i class="fa fa-times" style="color:black; margin-top: 1px;" ></i>
+    </div>
+
+    <div class="photo-upload" id="frame"></div>
+    <div class="name">
+        {{this.currUserFullName}}
+    </div>
+    <div class="donor-label" *ngIf="this.isDonor">
+        Donor
+    </div>
+    <div>
+        <div class= "menu-item" style="margin-top: 10px;">
+            <a href="/profile-settings">
+                Profile
+            </a>
+        </div>
+        <div class= "menu-item">
+            <a href="/faq">
+                FAQ
+            </a>
+        </div>
+    </div>
+</div>

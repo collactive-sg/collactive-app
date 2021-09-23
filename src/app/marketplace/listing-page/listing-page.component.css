@@ -1,18 +1,18 @@
 .photo-upload {
-    height: 40vw;
-    width: 40vw;
+    height: 60vw;
+    width: 60vw;
     margin-top: 20px;
     /* darker beige */
-    margin-left: auto;
-    margin-right: auto;
     background: #EFEFEF;
     /* drop big */
     display: flex;
     justify-content: center;
     align-items: center;
-
+    margin-right: 10px;
+    margin-left: auto;
     box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    border-radius: 50%;
+
 }
 
 .loading {
@@ -30,10 +30,6 @@
     box-shadow: 0px 3px 11px -5px rgb(0 0 0 / 15%);
     border-radius: 10px;
     padding: 10px;
-}
-
-.donor-details {
-    margin-top: 10px;
 }
 
 .row-details {
@@ -78,7 +74,12 @@
     overflow-y: scroll;
     height: 85vh;
     margin-top: 10px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;
 }
+.listingInformation::-webkit-scrollbar {
+    display: none;
+  }
 .chat-button {
     background: #546684;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);

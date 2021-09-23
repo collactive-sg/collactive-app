@@ -33,7 +33,7 @@ const routes: Routes = [
   {path: 'listing/:id', component: ListingPageComponent, canActivate: [AuthGuard]},
   {path: 'listing/:id/edit', component: EditListingComponent, canActivate: [AuthGuard]},
   {path: 'new-listing', component: NewListingComponent, canActivate: [AuthGuard]},
-  {path: 'home/profile-settings', component: ProfileSettingsComponent, canActivate: [AuthGuard]},
+  {path: 'profile-settings', component: ProfileSettingsComponent, canActivate: [AuthGuard]},
   {path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]},
 ];
 

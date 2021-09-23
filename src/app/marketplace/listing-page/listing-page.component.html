@@ -8,12 +8,12 @@
     <div>
         <a *ngIf="this.listingOwnerUID === this.currentUser.uid" class="edit-button" href="listing/{{this.listingID}}/edit" >Edit</a>
         <div class="photo-upload" id="frame"></div>
-        <div class="name-header" style="margin-top:20px;" >
-            <h3 style="text-align:center;">
+        <div class="name-header" style="margin-top:-20px;" >
+            <h3 style="text-align:left;">
                 {{this.listingOwnerDetails.firstName|| ""}} {{this.listingOwnerDetails.lastName || ""}}
             </h3>
             <span *ngIf="this.listingOwnerChildren.length > 0">
-                <h5 style="text-align:center; opacity:0.6; margin-top:-5px"> 
+                <h5 style="text-align:left; opacity:0.6; margin-top:-5px"> 
                     <span *ngIf="this.listingOwnerChildren.length > 1">Mother of {{this.listingOwnerChildren.length}} beautiful children</span> 
                     <span *ngIf="this.listingOwnerChildren.length == 1">Mother of a beautiful {{this.listingOwnerChildren[0].gender == "F" ? 'daughter' : 'son'}}</span> 
                 </h5>
