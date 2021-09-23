@@ -8,6 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class TopbarComponent implements OnInit {
 
   @Input() isShowBackButton;
+  @Input() isShowMenu;
   @Input() backButtonPath;
 
   constructor() { }

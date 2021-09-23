@@ -1,4 +1,4 @@
-<app-topbar [isShowBackButton]="false"></app-topbar>
+<app-topbar [isShowBackButton]="false" [isShowMenu]="true"></app-topbar>
 <div class="container listings" *ngIf="this.currentUser !== undefined">
     <div *ngFor="let listing of this.allLiveListings" id="{{listing.listingID}}" >
         <app-listing [listing]="listing" [attr.id]="listing.ID" [currentUserID]="this.currentUser.uid" [listingID]="listing.listingID"></app-listing>
