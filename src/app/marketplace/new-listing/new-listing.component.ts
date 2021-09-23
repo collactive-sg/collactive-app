@@ -82,10 +82,16 @@ export class NewListingComponent implements OnInit {
       return;
     }
 
-    var expressedTimestamp = new Date(this.expressedDate['year'],this.expressedDate['month'],this.expressedDate['day']).getTime();
+    var expressedTimestamp = new Date(this.expressedDate['year'],this.expressedDate['month']-1,this.expressedDate['day']).getTime();
     
     if (isNaN(expressedTimestamp)) {
       window.alert("Please fill in a valid date for the date expressed");
+      document.getElementById("expressedDate").style.border = "1px solid red";
+      return;
+    }
+    
+    if (expressedTimestamp > Date.now()) {
+      window.alert("Please fill in a past date for the date expressed");
       document.getElementById("expressedDate").style.border = "1px solid red";
       return;
     }
@@ -101,8 +107,7 @@ export class NewListingComponent implements OnInit {
       typeOfMilk: this.MilkType.value,
     }
 
-    var listingID = this.listingService.addNewListing(listingData);
-    listingID.then(res => {
+    this.listingService.addNewListing(listingData).then(res => {
       this.router.navigate([`/listing/${res}`]);
     });
   }

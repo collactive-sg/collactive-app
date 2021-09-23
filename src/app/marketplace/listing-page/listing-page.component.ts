@@ -41,7 +41,6 @@ export class ListingPageComponent implements OnInit {
    .onAuthStateChanged((user) => {
      if (user) {
       this.currentUser = user;
-
        
       this.listingService.getLikedListingIDsByUserID(this.currentUser.uid).then(arr => {
         this.isLiked = arr.filter((listingID:any) => listingID === this.listingID).length !== 0 
@@ -54,19 +53,21 @@ export class ListingPageComponent implements OnInit {
       if (this.listingData == undefined) {
         this.router.navigate([`marketplace`]) 
       } else {
-        this.listingOwnerUID = res.donorID;
-        this.userDataService.getProfileImg(this.listingOwnerUID).pipe().subscribe(url => {       
-          this.showProfileImg(url);
-        });
-  
-        this.userDataService.getUserDetails(this.listingOwnerUID).then(res => {
-          this.listingOwnerDetails = res.data();
-        });
-  
-        this.listingOwnerChildren = [];
-        this.userDataService.getChildren(this.listingOwnerUID).then(collection => {
-          collection.docs.forEach(docu => this.listingOwnerChildren.push(docu.data()))
-        });
+        if (res.donorID !== undefined) {
+          this.listingOwnerUID = res.donorID;
+          this.userDataService.getProfileImg(res.donorID).pipe().subscribe(url => {       
+            this.showProfileImg(url);
+          });
+    
+          this.userDataService.getUserDetails(this.listingOwnerUID).then(res => {
+            this.listingOwnerDetails = res.data();
+          });
+    
+          this.listingOwnerChildren = [];
+          this.userDataService.getChildren(this.listingOwnerUID).then(collection => {
+            collection.docs.forEach(docu => this.listingOwnerChildren.push(docu.data()))
+          });
+        }
       }
     }) 
   }
@@ -79,13 +80,19 @@ export class ListingPageComponent implements OnInit {
 
   convertExpressedDateTimestampToDateString() {
     if (this.listingData.dateExpressed !== undefined) {
+      var dateExpressedDaysAgo = "on Invalid Date"
       if(!isNaN(this.listingData.dateExpressed)) {
-        return new Date(this.listingData.dateExpressed).toLocaleString('en-US').split(',')[0]
-      } else {
-        return "Invalid Date"
+        var diffInDays = (new Date().getTime() - this.listingData.dateExpressed) / (1000 * 3600 * 24);
+        if (diffInDays == 0) {
+          dateExpressedDaysAgo = "today";
+        } else if (diffInDays > 0) {
+          dateExpressedDaysAgo = `${Math.round(diffInDays)} days ago` 
+        } 
       }
+      return dateExpressedDaysAgo;
+      
     } else {
-      return "Unknown Date"
+      return "on Unknown Date"
     }
   }
 

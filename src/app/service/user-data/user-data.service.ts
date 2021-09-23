@@ -16,15 +16,15 @@ export class UserDataService {
   
   baseProfileImagesPath = "userProfileImages"
   
-  getProfileImg(uid: any) {
-      return this.afStorage.ref(`${this.baseProfileImagesPath}/${uid}`).getDownloadURL();
+  getProfileImg(uid: string) {
+      if (uid !== undefined) return this.afStorage.ref(`${this.baseProfileImagesPath}/${uid}`).getDownloadURL();
   }
 
-  getUserDoc(uid) {
+  getUserDoc(uid: string) {
     return this.afs.doc(`users/${uid}`).valueChanges();
   }
 
-  updateUserDoc(uid, data) {
+  updateUserDoc(uid: string, data: any) {
     this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
   }
   

@@ -17,6 +17,7 @@ export class ListingComponent implements OnInit {
   donorFirstName;
   donorProfilePhotoUrl;
   dateExpressed;
+  dateExpressedDaysAgo: string;
   isLiked = false;
 
   constructor(
@@ -36,14 +37,22 @@ export class ListingComponent implements OnInit {
         this.showProfileImg(imgUrl);
     }, err => {})
     this.dateExpressed = new Date(this.listing['dateExpressed']);
-    
+    var diffInDays = (new Date().getTime() - this.dateExpressed.getTime()) / (1000 * 3600 * 24);
+    if (diffInDays == 0) {
+      this.dateExpressedDaysAgo = "today";
+    } else if (diffInDays > 0) {
+      this.dateExpressedDaysAgo = `${Math.round(diffInDays)} days ago` 
+    } else {
+      this.dateExpressedDaysAgo = "on Invalid Date"
+    }
     this.listingService.getLikedListingIDsByUserID(this.currentUserID).then(arr => {
       this.isLiked = arr.filter((listingID:any) => listingID === this.listingID).length !== 0 
     });
   }
 
   viewUser() {
-    this.router.navigate([`/user/${this.listing.donorID}`]);
+    this.router.navigate([`/listing/${this.listingID}`]);
+    // this.router.navigate([`/user/${this.listing.donorID}`]);
   }
 
   viewListing() {
