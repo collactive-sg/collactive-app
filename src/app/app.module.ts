@@ -18,12 +18,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
 import { MarketplaceModule } from './marketplace/marketplace.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { HomeModule } from './home/home.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileSettingsComponent,
     SidebarComponent,
   ],
   imports: [
@@ -31,6 +31,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
+    HomeModule,
     SharedModule,
     MarketplaceModule,
     IndexModule,
