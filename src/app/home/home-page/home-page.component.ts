@@ -32,7 +32,7 @@ export class HomePageComponent implements OnInit {
           })
           this.listingService.getAllLiveListings().pipe().subscribe(res => {
             this.currentUserListings = res.filter(x => x["donorID"] === this.currentUser.uid);
-            var sortedRecentListings = res.sort((a, b)=> a["dateExpressed"] - b["dateExpressed"]);
+            var sortedRecentListings = res.sort((a, b)=> b["dateExpressed"] - a["dateExpressed"]);
             for (let i = 0; i < 4; i++) {
               this.recentListings.push(sortedRecentListings[i]);
             }
