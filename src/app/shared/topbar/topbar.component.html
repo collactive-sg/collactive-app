@@ -1,10 +1,13 @@
 <div class="topbar">
     <div *ngIf='isShowBackButton'>
         <a href="{{backButtonPath}}">
-            <i class="fa fa-arrow-left" style="color:black;" ></i>
+            <i class="fa fa-arrow-left" style="color:black; margin-top: 1px;" ></i>
         </a>
     </div>
+    <div *ngIf='isShowMenu'>
+        <i class="fa fa-bars" style="color:black; margin-top: 1px;" (click)="open()" ></i>
+    </div>
     <div class="logo-box">
-        <img src="assets/collactive.png" alt="COLLACTIVE" />
+        <img src="assets/collactive.png" style="height: 20px;" alt="COLLACTIVE" />
     </div>
 </div>

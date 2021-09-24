@@ -1,0 +1,60 @@
+.sidebar {
+    z-index: 99;
+    top: -10px;
+    left: -10px;
+    position: absolute;
+    background: white;
+    width: 46vw;
+    height: 101vh;
+    padding-top: 10px;
+    padding-left: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.donor-label {
+    width: 60px;
+    border: 1px solid #F38397;
+    text-align: center;
+    border-radius: 40px;
+    color: #F38397;
+}
+.photo-upload {
+    height: 30vw;
+    width: 30vw;
+    margin-top: 50px;
+    /* darker beige */
+    margin-left: auto;
+    margin-right: auto;
+    background: #EFEFEF;
+    /* drop big */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+} 
+.name {
+    text-align: center;
+    color: #5A3939;
+    margin-top: 10px;
+    font-size: 20px;
+}
+.menu-item {
+    padding: 5px;
+    border: 1px solid #FFFFFF;
+    text-align: center;
+    color: #5A3939;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+a {
+    border: 1px solid #FFFFFF;
+    color: #5A3939;
+}

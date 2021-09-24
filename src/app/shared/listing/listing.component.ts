@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 
 @Component({
@@ -16,21 +17,14 @@ export class ListingComponent implements OnInit {
   donorFirstName;
   donorProfilePhotoUrl;
   dateExpressed;
+  dateExpressedDaysAgo: string;
   isLiked = false;
 
   constructor(
     private router: Router,
     private userDataService: UserDataService,
-    // private listingService: ListingService,
+    private listingService: ListingService,
   ) { 
-      // document.getElementById("like-button").style.color = "#F38397";
-      // this.listingService.getListingDoc(this.listingID).subscribe(userDoc => {
-      //   this.dateExpressed = userDoc['dateExpressed'];
-      //   var likedUsers = userDoc['likedUsers'];
-      //   if (this.currentUserID in likedUsers) {
-      //     this.isLiked = true;
-      //   }
-      // });
       
   }
 
@@ -43,10 +37,22 @@ export class ListingComponent implements OnInit {
         this.showProfileImg(imgUrl);
     }, err => {})
     this.dateExpressed = new Date(this.listing['dateExpressed']);
+    var diffInDays = (new Date().getTime() - this.dateExpressed.getTime()) / (1000 * 3600 * 24);
+    if (diffInDays == 0) {
+      this.dateExpressedDaysAgo = "today";
+    } else if (diffInDays > 0) {
+      this.dateExpressedDaysAgo = `${Math.round(diffInDays)} days ago` 
+    } else {
+      this.dateExpressedDaysAgo = "on Invalid Date"
+    }
+    this.listingService.getLikedListingIDsByUserID(this.currentUserID).then(arr => {
+      this.isLiked = arr.filter((listingID:any) => listingID === this.listingID).length !== 0 
+    });
   }
 
   viewUser() {
-    this.router.navigate([`/user/${this.listing.donorID}`]);
+    this.router.navigate([`/listing/${this.listingID}`]);
+    // this.router.navigate([`/user/${this.listing.donorID}`]);
   }
 
   viewListing() {
@@ -55,19 +61,17 @@ export class ListingComponent implements OnInit {
 
   likeListing() {
     this.isLiked = !this.isLiked;
-    if(this.isLiked) {
-      document.getElementById(`like-button-${this.listingID}`).style.color = "#F38397";
+    if (this.isLiked) {
+      this.listingService.addLikeListing(this.currentUserID, this.listingID);
     } else {
-      document.getElementById(`like-button-${this.listingID}`).style.color = "#F9F9F9";
+      this.listingService.deleteLikeListing(this.currentUserID, this.listingID);
     }
-
-    // todo update be
   }
 
   showProfileImg(url) {
     const frame = document.getElementById(`frame-${this.listingID}`);
     frame.style.backgroundImage = `url(${url})`;
-    frame.style.backgroundSize = 'contain';
+    frame.style.backgroundSize = `cover`;
     document.getElementById(`profile-icon-${this.listingID}`).style.display = 'none';
   }
 }

@@ -5,9 +5,11 @@
     <div class="description">
         <div class="details" (click)=viewListing()>
             <div class="name">{{this.donorFirstName}}</div> 
-            <div class="date-expressed">Expressed on {{this.dateExpressed.toLocaleString('en-US').split(',')[0]}}</div>
+            <div class="date-expressed">Expressed {{this.dateExpressedDaysAgo}}</div>
         </div>
-        <i class="fa fa-heart" id="{{'like-button-' + this.listingID}}" (click)="likeListing()"></i>
+        <div *ngIf="this.currentUserID !== this.listing.donorID" >
+            <i class="fa fa-heart" id="like-button" (click)="likeListing()" [ngStyle]="{'color': this.isLiked ? '#F38397' : '#F9F9F9'}"></i>
+        </div>
     </div>
 
 </div>

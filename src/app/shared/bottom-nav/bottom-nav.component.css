@@ -1,11 +1,7 @@
-.fa {
-    padding: 10px;
-}
-
 .bottom-navbar {
     display: flex;
     justify-content: space-evenly;
-    padding: 0px;
+    padding: 10px;
     width: 100vw;
     position: absolute;
     /* max-width: 500px; */
