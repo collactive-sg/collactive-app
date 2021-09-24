@@ -1,1 +1,28 @@
-<p>home-page works!</p>
+<app-topbar [isShowBackButton]="false" [isShowMenu]="true"></app-topbar>
+
+
+
+<div class="mt-3" *ngIf="this.currentUser !== undefined && this.isDonor">
+    <h3>My postings</h3>
+    <div *ngIf="this.currentUserListings.length === 0">
+        <h6>You don't have any postings here yet. Start by creating a new post!</h6>
+    </div>
+    <div class="container listings">
+        <div *ngFor="let listing of this.currentUserListings" id="{{listing.listingID}}" >
+            <app-listing [listing]="listing" [attr.id]="listing.ID" [currentUserID]="this.currentUser.uid" [listingID]="listing.listingID"></app-listing>
+        </div>
+    </div>
+</div>
+<div class="mt-3" *ngIf="this.currentUser !== undefined && !this.isDonor">
+    <h3>New postings</h3>
+    <div *ngIf="this.currentUserListings.length === 0">
+        <h6>There are no new posts here yet.</h6>
+    </div>
+    <div class="container listings">
+        <div *ngFor="let listing of this.recentListings" id="{{listing.listingID}}" >
+            <app-listing [listing]="listing" [attr.id]="listing.ID" [currentUserID]="this.currentUser.uid" [listingID]="listing.listingID"></app-listing>
+        </div>
+    </div>
+</div>
+
+<app-bottom-nav [isDonor]="this.isDonor"></app-bottom-nav> 

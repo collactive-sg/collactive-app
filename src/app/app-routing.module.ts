@@ -2,6 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { ForgetPasswordComponent } from './index/forget-password/forget-password.component';
+import { ArticlesComponent } from './index/landing/articles/articles.component';
+import { BreastMilkSharingComponent } from './index/landing/breast-milk-sharing/breast-milk-sharing.component';
+import { DonateComponent } from './index/landing/donate/donate.component';
+import { JoinTheCommunityComponent } from './index/landing/join-the-community/join-the-community.component';
+import { ReceiveComponent } from './index/landing/receive/receive.component';
 import { LandingComponent } from './index/landing/landing.component';
 import { LoginComponent } from './index/login/login.component';
 import { MarketplaceComponent } from './marketplace/marketplace/marketplace.component';
@@ -20,6 +25,11 @@ import { EditListingComponent } from './marketplace/edit-listing/edit-listing.co
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
+  {path: 'landing/articles', component: ArticlesComponent},
+  {path: 'landing/breast-milk-sharing', component: BreastMilkSharingComponent},
+  {path: 'landing/donate', component: DonateComponent},
+  {path: 'landing/join-the-community', component: JoinTheCommunityComponent},
+  {path: 'landing/receive', component: ReceiveComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomePageComponent, canActivate: [AuthGuard]},
   {path: 'forget-password', component: ForgetPasswordComponent},
