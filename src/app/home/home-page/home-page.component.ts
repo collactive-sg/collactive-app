@@ -10,11 +10,14 @@ import { UserDataService } from 'src/app/service/user-data/user-data.service';
 })
 export class HomePageComponent implements OnInit {
 
-  recentListings = [];
-  currentUserListings = [];
   currentUser;
   currentUserData;
   isDonor;
+
+  recentListings = [];
+  currentUserListings = [];
+
+  notifications = [];
 
   constructor(
     public listingService: ListingService,

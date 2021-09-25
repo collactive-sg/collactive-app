@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from "@angular/fire/firestore"; 
 import { merge } from 'rxjs';
@@ -33,13 +34,33 @@ export class ListingService {
       dateLiked: Date.now()
     }).then(res => {
       this.afs.collection('likes_listings').doc(res.id).set({likeListingID:res.id} , {merge:true});
+    }).then(() => {
+      this.getListingByID(listingID).subscribe(res => {
+        this.afs.collection(`notifications`).add({
+          listingID: listingID,
+          sender_userID: userID,
+          receiver_userID: res["donorID"],
+          createdAt: Date.now(),
+          read: false,
+          type: "like"
+        }).then(res => {
+          this.afs.collection('notifications').doc(res.id).set({notificationID:res.id} , {merge:true});
+        })
+      })
     })
   }
 
   deleteLikeListing(userID, listingID) {
-    return this.afs.collection(`likes_listings`).ref.where("userID", "==", userID).where("listingID", "==", listingID).get().then(res => {
+    return this.afs.collection(`likes_listings`).ref.where("userID", "==", userID).where("listingID", "==", listingID).get()
+    .then(res => {
       res.forEach( res => {
         this.afs.collection(`likes_listings`).doc(`${res.id}`).delete();
+      })
+    }).then(() => {
+      return this.afs.collection(`notifications`).ref.where("sender_userID", "==", userID).where("listingID", "==", listingID).get()
+    }).then(res => { 
+      res.forEach( res => { 
+        this.afs.collection(`notifications`).doc(`${res.id}`).delete(); 
       })
     })
   }
@@ -51,8 +72,13 @@ export class ListingService {
   }
 
   deleteListing(listingID:string) {
-    return this.afs.collection('listings').doc(`${listingID}`).delete();
-
+    return this.afs.collection('listings').doc(`${listingID}`).delete().then(() => {
+      return this.afs.collection('notifications').ref.where("listingID", "==", listingID).get()
+    }).then(res => {
+      res.forEach( res => {
+        this.afs.collection(`notifications`).doc(`${res.id}`).delete(); 
+      })
+    });
   }
   
   editlisting(listingData:any, listingID:string ) {
