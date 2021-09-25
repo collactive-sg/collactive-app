@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
+import { NotificationsService } from 'src/app/service/notif/notifications.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 
 @Component({
@@ -23,6 +24,7 @@ export class HomePageComponent implements OnInit {
     public listingService: ListingService,
     private auth: AuthService,
     private userDataService: UserDataService,
+    private notificationService: NotificationsService,
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,11 @@ export class HomePageComponent implements OnInit {
             for (let i = 0; i < 4; i++) {
               this.recentListings.push(sortedRecentListings[i]);
             }
+          });
+          this.notificationService.getNotificationsByUserID(this.currentUser.uid).then(res => {
+            res.forEach(notif => {
+              this.notifications.push(notif);
+            })
           });
         }
       });
