@@ -1,7 +1,6 @@
-import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from "@angular/fire/firestore"; 
-import { merge } from 'rxjs';
+import { NotificationsService } from '../notif/notifications.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,8 @@ import { merge } from 'rxjs';
 export class ListingService {
 
   constructor(
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private notificationsService: NotificationsService
   ) { }
 
   getAllLiveListings() {
@@ -35,18 +35,9 @@ export class ListingService {
     }).then(res => {
       this.afs.collection('likes_listings').doc(res.id).set({likeListingID:res.id} , {merge:true});
     }).then(() => {
-      this.getListingByID(listingID).subscribe(res => {
-        this.afs.collection(`notifications`).add({
-          listingID: listingID,
-          sender_userID: userID,
-          receiver_userID: res["donorID"],
-          createdAt: Date.now(),
-          read: false,
-          type: "like"
-        }).then(res => {
-          this.afs.collection('notifications').doc(res.id).set({notificationID:res.id} , {merge:true});
+        return this.getListingByID(listingID).subscribe(res => { 
+          this.notificationsService.createLikeNotification(listingID, userID, res);
         })
-      })
     })
   }
 
@@ -57,11 +48,7 @@ export class ListingService {
         this.afs.collection(`likes_listings`).doc(`${res.id}`).delete();
       })
     }).then(() => {
-      return this.afs.collection(`notifications`).ref.where("sender_userID", "==", userID).where("listingID", "==", listingID).get()
-    }).then(res => { 
-      res.forEach( res => { 
-        this.afs.collection(`notifications`).doc(`${res.id}`).delete(); 
-      })
+      return this.notificationsService.deleteLikeNotification(listingID, userID);
     })
   }
 
