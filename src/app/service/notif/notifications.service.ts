@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { merge } from 'rxjs';
 import { UserDataService } from '../user-data/user-data.service';
 
 @Injectable({
@@ -14,6 +15,10 @@ export class NotificationsService {
 
   getNotificationsByUserID(userID) {
     return this.afs.collection('notifications').ref.where("receiver_userID", "==", userID).get();
+  }
+
+  readNotification(notifId) {
+    return this.afs.collection('notifications').doc(`${notifId}`).set({"read": true}, {merge:true})
   }
 
   createLikeNotification(listingID, userID, post) {
