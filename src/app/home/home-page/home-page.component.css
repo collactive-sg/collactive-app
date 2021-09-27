@@ -2,8 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    height: 95%;
     overflow-y: scroll;
-    height: 85vh;
+    height: 62vh;
     margin-top: 10px;
 }
