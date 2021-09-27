@@ -5,12 +5,15 @@
     <div *ngIf="this.notifications.length === 0">
         <h6>There are no new notifications here.</h6>
     </div>
-    <div *ngFor="let notif of this.notifications">
-        <!-- <div>
-            <card>
-                {{notif.sender_userID liked your post}}
-            </card>
-        </div> -->
+    <div *ngFor="let notification of this.notifications">
+        <app-notification-box 
+            [senderFirstName]='notification.sender_firstname'
+            [senderLastName]='notification.sender_lastname'
+            [type]="notification.type"
+            [listingID]="notification.listingID"
+            [notificationID]="notification.notificationID"
+            [dateOfNotification]="notification.createdAt"
+        ></app-notification-box>
     </div>
     <div class="mt-5">
         <h3>My postings</h3>

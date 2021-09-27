@@ -1,0 +1,19 @@
+<div class="notification-box" (click)="this.goToNotification()">
+    <div class="notification-icon">
+        <span *ngIf="this.type === 'like'">
+            <i class="fa fa-heart"></i>
+        </span>
+
+    </div>
+    <div class="notification-message">
+        <span class="sender-name">
+            {{this.senderFirstName}} {{this.senderLastName}} 
+        </span>
+        <span class="notification-type">
+            <span *ngIf="this.type === 'like'"> liked your listing</span>
+        </span>
+        <span class="notification-date">
+            {{this.convertNotificationTimeToString()}}
+        </span>
+    </div>
+</div>
