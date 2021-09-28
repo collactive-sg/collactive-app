@@ -6,12 +6,14 @@
 
     </div>
     <div class="notification-message">
-        <span class="sender-name">
-            {{this.senderFirstName}} {{this.senderLastName}} 
-        </span>
-        <span class="notification-type">
-            <span *ngIf="this.type === 'like'"> liked your listing</span>
-        </span>
+        <div class="main-message">
+            <span class="sender-name">
+                {{this.senderFirstName}} {{this.senderLastName}} 
+            </span>
+            <span class="notification-type">
+                <span *ngIf="this.type === 'like'"> liked your listing</span>
+            </span>
+        </div>
         <span class="notification-date">
             {{this.convertNotificationTimeToString()}}
         </span>

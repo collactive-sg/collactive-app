@@ -1,3 +1,30 @@
 .notification-box {
-    
+    background: #F9F9F9;
+    box-shadow: 3px 4px 6px 2px rgb(0 0 0 / 3%);
+    border-radius: 7px;
+    border-left: 5px solid #F38397;
+    display: flex;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.notification-icon {
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification-message {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-date {
+    font-size: 11px;
+}
+
+.fa.fa-heart {
+    color: #F9F9F9;
+    text-shadow: -1px -1px 0 #546684, 1px -1px 0 #546684, -1px 1px 0 #546684, 1px 1px 0 #546684;
 }

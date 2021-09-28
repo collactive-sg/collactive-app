@@ -44,8 +44,9 @@ export class HomePageComponent implements OnInit {
           });
           this.notificationService.getNotificationsByUserID(this.currentUser.uid).then(res => {
             res.forEach(notif => {
-              this.notifications.push(notif.data());
+              if (!notif.data()['read']) this.notifications.push(notif.data());
             })
+            
           });
         }
       });

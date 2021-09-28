@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
       this.auth.login(this.LoginEmail.value, this.LoginPassword.value).then(res => {
         if (res.user) {
           this.loginErrorMessage = "";
-          this.router.navigate(['/marketplace']);
+          this.router.navigate(['/home']);
         }
       }).catch(err => {
         if (err.code == "auth/user-not-found") {

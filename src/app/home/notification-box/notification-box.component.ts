@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NotificationsService } from 'src/app/service/notif/notifications.service';
 
 @Component({
   selector: 'app-notification-box',
@@ -17,7 +18,8 @@ export class NotificationBoxComponent implements OnInit {
 
 
   constructor(
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationsService,
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +37,7 @@ export class NotificationBoxComponent implements OnInit {
 
   goToNotification() {
     this.router.navigate([`listing/${this.listingID}`])
+    this.notificationService.readNotification(this.notificationID);
   }
 
 }
