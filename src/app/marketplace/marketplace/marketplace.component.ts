@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
+import { SortFilterPageComponent } from '../sort-filter-page/sort-filter-page.component';
 
 @Component({
   selector: 'app-marketplace',
@@ -19,6 +21,7 @@ export class MarketplaceComponent implements OnInit {
     public listingService: ListingService,
     private auth: AuthService,
     private userDataService: UserDataService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -35,4 +38,7 @@ export class MarketplaceComponent implements OnInit {
       });
   }
 
+  openFilterPage() {
+    this.modalService.open(SortFilterPageComponent);
+  }
 }

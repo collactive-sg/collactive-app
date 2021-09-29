@@ -6,3 +6,10 @@
     height: 85vh;
     margin-top: 10px;
 }
+
+.marketplace-header {
+    margin-top: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
