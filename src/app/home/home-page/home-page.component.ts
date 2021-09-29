@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { NotificationsService } from 'src/app/service/notif/notifications.service';
@@ -25,6 +26,7 @@ export class HomePageComponent implements OnInit {
     private auth: AuthService,
     private userDataService: UserDataService,
     private notificationService: NotificationsService,
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -50,6 +52,10 @@ export class HomePageComponent implements OnInit {
           });
         }
       });
+  }
+
+  goToNotificationPage() {
+    return this.router.navigate(['home/notifications'])
   }
 
 }

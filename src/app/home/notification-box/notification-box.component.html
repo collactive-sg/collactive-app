@@ -1,4 +1,4 @@
-<div class="notification-box" (click)="this.goToNotification()">
+<div class="notification-box" (click)="this.goToNotification()" [ngStyle]="{ 'background': this.isRead? '#FFFFFF' : '#F4F4F4'}" >
     <div class="notification-icon">
         <span *ngIf="this.type === 'like'">
             <i class="fa fa-heart"></i>

@@ -15,6 +15,7 @@ export class NotificationBoxComponent implements OnInit {
   @Input() dateOfNotification:number;
   @Input() notificationID:string;
   @Input() listingID;
+  @Input() isRead;
 
 
   constructor(
@@ -31,7 +32,7 @@ export class NotificationBoxComponent implements OnInit {
     } else if ((((new Date().getTime() - this.dateOfNotification)/1000)/3600) < 25) {
       return `${Math.round(((new Date().getTime() - this.dateOfNotification)/1000)/3600)} hours ago`
     } else {
-      return `${Math.round(((new Date().getTime() - this.dateOfNotification)/1000)/3600 * 24)} hours ago`
+      return `${Math.round((((new Date().getTime() - this.dateOfNotification)/1000)/3600)/24)} days ago`
     }
   }
 

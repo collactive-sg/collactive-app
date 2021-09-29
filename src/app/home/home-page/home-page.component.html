@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="mt-1" *ngIf="this.isDonor">
-        <div style="font-size: 18px;">Notifications on my listings</div>
+        <div style="font-size: 18px;">Notifications on my listings</div> 
         <div *ngIf="this.notifications.length === 0">
             <div style="font-size: 14px; text-align:center;">There are no new notifications here.</div>
         </div>
@@ -21,9 +21,11 @@
                     [listingID]="notification.listingID"
                     [notificationID]="notification.notificationID"
                     [dateOfNotification]="notification.createdAt"
+                    [isRead]="notification.read"
                 ></app-notification-box>
             </div>
         </div>
+        <div style="text-decoration: underline; text-align: center; font-size: small;" (click)="this.goToNotificationPage()">See all</div>
         <div class="mt-1">
           <div style="font-size: 18px;">My postings</div>
             <div *ngIf="this.currentUserListings.length === 0">

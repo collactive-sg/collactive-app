@@ -6,11 +6,12 @@ import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationBoxComponent } from './notification-box/notification-box.component';
+import { NotificationsPageComponent } from './notifications-page/notifications-page.component';
 
 
 
 @NgModule({
-  declarations: [ProfileSettingsComponent, HomePageComponent, NotificationBoxComponent],
+  declarations: [ProfileSettingsComponent, HomePageComponent, NotificationBoxComponent, NotificationsPageComponent],
   imports: [
     CommonModule,
     SharedModule,

@@ -14,7 +14,7 @@ export class NotificationsService {
   ) { }
 
   getNotificationsByUserID(userID) {
-    return this.afs.collection('notifications').ref.where("receiver_userID", "==", userID).get();
+    return this.afs.collection('notifications').ref.where("receiver_userID", "==", userID).orderBy('createdAt', 'desc').get();
   }
 
   readNotification(notifId) {
