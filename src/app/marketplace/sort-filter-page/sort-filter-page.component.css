@@ -1,0 +1,33 @@
+.sort-filter-page {
+    padding: 1rem;
+    height: 97vh;
+
+}
+
+.top-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.done-btn {
+    text-decoration: underline;
+}
+
+.sort-section {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sort-factor {
+    padding: 0.3rem;
+    border: 1.5px solid #3B485F;
+    box-sizing: border-box;
+    border-radius: 40px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.sort {
+    margin-top: 10px;
+}
