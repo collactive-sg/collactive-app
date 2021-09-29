@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { AuthService } from '../service/auth/auth.service';
-import { UserDataService } from '../service/user-data/user-data.service';
+import { AuthService } from '../../service/auth/auth.service';
+import { UserDataService } from '../../service/user-data/user-data.service';
 
 @Component({
   selector: 'app-sidebar',
