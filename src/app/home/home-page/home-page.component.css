@@ -3,7 +3,11 @@
     flex-wrap: wrap;
     justify-content: space-between;
     overflow-y: scroll;
+<<<<<<< HEAD
     height: 51vh;
+=======
+    height: 62vh;
+>>>>>>> stable
     margin-top: 10px;
 }
 .notifications {

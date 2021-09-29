@@ -37,6 +37,10 @@ export class SidebarComponent implements OnInit {
       });
   }
 
+  close() {
+    this.activeModal.close();
+  }
+
   showProfileImg(url) {
     const frame = document.getElementById('frame');
     frame.style.backgroundImage = `url(${url})`;

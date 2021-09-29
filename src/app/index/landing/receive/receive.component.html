@@ -1,8 +1,6 @@
 <div>
-    <div class="header-container">
-        <img src="assets/collactive.png" style="height: 1.5rem;" alt="COLLACTIVE"/>
-        <h6 class="skip-option" (click)="onSkipButtonClick()">Skip</h6>
-    </div>
+    <app-topbar [isShowBackButton]="true" [backButtonPath]="'/landing/receive'"></app-topbar>
+    <div class="skip-button" (click)="onSkipButtonClick()">Skip</div>
     <div class="img-container">
         <img src="assets/receive.png" style="height: 15rem;" alt="receive"/>
     </div>
