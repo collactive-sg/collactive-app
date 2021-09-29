@@ -38,7 +38,7 @@
 } 
 .name {
     text-align: center;
-    color: #5A3939;
+    color: #3B485F;
     margin-top: 10px;
     font-size: 20px;
 }
@@ -46,7 +46,7 @@
     padding: 5px;
     border: 1px solid #FFFFFF;
     text-align: center;
-    color: #5A3939;
+    color: #3B485F;
 }
 
 .close {
@@ -56,5 +56,5 @@
 }
 a {
     border: 1px solid #FFFFFF;
-    color: #5A3939;
+    color: #3B485F;
 }

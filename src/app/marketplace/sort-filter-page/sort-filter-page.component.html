@@ -4,7 +4,7 @@
         <span class="done-btn" (click)="this.applyFilter()">Done</span>
     </div>
 
-    <div class="sort">
+    <div class="section">
         <span style="font-size: 20px; text-decoration: underline;">Sort By:</span>
         <div class="sort-section">
             <div class="sort-factor" id="date-expressed-sort" (click)="this.addDateExpressedFilter()">
@@ -15,6 +15,63 @@
             </div>
         </div>
     </div>
+
+    <div class="section">
+        <span style="font-size: 20px; text-decoration: underline;">Filter:</span>
+        
+        <form class="form-inline" [formGroup]="this.filterForm">
+            <div class="filter-section">
+                <span>Type of Milk</span>
+                <div id="milk-type-choices">
+                    <div class="form-check form-check-inline" id="fresh-choice">
+                        <input formControlName="milkType" class="form-check-input" type="radio" name="milkType" id="fresh" value='Fresh'>
+                        <label class="form-check-label" for="female">Fresh</label>
+                    </div>
+                    <div class="form-check form-check-inline" id="frozen-choice">
+                        <input formControlName="milkType" class="form-check-input" type="radio" name="milkType" id="frozen" value='Frozen'>
+                    <label class="form-check-label" for="male">Frozen</label>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+            <div class="filter-section">
+                <div>Donor's Diet</div>
+                <div style="display: flex; flex-wrap: wrap;">
+                    <div class="list-group-item" *ngFor="let restriction of this.dietaryRestrictions">
+                        {{restriction.name}}
+                        <input class="form-check-input pull-right" [(ngModel)]="restriction.checked"
+                        type="checkbox" value="true" id="flexCheckDefault">
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="filter-section">
+                <form class="form-inline" [formGroup]="this.filterForm">
+                    <span>Donor's Baby Age</span>
+                    <div class="donor-baby-age">
+                        <div class="form-check form-check-inline donor-baby-age-choice" id="one-month-choice">
+                            <input formControlName="donorBabyAge" class="form-check-input" type="radio"  id="one-month" >
+                            <label class="form-check-label" > &lt; 1 month </label>
+                        </div>
+                        <div class="form-check form-check-inline donor-baby-age-choice" id="six-month-choice">
+                            <input formControlName="donorBabyAge" class="form-check-input" type="radio" id="six-month" >
+                            <label class="form-check-label" >&lt; 6 months </label>
+                        </div>
+                        <div class="form-check form-check-inline donor-baby-age-choice" id="three-month-choice">
+                            <input formControlName="donorBabyAge" class="form-check-input" type="radio" id="three-month" >
+                            <label class="form-check-label" >&lt; 3 months </label>
+                        </div>
+                        <div class="form-check form-check-inline donor-baby-age-choice" id="more-six-month-choice">
+                            <input formControlName="donorBabyAge" class="form-check-input" type="radio" id="more-six-month" >
+                            <label class="form-check-label" >&gt; 6 months </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
 
     <div class="filter-section">
 

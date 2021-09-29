@@ -28,6 +28,68 @@
     margin-top: 10px;
 }
 
-.sort {
+.section {
     margin-top: 10px;
+}
+
+#milk-type-choices {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.25rem;
+}
+
+#frozen-choice {
+    margin-right: 4rem;
+}
+
+.form-check-input {
+    margin: 5px;
+    width: 1.25em;
+    height: 1.25em;
+    background: #F1ECE9;
+    border-color: #F1ECE9;
+    color: black;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.form-check {
+    padding-left: 0px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+}
+
+.form-check-input:checked[type=checkbox] {
+    background-image: url('../../../assets/check-solid.svg');
+    opacity: 0.4;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.list-group-item {
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    font-size: 14px;
+}
+
+.filter-section {
+    margin-top: 1rem;
+}
+
+.donor-baby-age {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0.25rem;
+}
+
+.donor-baby-age-choice {
+    width: 130px;
+    display: flex;
+    align-items: center;
 }
