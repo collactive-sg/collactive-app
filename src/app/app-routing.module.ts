@@ -22,6 +22,7 @@ import { NewListingComponent } from './marketplace/new-listing/new-listing.compo
 import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { EditListingComponent } from './marketplace/edit-listing/edit-listing.component';
+import { NotificationsPageComponent } from './home/notifications-page/notifications-page.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'landing/receive', component: ReceiveComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home', component: HomePageComponent, canActivate: [AuthGuard]},
+  {path: 'home/notifications', component: NotificationsPageComponent, canActivate: [AuthGuard]},
   {path: 'forget-password', component: ForgetPasswordComponent},
   {path: 'profile-setup/type-setup', component: TypeSetupComponent, canActivate: [AuthGuard]},
   {path: 'profile-setup/basic-details', component: BasicDetailsComponent, canActivate: [AuthGuard]},

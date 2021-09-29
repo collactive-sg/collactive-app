@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { NotificationsService } from 'src/app/service/notif/notifications.service';
@@ -25,6 +26,7 @@ export class HomePageComponent implements OnInit {
     private auth: AuthService,
     private userDataService: UserDataService,
     private notificationService: NotificationsService,
+    public router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -44,11 +46,16 @@ export class HomePageComponent implements OnInit {
           });
           this.notificationService.getNotificationsByUserID(this.currentUser.uid).then(res => {
             res.forEach(notif => {
-              this.notifications.push(notif);
+              if (!notif.data()['read']) this.notifications.push(notif.data());
             })
+            
           });
         }
       });
+  }
+
+  goToNotificationPage() {
+    return this.router.navigate(['home/notifications'])
   }
 
 }

@@ -38,7 +38,7 @@ import { HomeModule } from './home/home.module';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

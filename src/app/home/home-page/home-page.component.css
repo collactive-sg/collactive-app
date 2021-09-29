@@ -3,6 +3,27 @@
     flex-wrap: wrap;
     justify-content: space-between;
     overflow-y: scroll;
+<<<<<<< HEAD
+    height: 51vh;
+=======
     height: 62vh;
+>>>>>>> stable
     margin-top: 10px;
+}
+.notifications {
+    overflow-y: scroll;
+    max-height: 18vh;
+}
+.donor-label {
+    width: 60px;
+    border: 1px solid #F38397;
+    text-align: center;
+    border-radius: 40px;
+    font-size: small;
+    color: #F38397;
+}
+.welcome-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center ;
 }
