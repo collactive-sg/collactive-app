@@ -5,12 +5,15 @@
     margin-top: 2rem;
 }
 
-.skip-option {
-    float: right;
-    height: 1.5rem;
-    margin-top: 0.7rem;
+.skip-button {
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: right;
+    top: 28px;
+    left: 80vw;
+    position: absolute;
+    color: #5A3939;
 }
-
 .img-container {
     display: flex;
     justify-content: center;
