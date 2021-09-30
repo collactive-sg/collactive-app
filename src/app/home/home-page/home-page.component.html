@@ -2,15 +2,15 @@
 <div *ngIf="this.currentUser !== undefined && this.currentUserData !== undefined">
 
     <div class="welcome-header">
-        <div class="mt-1" style="font-size: 22px;">Hello {{currentUserData.firstName}} {{currentUserData.lastName}},</div>
+        <div class="mt-1" style="font-size: 22px;">Hello, {{currentUserData.firstName}} {{currentUserData.lastName}}.</div>
         <div class="donor-label" *ngIf="this.isDonor">
             Donor
         </div>
     </div>
     <div class="mt-1" *ngIf="this.isDonor">
-        <div style="font-size: 18px;">Notifications on my listings</div> 
+        <div style="font-size: 18px;">Notifications</div> 
         <div *ngIf="this.notifications.length === 0">
-            <div style="font-size: 14px; text-align:center;">There are no new notifications here.</div>
+            <div style="font-size: 14px; text-align:center;">No new notifications.</div>
         </div>
         <div class="notifications">
             <div  *ngFor="let notification of this.notifications">

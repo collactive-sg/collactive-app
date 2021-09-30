@@ -57,10 +57,10 @@
 }
 
 .btn.btn-primary {
-    background-color: #8090D9;
+    background-color: #546684;
     width: 165px;
     height: 36px;
-    border-color: #8090D9;
+    border-color: #546684;
     border-radius: 42px;
     margin-right: auto;
     margin-left: auto;
@@ -71,11 +71,10 @@
 }
 
 .other-signin-btn {
-    background: #FDF9F6;
     width: 70%;
     height: 36px;
-    background: #FDF9F6;
-    border: 2px solid #DDBBB1;
+    background: #F9F9F9;
+    border: 1px solid #546684;
     box-sizing: border-box;
     border-radius: 10px;
     margin-bottom: 20px;

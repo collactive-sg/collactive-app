@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TopbarComponent } from './topbar/topbar.component';
 import { ListingComponent } from './listing/listing.component';
 import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
     TopbarComponent,
     ListingComponent,
     BottomNavComponent,
+    SidebarComponent
   ],
   imports: [
     CommonModule
@@ -17,7 +19,8 @@ import { BottomNavComponent } from './bottom-nav/bottom-nav.component';
   exports: [
     TopbarComponent,
     BottomNavComponent,
-    ListingComponent
+    ListingComponent,
+    SidebarComponent
   ]
 })
 export class SharedModule { }

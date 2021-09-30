@@ -17,14 +17,12 @@ import { IndexModule } from './index/index.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileSettingsComponent } from './home/profile-settings/profile-settings.component';
 import { MarketplaceModule } from './marketplace/marketplace.module';
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { HomeModule } from './home/home.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,
   ],
   imports: [
     BrowserModule,
