@@ -1,7 +1,7 @@
 .sort-filter-page {
     padding: 1rem;
     height: 97vh;
-
+    overflow-y: scroll;
 }
 
 .top-icons {
@@ -78,6 +78,46 @@
     font-size: 14px;
 }
 
+.toggle-button {
+    width: 30%;
+    height: 36px;
+    background: #fff;
+    border-radius: 40px;
+    flex-direction: row;
+    display: flex;
+}
+
+
+.yes-button {
+    width: 50%;
+    height: 36px;
+    background: #fff;
+    border-radius: 40px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    color: #9896AF;
+    ;
+}
+
+#health-supplements {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.no-button {
+    width: 50%;
+    height: 36px;
+    color: #FFFFFF;
+    border-radius: 40px;
+    background: #546684;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
 .filter-section {
     margin-top: 1rem;
 }
@@ -85,11 +125,11 @@
 .donor-baby-age {
     display: flex;
     flex-wrap: wrap;
-    padding: 0.25rem;
 }
 
 .donor-baby-age-choice {
     width: 130px;
     display: flex;
     align-items: center;
+    padding: 0.5rem 0rem;
 }

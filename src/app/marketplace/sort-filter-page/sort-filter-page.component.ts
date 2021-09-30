@@ -25,19 +25,21 @@ export class SortFilterPageComponent implements OnInit {
     // { name: "Health supplements", checked: false }
   ]
 
+  isOnHealthSupplements = false;
+
   constructor(
     public activeModal: NgbActiveModal,
     ) { }
 
   ngOnInit(): void {
     this.filterForm = new FormGroup({
-      milkType: new FormControl('', Validators.required),
+      milkType: new FormControl(''),
       // healthSupplements: new FormControl("", Validators.required),
-      donorBabyAge: new FormControl("", Validators.required)
+      donorBabyAge: new FormControl('')
     });
   }
 
-  addDatePostedFilter() {
+  addDatePostedSort() {
     this.isDatePostedSortSelected = !this.isDatePostedSortSelected;
     if (this.isDatePostedSortSelected) {
       document.getElementById("date-posted-sort").style.background = "#3B485F"
@@ -48,7 +50,7 @@ export class SortFilterPageComponent implements OnInit {
     }
   }
 
-  addDateExpressedFilter() {
+  addDateExpressedSort() {
     this.isDateExpressedSortSelected = !this.isDateExpressedSortSelected;
     if (this.isDateExpressedSortSelected) {
       document.getElementById("date-expressed-sort").style.background = "#3B485F"
@@ -59,10 +61,30 @@ export class SortFilterPageComponent implements OnInit {
     }
   }
 
+  addHealthSupplementsFilterYes() {
+    this.isOnHealthSupplements = true;
+    document.getElementById("yes-button").style.background = "#3B485F"
+    document.getElementById("no-button").style.background = "#fff"
+    document.getElementById("yes-button").style.color = "#FFFFFF"
+    document.getElementById("no-button").style.color = "#9896AF"
+    
+  }
+  addHealthSupplementsFilterNo() {
+    this.isOnHealthSupplements = false;
+    document.getElementById("no-button").style.background = "#3B485F"
+    document.getElementById("yes-button").style.background = "#fff"
+    document.getElementById("no-button").style.color = "#FFFFFF"
+    document.getElementById("yes-button").style.color = "#9896AF"
+  }
+
+
+  get MilkType() { return this.filterForm.get('milkType') }
+  get DonorBabyAge() { return this.filterForm.get('donorBabyAge') }
+  
+
   applyFilter() {
     this.activeModal.close();
   }
-
 
   close() {
     this.activeModal.close();

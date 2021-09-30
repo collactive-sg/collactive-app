@@ -7,10 +7,10 @@
     <div class="section">
         <span style="font-size: 20px; text-decoration: underline;">Sort By:</span>
         <div class="sort-section">
-            <div class="sort-factor" id="date-expressed-sort" (click)="this.addDateExpressedFilter()">
+            <div class="sort-factor" id="date-expressed-sort" (click)="this.addDateExpressedSort()">
                 Date Expressed
             </div>
-            <div class="sort-factor" id="date-posted-sort" (click)="this.addDatePostedFilter()">
+            <div class="sort-factor" id="date-posted-sort" (click)="this.addDatePostedSort()">
                 Date Posted
             </div>
         </div>
@@ -46,6 +46,17 @@
                 </div>
             </div>
 
+            <div class="filter-section" id="health-supplements">
+                <div>Health Supplements</div>
+                <div class="toggle-button">
+                    <div class="yes-button" id="yes-button" (click)="addHealthSupplementsFilterYes()">
+                        Yes
+                    </div>
+                    <div class="no-button" id="no-button"  (click)="addHealthSupplementsFilterNo()">
+                        No
+                    </div>
+                </div>
+            </div>
             
             <div class="filter-section">
                 <form class="form-inline" [formGroup]="this.filterForm">
