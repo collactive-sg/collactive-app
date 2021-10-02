@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { AuthService } from '../../service/auth/auth.service';
 import { UserDataService } from '../../service/user-data/user-data.service';
 
@@ -8,16 +10,19 @@ import { UserDataService } from '../../service/user-data/user-data.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
   currentUser:any;
   currUserFullName:string;
   isDonor:boolean;
+  subscriptions:Subscription[] = [];
   
   constructor(
     public activeModal: NgbActiveModal,
     private auth: AuthService,
-    private userDataService: UserDataService) { 
-      
+    private userDataService: UserDataService,
+    private router: Router,
+    ) { 
+    
     }
 
   ngOnInit(): void {
@@ -26,9 +31,10 @@ export class SidebarComponent implements OnInit {
         if (user) {
          this.currentUser = user;
         }
-        this.userDataService.getProfileImg(this.currentUser.uid).pipe().subscribe(url => {       
-          this.showProfileImg(url);
-        });
+        this.subscriptions.push(this.userDataService.getProfileImg(this.currentUser.uid).pipe().subscribe(
+          url => this.showProfileImg(url),
+          err => this.close()
+        ))
         this.userDataService.getUserDetails(this.currentUser.uid).then((res:any) => {
           var user = res.data()
           this.currUserFullName = user.firstName + " " + user.lastName;
@@ -41,10 +47,22 @@ export class SidebarComponent implements OnInit {
     this.activeModal.close();
   }
 
-  showProfileImg(url) {
-    const frame = document.getElementById('frame');
-    frame.style.backgroundImage = `url(${url})`;
-    frame.style.backgroundSize = `cover`;
+  logout() {
+    this.activeModal.close();
+    this.auth.logout().then( () => {
+      this.router.navigate(['login'])
+    })
   }
 
+  showProfileImg(url) {
+      const frame = document.getElementById('frame');
+      if (frame !== null) {
+        frame.style.backgroundImage = `url(${url})`;
+        frame.style.backgroundSize = `cover`;
+      }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
 }
