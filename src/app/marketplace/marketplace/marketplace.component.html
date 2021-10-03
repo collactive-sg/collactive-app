@@ -4,7 +4,10 @@
     <i class="fa fa-filter" (click)="this.openFilterPage()"></i>
 </div>
 <div class="container listings" *ngIf="this.currentUser !== undefined">
-    <div *ngFor="let listing of this.allLiveListings" id="{{listing.listingID}}" >
+    <div class="mt-3" *ngIf="this.liveListings !== undefined && this.liveListings.length === 0">
+        <h6>Sorry, there are no listings that match your filters yet.</h6>
+    </div>
+    <div *ngFor="let listing of this.liveListings" id="{{listing.listingID}}" >
         <app-listing [listing]="listing" [attr.id]="listing.ID" [currentUserID]="this.currentUser.uid" [listingID]="listing.listingID"></app-listing>
     </div>
 </div>
