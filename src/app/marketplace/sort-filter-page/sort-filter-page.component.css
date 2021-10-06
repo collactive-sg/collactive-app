@@ -2,10 +2,6 @@
     overflow-y: scroll;
 }
 
-.done-btn {
-    text-decoration: underline;
-}
-
 .sort-section {
     display: flex;
     flex-wrap: wrap;
