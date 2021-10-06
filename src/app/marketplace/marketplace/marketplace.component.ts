@@ -66,7 +66,7 @@ export class MarketplaceComponent implements OnInit {
   }
 
   openFilterPage() {
-    console.log(this.isDatePostedSortSelected)
+
     this.showFilterPage = true;
   }
 
@@ -116,7 +116,7 @@ export class MarketplaceComponent implements OnInit {
       .then(res => {
                   
         res.forEach(x => x.data()["userID"] !== undefined? matchedDonorIDArray.push(x.data()["userID"]): null);
-        console.log(matchedDonorIDArray)
+
         this.liveListings = this.liveListings.filter(x => matchedDonorIDArray.includes(x["donorID"]));
         
         // filter by date expressed
@@ -148,7 +148,6 @@ export class MarketplaceComponent implements OnInit {
           }
           this.userDataService.getAllChildren().then(
             res => {
-              console.log(res)
               res.forEach(x => {
                 let day = x.data()["dateOfBirth"]["day"]
                 let month = x.data()["dateOfBirth"]["month"]

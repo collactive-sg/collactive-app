@@ -61,6 +61,11 @@
     margin-right: 10px;
 }
 
+.form-check-input:checked[type=radio] {
+    background-image: url('../../../assets/circle-solid.svg');
+    opacity: 0.4;
+}
+
 .list-group-item {
     width: 150px;
     display: flex;

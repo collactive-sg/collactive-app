@@ -16,6 +16,10 @@
 
 
 
+.done-btn {
+    text-decoration: underline;
+}
+
 .top-icons {
     display: flex;
     justify-content: space-between;

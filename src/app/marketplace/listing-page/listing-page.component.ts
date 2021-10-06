@@ -119,7 +119,7 @@ export class ListingPageComponent implements OnInit {
   }
 
   getListingOwnerChilAllergies(child:any[]) {
-    console.log(child)
+
     return child.filter(ele => ele.checked).map(ele=>ele.name)
   }
 
