@@ -1,13 +1,5 @@
 .sort-filter-page {
-    padding: 1rem;
-    height: 97vh;
     overflow-y: scroll;
-}
-
-.top-icons {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 .done-btn {
