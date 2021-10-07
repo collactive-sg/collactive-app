@@ -89,13 +89,14 @@ export class ProfileSettingsComponent implements OnInit {
           this.lastName = userDoc['lastName'];
           
           if (userDoc['dateOfBirth'] !== undefined) {
-            this.dobString = userDoc['dateOfBirth'];
-            let dobArr = this.dobString.split('-');
+            let dobDate = new Date(userDoc['dateOfBirth'])
             this.dateOfBirth = {
-              day: parseInt(dobArr[0]),
-              month: parseInt(dobArr[1]),
-              year: parseInt(dobArr[2]),
+              day: dobDate.getDate(),
+              month: dobDate.getMonth(),
+              year: dobDate.getFullYear(),
             }
+            this.dobString = `${this.dateOfBirth['day']}-${this.dateOfBirth['month']}-${this.dateOfBirth['year']}`;
+
           }
           if (userDoc['areaOfResidency'] !== undefined) {
             this.areaOfResidency = this.areasOptions.indexOf(userDoc['areaOfResidency']) >= 0
@@ -133,18 +134,32 @@ export class ProfileSettingsComponent implements OnInit {
   // get DateOfBirth() { return this.basicDetailsForm.get('dateOfBirth') }
 
   onDoneButtonClick() {
-    let dobStr = `${this.dateOfBirth.day}-${this.dateOfBirth.month}-${this.dateOfBirth.year}`;
-    this.userDataService.updateUserDoc(this.currentUser.uid, {
-      'dateOfBirth' : dobStr,
-      'areaOfResidency' : this.areasOptions[this.areaOfResidency],
-      'dietary-restrictions': this.dietaryRestrictions,
-      'lifestyle-info': this.lifestyleInfoForm.value,
-      'isDonor': this.donorForm.value["isDonor"]
-    });
+    let dobTimeStamp = new Date(this.dateOfBirth['year'], this.dateOfBirth['month'], this.dateOfBirth['day']).getTime();
+    
+    if (isNaN(dobTimeStamp)) {
+      window.alert("Please fill in a valid date for the date of birth");
+      document.getElementById("dateOfBirth").style.border = "1px solid red";
+      return;
+    }
+    
+    if (this.isDonor) {
+      this.userDataService.updateUserDoc(this.currentUser.uid, {
+        'dateOfBirth' : dobTimeStamp,
+        'areaOfResidency' : this.areasOptions[this.areaOfResidency],
+        'dietary-restrictions': this.dietaryRestrictions,
+        'lifestyle-info': this.lifestyleInfoForm.value,
+        'isDonor': this.donorForm.value["isDonor"]
+      });
+    } else {
+      this.userDataService.updateUserDoc(this.currentUser.uid, {
+        'dateOfBirth' : dobTimeStamp,
+        'areaOfResidency' : this.areasOptions[this.areaOfResidency],
+        'isDonor': this.donorForm.value["isDonor"]
+      });
+    }
   }
 
   onPrevButtonClick() {
-    this.onDoneButtonClick();
     this.router.navigate(['home']);
   }
 

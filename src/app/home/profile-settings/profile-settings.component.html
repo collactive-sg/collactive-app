@@ -13,7 +13,7 @@
                 <h6>Name: <strong>{{firstName}} {{lastName}}</strong></h6>
                 <h6>Date of birth: <strong>{{dobString}}</strong></h6>
                 <h6>Area of residency: <strong>{{areasOptions[areaOfResidency]}}</strong></h6>
-                <h6>Dietary restrictions: 
+                <h6 *ngIf='this.isDonor'>Dietary restrictions: 
                     <div *ngFor="let restriction of dietaryRestrictions">
                         <strong>{{restriction.checked ? "- " + restriction.name : null}}</strong>
                     </div>
