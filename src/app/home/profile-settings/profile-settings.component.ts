@@ -141,7 +141,6 @@ export class ProfileSettingsComponent implements OnInit {
       document.getElementById("dateOfBirth").style.border = "1px solid red";
       return;
     }
-    
     if (this.isDonor) {
       this.userDataService.updateUserDoc(this.currentUser.uid, {
         'dateOfBirth' : dobTimeStamp,
