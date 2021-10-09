@@ -15,13 +15,12 @@ import { IndexModule } from './index/index.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MarketplaceModule } from './marketplace/marketplace.module';
 import { HomeModule } from './home/home.module';
-import { ChatComponent } from './chat/chat.component';
+import { ChatModule } from './chat/chat.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +30,7 @@ import { ChatComponent } from './chat/chat.component';
     HomeModule,
     SharedModule,
     MarketplaceModule,
+    ChatModule,
     ProfileSetupModule,
     IndexModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

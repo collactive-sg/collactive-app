@@ -3,8 +3,10 @@
     <div *ngIf="receiverDetails && listingID">
         <h2>To: {{receiverDetails.firstName}} {{receiverDetails.lastName}}</h2>
         <h3>listing: {{listingID}}</h3>
-        <div *ngFor="let message of messages">
-            <h6>{{message.senderFirstName}} {{message.senderLastName}}: {{message.message}}</h6>
+        <div *ngIf="messages">
+            <div *ngFor="let message of messages">
+                <h6>{{message.senderFirstName}} {{message.senderLastName}}: {{message.message}}</h6>
+            </div>
         </div>
     </div>
     <div>

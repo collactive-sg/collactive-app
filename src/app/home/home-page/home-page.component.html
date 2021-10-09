@@ -41,12 +41,24 @@
     </div>
     <div class="mt-5" *ngIf="!this.isDonor">
         <h3>Notifications on saved listings</h3>
+        <div style="font-size: 18px;">Notifications</div> 
         <div *ngIf="this.notifications.length === 0">
-            <h6>You have no new notifications here.</h6>
+            <div style="font-size: 14px; text-align:center;">No new notifications.</div>
         </div>
-        <div *ngFor="let notif of this.notifications">
-            
+        <div class="notifications">
+            <div  *ngFor="let notification of this.notifications">
+                <app-notification-box 
+                    [senderFirstName]='notification.sender_firstname'
+                    [senderLastName]='notification.sender_lastname'
+                    [type]="notification.type"
+                    [listingID]="notification.listingID"
+                    [notificationID]="notification.notificationID"
+                    [dateOfNotification]="notification.createdAt"
+                    [isRead]="notification.read"
+                ></app-notification-box>
+            </div>
         </div>
+        <div style="text-decoration: underline; text-align: center; font-size: small;" (click)="this.goToNotificationPage()">See all</div>
         <div class="mt-3">
             <h3>New postings</h3>
             <div *ngIf="this.recentListings.length === 0">

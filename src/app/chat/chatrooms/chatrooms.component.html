@@ -1,0 +1,5 @@
+<div *ngIf="chatrooms">
+    <div *ngFor="let chatroom of chatrooms, let index = index;">
+        {{index + 1}}: <a (click)="onClickChatroom(chatroom)">{{chatroom.listingID}}</a>
+    </div>
+</div>

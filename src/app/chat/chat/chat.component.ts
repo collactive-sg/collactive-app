@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../service/auth/auth.service';
-import { PrivateChatService } from '../service/chat/private-chat.service';
-import { ListingService } from '../service/listing/listing.service';
-import { UserDataService } from '../service/user-data/user-data.service';
+import { AuthService } from 'src/app/service/auth/auth.service';
+import { PrivateChatService } from 'src/app/service/chat/private-chat.service';
+import { ListingService } from 'src/app/service/listing/listing.service';
+import { UserDataService } from 'src/app/service/user-data/user-data.service';
+
 
 @Component({
   selector: 'app-chat',
@@ -28,6 +29,8 @@ export class ChatComponent implements OnInit {
   currentGroupDetails;
 
   messages = [];
+
+  windowHistory;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,14 +64,14 @@ export class ChatComponent implements OnInit {
         this.members.push(this.currentUser.uid);
 
         let listingOwnerID;
-        this.listingService.getListingByID(this.listingID).subscribe(res => {
-          listingOwnerID = res;
+        this.listingService.getListingByID(this.listingID).pipe().subscribe((listing: any) => {
+          listingOwnerID = listing.donorID;
           if (listingOwnerID === this.currentUser.uid) {
             this.currentGroupID = this.listingID + this.receiverID;
           } else {
             this.currentGroupID = this.listingID + this.currentUser.uid;
           }
-          this.chatService.getChatGroup(this.currentGroupID).subscribe(groupDetails => {
+          this.chatService.getChatroom(this.currentGroupID).subscribe(groupDetails => {
             if (groupDetails) {
               this.currentGroupDetails = groupDetails.data();
               this.getMessagesfromGroup();
@@ -81,19 +84,25 @@ export class ChatComponent implements OnInit {
 
   send(message) {
     if (this.currentGroupDetails === undefined) {
-      return this.chatService.createChatGroup(this.listingID, this.currentUser.uid, this.members, "private", message);
+      return this.chatService.createChatroom(this.listingID, this.currentUser.uid, this.members, "private", message).then(() => {
+        this.newMessage = '';
+        return this.getMessagesfromGroup();
+      });
     } else {
-      return this.chatService.sendMessage(this.currentGroupID, message, this.currentUser.uid).then(() => {
+      return this.chatService.sendMessage(this.listingID, this.currentGroupID, message, this.currentUser.uid, this.receiverID).then(() => {
+        this.newMessage = '';
         return this.getMessagesfromGroup();
       })
     }
   }
 
+  // updates the list of messages
   getMessagesfromGroup() {
     return this.chatService.getMessages(this.currentGroupID).then(messages => {
       this.messages = [];
       messages.forEach(message => {
         let messageWithName = message.data();
+        console.log(message.data())
         if (message.data().sentBy === this.currentUser.uid) {
           messageWithName.senderFirstName = this.currentUserDetails.firstName;
           messageWithName.senderLastName = this.currentUserDetails.lastName;

@@ -84,5 +84,10 @@
             </div>
         
         </div>
+        <div class="bottom-donor-bar" *ngIf="this.listingOwnerUID === this.currentUser.uid">
+            <div class="chat-button" (click)="navigateToChatrooms()">
+                View chats
+            </div>
+        </div>
     </div>
 </div>
