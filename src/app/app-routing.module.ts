@@ -23,6 +23,7 @@ import { ProfileSettingsComponent } from './home/profile-settings/profile-settin
 import { HomePageComponent } from './home/home-page/home-page.component';
 import { EditListingComponent } from './marketplace/edit-listing/edit-listing.component';
 import { NotificationsPageComponent } from './home/notifications-page/notifications-page.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -47,6 +48,7 @@ const routes: Routes = [
   {path: 'new-listing', component: NewListingComponent, canActivate: [AuthGuard]},
   {path: 'profile-settings', component: ProfileSettingsComponent, canActivate: [AuthGuard]},
   {path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]},
+  {path: 'chat/:lid/:uid', component: ChatComponent, canActivate: [AuthGuard]},
 ];
 
 
