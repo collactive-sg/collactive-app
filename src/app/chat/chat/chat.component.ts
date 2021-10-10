@@ -24,6 +24,7 @@ export class ChatComponent implements OnInit {
   newMessage = '';
 
   listingID;
+  listingDetails;
 
   currentGroupID: string;
   currentGroupDetails;
@@ -65,6 +66,7 @@ export class ChatComponent implements OnInit {
 
         let listingOwnerID;
         this.listingService.getListingByID(this.listingID).pipe().subscribe((listing: any) => {
+          this.listingDetails = listing;
           listingOwnerID = listing.donorID;
           if (listingOwnerID === this.currentUser.uid) {
             this.currentGroupID = this.listingID + this.receiverID;
