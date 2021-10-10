@@ -32,6 +32,7 @@ export class TypeSetupComponent implements OnInit {
   }
 
   onNextButtonClick() {
+    console.log(this.isDonor)
     if (this.isDonor == undefined) {
       window.alert("Please choose a role.");
     } else {
@@ -43,22 +44,12 @@ export class TypeSetupComponent implements OnInit {
   onClickDonor() {
     document.getElementById('donor').style.borderWidth = '4px';
     document.getElementById('receiver').style.borderWidth = '0px';
-    document.getElementById('not-decided').style.borderColor = '#FFFFFF';
     this.isDonor = true;
   }
 
   onClickReceiver() {
     document.getElementById('receiver').style.borderWidth = '4px';
     document.getElementById('donor').style.borderWidth = '0px';
-    document.getElementById('not-decided').style.borderColor = '#FFFFFF';
     this.isDonor = false;
   }
-
-  onClickNotDecided() {
-    document.getElementById('not-decided').style.borderColor = '#E793A2';
-    document.getElementById('receiver').style.borderWidth = '0px';
-    document.getElementById('donor').style.borderWidth = '0px';
-    this.isDonor = false;
-  }
-
 }
