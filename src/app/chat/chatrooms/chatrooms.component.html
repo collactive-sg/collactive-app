@@ -1,14 +1,18 @@
-<div class="mt-5" *ngIf="chatrooms.length !== 0">
+<div class="mt-5">
     <h1>Chats</h1>
     <button (click)="filterByAsDonor()">As a donor</button>
     <button (click)="filterByAsReceiver()">As a receiver</button>
-    
-    <div class="mt-3" *ngFor="let chatroom of chatrooms">
-        <ul class="list-group" (click)="onClickChatroom(chatroom)">
-            <li class="list-group-item">
-                <h4>{{chatroom.firstName}} {{chatroom.lastName}}</h4>
-                <h5>{{chatroom.recentMessage.message}}</h5>
-            </li>
-        </ul>
+    <div *ngIf="chatrooms.length !== 0">
+        <div class="mt-3" *ngFor="let chatroom of chatrooms">
+            <ul class="list-group" (click)="onClickChatroom(chatroom)">
+                <li class="list-group-item">
+                    <h4>{{chatroom.firstName}} {{chatroom.lastName}}</h4>
+                    <h5>{{chatroom.recentMessage.message}}</h5>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="mt-3" *ngIf="chatrooms.length === 0">
+        <h5>There are no chats here yet.</h5>
     </div>
 </div>
