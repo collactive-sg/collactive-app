@@ -34,12 +34,16 @@ export class ChatroomsComponent implements OnInit {
          
         this.currentUserDetails = res.data();
 
-        this.chatService.getAllChatrooms(this.currentUser.uid).then(chatrooms => 
-          chatrooms.forEach(chatroom => this.chatrooms.push(chatroom.data())
-        ));
+        this.chatService.getAllChatrooms(this.currentUser.uid).then(chatrooms => {
+          chatrooms.forEach(chatroom => {
+            this.addNameToChatroom(chatroom);
+          });
+        })
+          
+      });
         
-      })
-    }})
+      }
+    })
   }
 
   onClickChatroom(chatroom) {
@@ -47,6 +51,42 @@ export class ChatroomsComponent implements OnInit {
       ? chatroom["members"][1] 
       : chatroom["members"][0];
     this.router.navigate([`chat/${chatroom.listingID}/${receiverID}`])
+  }
+
+  addNameToChatroom(chatroom) {
+    let chatroomData = chatroom.data();
+    let chatMembers = chatroomData["members"];
+    let receiver;
+    // check is possible since only 2 members
+    if (chatMembers[0] === this.currentUser.uid) {
+      receiver = chatMembers[1];
+    } else {
+      receiver = chatMembers[0];
+    }
+    this.userDataService.getUserDetails(receiver).then(receiverDetails => {
+      chatroomData["firstName"] = receiverDetails.data().firstName;
+      chatroomData["lastName"] = receiverDetails.data().lastName;
+      this.chatrooms.push(chatroomData);
+      console.log(this.chatrooms)
+    })
+  }
+
+  filterByAsDonor() {
+    return this.chatService.getChatRoomsByStatus(this.currentUser.uid, true).then(chatrooms => {
+      this.chatrooms = [];
+      chatrooms.forEach(chatroom => {
+        this.addNameToChatroom(chatroom);
+      })
+    })
+  }
+
+  filterByAsReceiver() {
+    return this.chatService.getChatRoomsByStatus(this.currentUser.uid, false).then(chatrooms => {
+      this.chatrooms = [];
+      chatrooms.forEach(chatroom => {
+        this.addNameToChatroom(chatroom);
+      })
+    })
   }
 
 }

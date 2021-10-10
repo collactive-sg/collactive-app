@@ -3,6 +3,9 @@
         <span *ngIf="this.type === 'like'">
             <i class="fa fa-heart"></i>
         </span>
+        <span *ngIf="this.type === 'chat'">
+            <i class="fa fa-commenting-o"></i>
+        </span>
 
     </div>
     <div class="notification-message">
@@ -12,7 +15,7 @@
             </span>
             <span class="notification-type">
                 <span *ngIf="this.type === 'like'"> liked your listing</span>
-                <span *ngIf="this.type === 'chat'"> messaged you</span>
+                <span *ngIf="this.type === 'chat'"> sent you a message</span>
             </span>
         </div>
         <span class="notification-date">
