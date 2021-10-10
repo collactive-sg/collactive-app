@@ -31,25 +31,23 @@ export class TypeSetupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onNextButtonClick() {
-    console.log(this.isDonor)
-    if (this.isDonor == undefined) {
-      window.alert("Please choose a role.");
-    } else {
-      this.router.navigate(['profile-setup/basic-details']);
-      this.userDataService.updateUserDoc(this.currentUser.uid, {"isDonor": this.isDonor});
-    }
+  updateDonorStatus() {
+    this.router.navigate(['profile-setup/basic-details']);
+    this.userDataService.updateUserDoc(this.currentUser.uid, {"isDonor": this.isDonor});
+
   }
 
   onClickDonor() {
     document.getElementById('donor').style.borderWidth = '4px';
     document.getElementById('receiver').style.borderWidth = '0px';
     this.isDonor = true;
+    this.updateDonorStatus()
   }
 
   onClickReceiver() {
     document.getElementById('receiver').style.borderWidth = '4px';
     document.getElementById('donor').style.borderWidth = '0px';
     this.isDonor = false;
+    this.updateDonorStatus()
   }
 }
