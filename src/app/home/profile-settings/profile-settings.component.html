@@ -13,7 +13,7 @@
                 <h6>Name: <strong>{{firstName}} {{lastName}}</strong></h6>
                 <h6>Date of birth: <strong>{{dobString}}</strong></h6>
                 <h6>Area of residency: <strong>{{areasOptions[areaOfResidency]}}</strong></h6>
-                <h6>Dietary restrictions: 
+                <h6 *ngIf='this.isDonor'>Dietary restrictions: 
                     <div *ngFor="let restriction of dietaryRestrictions">
                         <strong>{{restriction.checked ? "- " + restriction.name : null}}</strong>
                     </div>
@@ -31,14 +31,19 @@
                             : maxDate.day - child['dateOfBirth']['day'] + " day"}}
                         old 
                     {{child['gender'] === 'F' ? "daughter" : "son"}}</strong></h5>
-                    <h6>Allergies: 
-                        <div *ngIf="child['allergies'].length === 0">
-                            No allergies
-                        </div>
+                    <div *ngIf="this.doesChildHaveAllergies(child)">
+                      <h6>
+                        Allergies: 
                         <span>
-                            <div *ngFor="let allergy of child['allergies'];"><span>{{allergy['checked'] ? "- " + allergy['name'] : null}}</span></div>
+                          <div *ngFor="let allergy of child['allergies'];"><span>{{allergy['checked'] ? "- " + allergy['name'] : null}}</span></div>
                         </span>
-                    </h6>
+                      </h6>
+                    </div>
+                    <div *ngIf="!this.doesChildHaveAllergies(child)">
+                      <h6>
+                        No allergies
+                      </h6>
+                    </div>
                 </div>
             </div>
         </div>

@@ -119,8 +119,7 @@ export class ListingPageComponent implements OnInit {
   }
 
   getListingOwnerChilAllergies(child:any[]) {
-
-    return child.filter(ele => ele.checked).map(ele=>ele.name)
+    return child['allergies'].filter(ele => ele.checked).map(ele=>ele.name)
   }
 
   likeListing() {

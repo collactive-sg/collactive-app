@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { element } from 'protractor';
 import { AuthService } from 'src/app/service/auth/auth.service';
-import { FilterService } from 'src/app/service/filter/filter.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 import { SortFilterPageComponent } from '../sort-filter-page/sort-filter-page.component';

@@ -55,12 +55,15 @@ export class BasicDetailsComponent implements OnInit {
           this.userDataService.getUserDoc(this.currentUser.uid).subscribe(userDoc => {
             this.isDonor = userDoc['isDonor'];
             if (userDoc['dateOfBirth'] !== undefined) {
-              let dobArr = userDoc['dateOfBirth'].split('-');
+              var dobString = userDoc['dateOfBirth'];
+              let dobDate = new Date(dobString)
               this.dateOfBirth = {
-                day: parseInt(dobArr[0]),
-                month: parseInt(dobArr[1]),
-                year: parseInt(dobArr[2]),
+                day: dobDate.getDate(),
+                month: dobDate.getMonth() + 1,
+                year: dobDate.getFullYear(),
               }
+              console.log(dobDate)
+              console.log(this.dateOfBirth)
             }
             if (userDoc['areaOfResidency'] !== undefined) {
               this.areaOfResidency = this.areasOptions.indexOf(userDoc['areaOfResidency']) >= 0
@@ -119,9 +122,16 @@ export class BasicDetailsComponent implements OnInit {
       return;
     }
 
-    let dobStr = `${this.dateOfBirth.day}-${this.dateOfBirth.month}-${this.dateOfBirth.year}`;
+    let dobTimeStamp = new Date(this.dateOfBirth['year'], this.dateOfBirth['month'], this.dateOfBirth['day']).getTime();
+    
+    if (isNaN(dobTimeStamp)) {
+      window.alert("Please fill in a valid date for the date of birth");
+      document.getElementById("dateOfBirth").style.border = "1px solid red";
+      return;
+    }
+
     this.userDataService.updateUserDoc(this.currentUser.uid, {
-      'dateOfBirth' : dobStr,
+      'dateOfBirth' : dobTimeStamp,
       'areaOfResidency' : this.areasOptions[this.areaOfResidency],
       'firstName': this.FirstName.value,
       'lastName': this.LastName.value

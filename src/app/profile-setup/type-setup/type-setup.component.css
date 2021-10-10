@@ -40,6 +40,14 @@
     justify-content: center;
 }
 
+button:active {
+    background: #e5e5e5;
+    -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
+       -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
+            box-shadow: inset 0px 0px 5px #c1c1c1;
+     outline: none;
+  }
+
 .undecided-text {
     display: flex;
     margin-top: 10px;
@@ -60,7 +68,6 @@
 
 .fa.fa-question-circle-o {
     display: flex;
-    margin-top: 20px;
     justify-content: flex-start;
     font-size: 20px;
 }
@@ -71,4 +78,11 @@
     border-color: white;
     border-style: solid;
     padding: 2px;
+}
+
+.bottom-buttons {
+    display: flex; 
+    justify-content: space-between;
+    align-items: center; 
+    margin-top: 20px;
 }

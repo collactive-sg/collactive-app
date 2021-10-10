@@ -4,7 +4,7 @@
         <span class="sr-only">Loading...</span>
       </div>
 </div>
-<div *ngIf="this.listingOwnerDetails !== undefined" class="listingInformation"  [ngStyle]="{'height':this.listingOwnerUID === this.currentUser.uid ? '95vh' : '85vh'}" >
+<div *ngIf="this.listingOwnerDetails !== undefined" class="listing-information"  [ngStyle]="{'height':this.listingOwnerUID === this.currentUser.uid ? '95vh' : '85vh'}" >
     <div>
         <span class="owner-options" *ngIf="this.listingOwnerUID === this.currentUser.uid" >
             <a class="edit-button" href="listing/{{this.listingID}}/edit" >Edit</a> |
@@ -64,13 +64,16 @@
                         old 
                     {{child['gender'] === 'F' ? "daughter" : "son"}}</h5>
                      
-                        <div *ngIf="child['allergies'].length === 0">
-                            No allergies
-                        </div>
+                    <div *ngIf="this.getListingOwnerChilAllergies(child).length !== 0">
                         <span>
                             <span style="text-decoration: underline;">Allergic to: <br></span>
                             <div *ngFor="let allergy of child['allergies'];"><span>{{allergy['checked'] ? allergy['name'] : null}}</span></div>
                         </span>
+                        </div>
+                    <div *ngIf="this.getListingOwnerChilAllergies(child).length === 0">
+                        <span >No allergies <br></span>
+                    </div>
+                        
                 </div>
             </div>
         </div>
@@ -82,9 +85,6 @@
             <div class="chat-button" (click)="navigateToChat()">
                 Chat with donor
             </div>
-        
-        </div>
-        <div class="bottom-donor-bar" *ngIf="this.listingOwnerUID === this.currentUser.uid">
             <div class="chat-button" (click)="navigateToChatrooms()">
                 View chats
             </div>
