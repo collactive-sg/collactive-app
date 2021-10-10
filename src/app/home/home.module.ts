@@ -21,7 +21,9 @@ import { NotificationsPageComponent } from './notifications-page/notifications-p
   ],
   exports: [
     ProfileSettingsComponent,
-    HomePageComponent
+    HomePageComponent,
+    NotificationBoxComponent,
+    NotificationsPageComponent
   ]
 })
 export class HomeModule { }

@@ -79,10 +79,15 @@
             <div class="like-button">
                 <i class="fa fa-heart" id="{{'like-button-' + this.listingID}}" (click)="likeListing()" [ngStyle]="{'color': this.isLiked ? '#F38397' : '#F9F9F9'}"></i>
             </div>
-            <div class="chat-button">
+            <div class="chat-button" (click)="navigateToChat()">
                 Chat with donor
             </div>
         
+        </div>
+        <div class="bottom-donor-bar" *ngIf="this.listingOwnerUID === this.currentUser.uid">
+            <div class="chat-button" (click)="navigateToChatrooms()">
+                View chats
+            </div>
         </div>
     </div>
 </div>

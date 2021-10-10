@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../../service/auth/auth.service';
 import { UserDataService } from '../../service/user-data/user-data.service';
@@ -16,7 +17,8 @@ export class SidebarComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private auth: AuthService,
-    private userDataService: UserDataService) { 
+    private userDataService: UserDataService,
+    private router: Router) { 
       
     }
 
@@ -45,6 +47,10 @@ export class SidebarComponent implements OnInit {
     const frame = document.getElementById('frame');
     frame.style.backgroundImage = `url(${url})`;
     frame.style.backgroundSize = `cover`;
+  }
+
+  navigateToPath(path) {
+    this.router.navigate([path]);
   }
 
 }

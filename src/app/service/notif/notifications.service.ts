@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { merge } from 'rxjs';
 import { UserDataService } from '../user-data/user-data.service';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class NotificationsService {
   ) { }
 
   getNotificationsByUserID(userID) {
-    return this.afs.collection('notifications').ref.where("receiver_userID", "==", userID).orderBy('createdAt', 'desc').get();
+    return this.afs.collection('notifications', ref => { return ref.where("receiver_userID", "==", userID).orderBy('createdAt', 'desc')}).valueChanges();
   }
 
   readNotification(notifId) {
@@ -44,6 +43,24 @@ export class NotificationsService {
       .get().then(res => { 
       res.forEach( res => { 
         this.afs.collection(`notifications`).doc(`${res.id}`).delete(); 
+      })
+    })
+  }
+
+  createChatNotification(listingID, sender_userID, receiver_userID, message) {
+    return this.userDataService.getUserDetails(sender_userID).then(userDetails => {
+      return this.afs.collection(`notifications`).add({
+        listingID: listingID,
+        sender_userID: sender_userID,
+        sender_firstname: userDetails.data()["firstName"],
+        sender_lastname: userDetails.data()["lastName"],
+        receiver_userID: receiver_userID,
+        createdAt: Date.now(),
+        read: false,
+        type: "chat",
+        message: message
+      }).then(res => {
+        return this.afs.collection('notifications').doc(res.id).set({notificationID:res.id} , {merge:true});
       })
     })
   }
