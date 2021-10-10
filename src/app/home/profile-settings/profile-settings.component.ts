@@ -276,4 +276,13 @@ export class ProfileSettingsComponent implements OnInit {
     this.userDataService.deleteChildProfile(this.currentUser.uid, childID);
     this.updateExistingChildren();
   }
+
+  doesChildHaveAllergies(child) {
+    for (let i = 0; i < child['allergies'].length; i++) {
+      if (child['allergies'][i].checked) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
