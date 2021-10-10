@@ -99,7 +99,7 @@ export class ListingPageComponent implements OnInit {
   convertDOBToDateString() {
     if (this.listingData.dateExpressed !== undefined) { 
       let str:string = this.listingOwnerDetails.dateOfBirth;
-      return str.replace(/-/g, '/');
+      return str.toString().replace(/-/g, '/');
     } else {
       return "";
     }
