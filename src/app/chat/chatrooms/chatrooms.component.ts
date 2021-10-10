@@ -67,7 +67,6 @@ export class ChatroomsComponent implements OnInit {
       chatroomData["firstName"] = receiverDetails.data().firstName;
       chatroomData["lastName"] = receiverDetails.data().lastName;
       this.chatrooms.push(chatroomData);
-      console.log(this.chatrooms)
     })
   }
 

@@ -44,11 +44,12 @@ export class HomePageComponent implements OnInit {
               this.recentListings.push(sortedRecentListings[i]);
             }
           });
-          this.notificationService.getNotificationsByUserID(this.currentUser.uid).then(res => {
-            res.forEach(notif => {
-              if (!notif.data()['read']) this.notifications.push(notif.data());
-            })
-            
+          this.notificationService.getNotificationsByUserID(this.currentUser.uid).pipe().subscribe(res => {
+            if (res) {
+              res.forEach(notif => {
+                if (!notif['read']) this.notifications.push(notif);
+              })
+            }
           });
         }
       });

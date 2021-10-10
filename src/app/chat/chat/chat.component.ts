@@ -98,20 +98,21 @@ export class ChatComponent implements OnInit {
 
   // updates the list of messages
   getMessagesfromGroup() {
-    return this.chatService.getMessages(this.currentGroupID).then(messages => {
+    return this.chatService.getMessages(this.currentGroupID).pipe().subscribe(messages => {
       this.messages = [];
-      messages.forEach(message => {
-        let messageWithName = message.data();
-        console.log(message.data())
-        if (message.data().sentBy === this.currentUser.uid) {
-          messageWithName.senderFirstName = this.currentUserDetails.firstName;
-          messageWithName.senderLastName = this.currentUserDetails.lastName;
-        } else {
-          messageWithName.senderFirstName = this.receiverDetails.firstName;
-          messageWithName.senderLastName = this.receiverDetails.lastName;
-        }
-        this.messages.push(messageWithName);
-      })
+      if (messages) {
+        messages.forEach(message => {
+          let messageWithName = message;
+          if (message.sentBy === this.currentUser.uid) {
+            messageWithName.senderFirstName = this.currentUserDetails.firstName;
+            messageWithName.senderLastName = this.currentUserDetails.lastName;
+          } else {
+            messageWithName.senderFirstName = this.receiverDetails.firstName;
+            messageWithName.senderLastName = this.receiverDetails.lastName;
+          }
+          this.messages.push(messageWithName);
+        })
+      }
     })
   }
 

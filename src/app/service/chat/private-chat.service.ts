@@ -60,7 +60,7 @@ export class PrivateChatService {
   }
 
   getMessages(groupID: string) {
-    return this.afs.collection("messages").doc(groupID).collection("messages").ref.orderBy("sentAt", "asc").get();
+    return this.afs.collection("messages").doc(groupID).collection("messages", ref => {return ref.orderBy('sentAt', 'asc')}).valueChanges();
   }
 
   getAllChatrooms(userID: string) {

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { merge } from 'rxjs';
 import { UserDataService } from '../user-data/user-data.service';
 
 @Injectable({
@@ -14,7 +13,7 @@ export class NotificationsService {
   ) { }
 
   getNotificationsByUserID(userID) {
-    return this.afs.collection('notifications').ref.where("receiver_userID", "==", userID).orderBy('createdAt', 'desc').get();
+    return this.afs.collection('notifications', ref => { return ref.where("receiver_userID", "==", userID).orderBy('createdAt', 'desc')}).valueChanges();
   }
 
   readNotification(notifId) {
