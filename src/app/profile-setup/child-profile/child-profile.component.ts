@@ -85,8 +85,8 @@ export class ChildProfileComponent implements OnInit {
     let str = "";
     this.allergens.forEach(element => {
       if (element.checked) {
-        str.concat(element.name);
-        str.concat("_ ")
+        str = str.concat(element.name);
+        str = str.concat("_ ")
       }
     });
 
@@ -96,7 +96,6 @@ export class ChildProfileComponent implements OnInit {
       str = str.replace(/_([^_]*)$/, '$1')
       str = str.replace(/_/g, ', ')
     }
-    console.log(str)
 
     return str;
   }
