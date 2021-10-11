@@ -62,8 +62,6 @@ export class BasicDetailsComponent implements OnInit {
                 month: dobDate.getMonth() + 1,
                 year: dobDate.getFullYear(),
               }
-              console.log(dobDate)
-              console.log(this.dateOfBirth)
             }
             if (userDoc['areaOfResidency'] !== undefined) {
               this.areaOfResidency = this.areasOptions.indexOf(userDoc['areaOfResidency']) >= 0
@@ -146,13 +144,13 @@ export class BasicDetailsComponent implements OnInit {
   onImgSelected(e) {
     let selectedFile = e.target.files[0];
     if (selectedFile.size > 5200000) {
-      window.prompt("The image uploaded has a very high resolution. Please choose an image that is less than 5MB");
+      window.alert("The image uploaded has a very high resolution. Please choose an image that is less than 5MB");
     } else {
       this.userDataService.uploadProfileImg(this.currentUser.uid, selectedFile).then(() => {
         const url = URL.createObjectURL(selectedFile);
         this.showProfileImg(url);
       }).catch(err => {
-        window.prompt("We are unable to upload your picture right now. Please try again later.");
+        window.alert("We are unable to upload your picture right now. Please try again later.");
       })
     }
   }
