@@ -11,7 +11,16 @@
     <div class="statement">
         <div>I do not smoke</div>
         <div class="agree-checkbox">
-        <form class="form-inline" [formGroup]="lifestyleInfoForm">
+
+            <div class="toggle-button">
+                <div class="yes-button" id="smoker-toggle-yes" (click)="changeSmokerFormValue(false)">
+                    Yes
+                </div>
+                <div class="no-button" id="smoker-toggle-no"  (click)="changeSmokerFormValue(true)">
+                    No
+                </div>
+            </div>
+        <!-- <form class="form-inline" [formGroup]="lifestyleInfoForm">
             <div class="form-group">
                 <div class="form-check form-check-inline">
                     <input formControlName="isSmoker" class="form-check-input" type="radio" name="isSmoker" id="doesNotSmoke" [value]="false">
@@ -22,14 +31,22 @@
                     <label class="form-check-label" for="smokes">No</label>
                 </div>
             </div>
-        </form>
+        </form> -->
         </div>
     </div>
 
     <div class="statement">
         <div>I do not drink alcohol</div>
         <div class="agree-checkbox">
-            <form class="form-inline" [formGroup]="lifestyleInfoForm">
+            <div class="toggle-button">
+                <div class="yes-button" id="alcohol-toggle-yes" (click)="changeAlcoholFormValue(false)">
+                    Yes
+                </div>
+                <div class="no-button" id="alcohol-toggle-no"  (click)="changeAlcoholFormValue(true)">
+                    No
+                </div>
+            </div>
+            <!-- <form class="form-inline" [formGroup]="lifestyleInfoForm">
                 <div class="form-group">
                     <div class="form-check form-check-inline">
                         <input formControlName="isDrinker" class="form-check-input" type="radio" name="isDrinker" id="doesNotDrink" [value]="false">
@@ -40,14 +57,22 @@
                         <label class="form-check-label" for="drinks">No</label>
                     </div>
                 </div>
-            </form>
+            </form> -->
        </div>
     </div>
 
     <div class="statement">
         <div>Do not routinely consume three or more cups of coffee, tea, or other caffeine stimulant drinks per day including cola and stimulant drinks.</div>
         <div class="agree-checkbox">
-            <form class="form-inline" [formGroup]="lifestyleInfoForm">
+            <div class="toggle-button">
+                <div class="yes-button" id="caffeine-toggle-yes" (click)="changeCaffeineFormValue(false)">
+                    Yes
+                </div>
+                <div class="no-button" id="caffeine-toggle-no"  (click)="changeCaffeineFormValue(true)">
+                    No
+                </div>
+            </div>
+            <!-- <form class="form-inline" [formGroup]="lifestyleInfoForm">
                 <div class="form-group">
                     <div class="form-check form-check-inline">
                         <input formControlName="isCaffeineConsumer" class="form-check-input" type="radio" name="isCaffeineConsumer" id="doesNotDrinkCoffee" [value]="false">
@@ -58,7 +83,7 @@
                         <label class="form-check-label" for="drinksCoffee">No</label>
                     </div>
                 </div>
-            </form>
+            </form> -->
         </div>
     </div>
 

@@ -1,5 +1,6 @@
 {
   "projects": {
+<<<<<<< HEAD
     "default": "collactive-stg-4f947"
   },
   "targets": {
@@ -10,5 +11,8 @@
         ]
       }
     }
+=======
+    "default": "collactive-a9ab5"
+>>>>>>> master
   }
 }

@@ -1,12 +1,10 @@
 .listing-box {
-    height: 50vw;
-    width: 35vw;
-    margin-left: 10px;
+    height: 66vw;
+    width: 42vw;
     margin-top: 10px;
     background: #F9F9F9;
     box-shadow: 0px 3px 10px -1px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
-    padding: 5px;
     }
 
 .fa-heart {
@@ -15,8 +13,8 @@
     text-shadow: -1px -1px 0 #3B485F, 1px -1px 0 #3B485F, -1px 1px 0 #3B485F, 1px 1px 0 #3B485F; ;
 } 
 .profile-photo {
-    width: 30vw;
-    height: 30vw;
+    width: 42vw;
+    height: 42vw;
     border-radius: 10px;
     margin: auto;
     display: flex;
@@ -31,6 +29,7 @@
 .description {
     display: flex;
     align-items: flex-start;
+    padding: 5px;
     justify-content: space-between;
 }
 
