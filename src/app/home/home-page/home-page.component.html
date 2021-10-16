@@ -31,7 +31,7 @@
             <div *ngIf="this.currentUserListings.length === 0">
                 <h6>You don't have any postings here yet. Start by creating a new post!</h6>
             </div>
-            <div class="container listings">
+            <div class=" listings">
                 <div *ngFor="let listing of this.currentUserListings" id="{{listing.listingID}}" >
                     <app-listing [listing]="listing" [attr.id]="listing.ID" [currentUserID]="this.currentUser.uid" [listingID]="listing.listingID"></app-listing>
                 </div>
@@ -64,7 +64,7 @@
             <div *ngIf="this.recentListings.length === 0">
                 <h6>There are no new posts here yet.</h6>
             </div>
-            <div class="container listings">
+            <div class=" listings">
                 <div *ngFor="let listing of this.recentListings" id="{{listing.listingID}}" >
                     <app-listing [listing]="listing" [attr.id]="listing.ID" [currentUserID]="this.currentUser.uid" [listingID]="listing.listingID"></app-listing>
                 </div>
