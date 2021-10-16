@@ -97,7 +97,6 @@ export class ListingPageComponent implements OnInit {
   }
 
   convertDOBToDateString() {
-
     if (this.listingOwnerDetails.dateOfBirth !== undefined) { 
       let dobDate = new Date(this.listingOwnerDetails.dateOfBirth)
       let dateOfBirth = {
