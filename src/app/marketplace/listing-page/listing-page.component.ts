@@ -147,8 +147,4 @@ export class ListingPageComponent implements OnInit {
     this.router.navigate([`chat/${this.listingID}/${this.listingOwnerUID}`]);
   }
 
-  navigateToChatrooms() {
-    this.router.navigate(['chatrooms']);
-  }
-
 }

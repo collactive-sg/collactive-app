@@ -23,3 +23,13 @@
     justify-content: space-between;
     align-items: center ;
 }
+.chat-button {
+    background: #546684;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
+    border-radius: 40px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white;
+    text-align: center;
+}

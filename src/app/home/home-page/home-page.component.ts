@@ -62,4 +62,8 @@ export class HomePageComponent implements OnInit {
     return this.router.navigate(['home/notifications'])
   }
 
+  navigateToChatrooms() {
+    this.router.navigate(['chatrooms']);
+  }
+
 }
