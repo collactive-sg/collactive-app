@@ -21,7 +21,8 @@
 }
 
 .top-icons {
-    display: flex;
+    display: flex; 
+    color:#3B485F; 
     justify-content: space-between;
     align-items: center;
     margin-top: 1rem;

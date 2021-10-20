@@ -1,17 +1,17 @@
 <div class="topbar">
     <div *ngIf='isShowBackButton' >
         <a (click)="navigateToBackPath()" class="icon">
-            <i class="fa fa-arrow-left" style="color:black; margin-top: 1px;" ></i>
+            <i class="fa fa-arrow-left" style="margin-top: 1px;" ></i>
         </a>
     </div>
     <div *ngIf='isShowMenu' class="icon">
-        <i class="fa fa-bars" style="color:black; margin-top: 1px;" (click)="openSidebar()" ></i>
+        <i class="fa fa-bars" style=" margin-top: 1px;" (click)="openSidebar()" ></i>
     </div>
     <div class="logo-box">
         <img src="assets/collactive.png" style="height: 20px;" alt="COLLACTIVE" />
     </div>
     <div *ngIf='isShowMenu' class="icon">
-        <i class="fa fa-comments" style="color:black; margin-top: 1px;" (click)="openChats()" ></i>
+        <i class="fa fa-comments" style="margin-top: 1px;" (click)="openChats()" ></i>
     </div>
 
 </div>

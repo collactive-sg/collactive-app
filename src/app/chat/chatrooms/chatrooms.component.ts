@@ -64,8 +64,15 @@ export class ChatroomsComponent implements OnInit {
       receiver = chatMembers[0];
     }
     this.userDataService.getUserDetails(receiver).then(receiverDetails => {
-      chatroomData["firstName"] = receiverDetails.data().firstName;
-      chatroomData["lastName"] = receiverDetails.data().lastName;
+      let receiverData = receiverDetails.data();
+      chatroomData["firstName"] = receiverData.firstName;
+      chatroomData["lastName"] = receiverData.lastName;
+      chatroomData["receiverID"] = receiverData.userID;
+      this.userDataService.getProfileImg(receiverData.userID).subscribe(url => {
+        this.showProfileImg(receiverData.userID, url);
+        chatroomData["receiverPhotoUrl"] = url;
+      })
+
       this.chatrooms.push(chatroomData);
     })
   }
@@ -79,6 +86,10 @@ export class ChatroomsComponent implements OnInit {
     })
   }
 
+  closeChatrooms() {
+    this.router.navigate(['marketplace'])
+  }
+
   filterByAsReceiver() {
     return this.chatService.getChatRoomsByStatus(this.currentUser.uid, false).then(chatrooms => {
       this.chatrooms = [];
@@ -86,6 +97,14 @@ export class ChatroomsComponent implements OnInit {
         this.addNameToChatroom(chatroom);
       })
     })
+  }
+
+  showProfileImg(userID:string, url:string) {
+    const frame = document.getElementById(`frame-${userID}`);
+    if (url.length > 0) {
+      frame.style.backgroundImage = `url(${url})`;
+      frame.style.backgroundSize = `cover`;
+    }
   }
 
 }
