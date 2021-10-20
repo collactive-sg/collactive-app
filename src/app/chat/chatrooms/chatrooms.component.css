@@ -25,7 +25,7 @@
 
 .photo-upload {
     /* darker beige */
-    background: #000;
+    background: #f9f9f9;
     /* drop big */
     display: flex;
     justify-content: center;
@@ -47,6 +47,9 @@
     height: 90px;
     align-items: center;
     padding: 10px 0px;
+}
+.one-chat:hover {
+    background: #F9F9F9;
 }
 .loading {
     height: 100vh;
