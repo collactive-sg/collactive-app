@@ -54,7 +54,8 @@
 }
 .bottom-donor-bar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
     width: 100vw;
     position: absolute;
@@ -79,26 +80,25 @@
     background: #546684;
     box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
     border-radius: 40px;
-    padding: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    display: flex;
+    width: 80%;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
     color: white;
-    margin-left: 30px;
 }
 .like-button {
     width: 40px;
     height: 40px;
-    border-radius: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    border: 2px solid #F38397;
-    z-index: 90;
 }
+
 .fa-heart {
     color:white;
     margin-top: 3px;
+    font-size: 24px;
     text-shadow: -1px -1px 0 #F38397, 1px -1px 0 #F38397, -1px 1px 0 #F38397, 1px 1px 0 #F38397; ;
 }
 .owner-options { 

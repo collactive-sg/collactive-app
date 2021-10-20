@@ -10,9 +10,16 @@
 
 .topbar {
     margin-top: 20px;
+    height: 24px;
     display: flex;
     justify-content: space-between;
+}
 
+.logo-box {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    margin-left: -51px;
 }
 
 .icon {
