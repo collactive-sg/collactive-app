@@ -16,6 +16,10 @@ export class ListingService {
     return this.afs.collection('listings', ref => {return ref.where('status', '==', 'live')}).valueChanges();
   }
 
+  getAllListingsByUser(userID: string) {
+    return this.afs.collection('listings', ref => {return ref.where('donorID', '==', userID)}).valueChanges();
+  }
+
   getListingByID(listingID) {
     return this.afs.collection('listings').doc(`${listingID}`).valueChanges();
   }

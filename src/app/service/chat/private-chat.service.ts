@@ -24,14 +24,15 @@ export class PrivateChatService {
       members: members,
       modifiedAt: new Date(),
       type: type,
-      listingID: listingID
+      listingID: listingID,
+      requestStatus: "none"
     }).then(()=> {
       return this.sendMessage(listingID, groupID, message, createdBy, receiver);
     });
   }
 
   getChatroom(groupID: string) {
-    return this.afs.collection("chatrooms").doc(groupID).get();
+    return this.afs.collection("chatrooms").doc(groupID).valueChanges();
   }
 
   sendMessage(listingID: string, groupID: string, message: string, sentBy: string, receiver: string) {
@@ -42,14 +43,14 @@ export class PrivateChatService {
       sentBy: sentBy
     })
     .then(() => {
-      return this.updateChatroom(groupID, message, sentBy, sentAt);
+      return this.updateChatroomMessage(groupID, message, sentBy, sentAt);
     })
     .then(() => {
       return this.notificationsService.createChatNotification(listingID, sentBy, receiver, message);
     })
   }
 
-  updateChatroom(groupID: string, message: string, sentBy: string, modifiedAt) {
+  updateChatroomMessage(groupID: string, message: string, sentBy: string, modifiedAt) {
     return this.afs.collection("chatrooms").doc(groupID).set({
       modifiedAt: modifiedAt,
       recentMessage: {
@@ -57,6 +58,10 @@ export class PrivateChatService {
         sentBy: sentBy
       }
     }, {merge: true})
+  }
+
+  updateChatroomRequest(groupID: string, requestStatus: string) {
+    return this.afs.collection("chatrooms").doc(groupID).set({requestStatus: requestStatus}, {merge: true})
   }
 
   getMessages(groupID: string) {
