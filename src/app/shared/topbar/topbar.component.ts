@@ -12,6 +12,7 @@ export class TopbarComponent implements OnInit {
 
   @Input() isShowBackButton;
   @Input() isShowMenu;
+  @Input() isShowChats;
   @Input() backButtonPath;
 
   constructor(
@@ -20,11 +21,16 @@ export class TopbarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  open() {
+  openSidebar() {
     const modalRef = this.modalService.open(SidebarComponent);
   }
 
   navigateToBackPath(){
     this.router.navigate([this.backButtonPath]);
   }
+
+  openChats() {
+    this.router.navigate(["chatrooms"]);
+  }
+
 }
