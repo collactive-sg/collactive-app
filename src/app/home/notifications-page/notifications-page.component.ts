@@ -23,12 +23,13 @@ export class NotificationsPageComponent implements OnInit {
     this.auth.getUserAuthState().onAuthStateChanged((user) => {
         if (user) {
           this.currentUser = user;
-          
-          this.notificationService.getNotificationsByUserID(this.currentUser.uid).then(res => {
-            res.forEach(notif => {
-              this.notifications.push(notif.data());
-            })
-            this.notifications.sort((x,y)=> x.read === y.read ? 0 : x.read ? 1 : -1)
+          this.notificationService.getNotificationsByUserID(this.currentUser.uid).pipe().subscribe(res => {
+            if (res) {
+              res.forEach(notif => {
+                this.notifications.push(notif);
+              })
+              this.notifications.sort((x,y)=> x.read === y.read ? 0 : x.read ? 1 : -1)
+            }
           });
         }
       });

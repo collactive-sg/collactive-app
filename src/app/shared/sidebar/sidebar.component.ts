@@ -20,9 +20,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
     public activeModal: NgbActiveModal,
     private auth: AuthService,
     private userDataService: UserDataService,
-    private router: Router,
-    ) { 
-    
+    private router: Router) { 
+      
     }
 
   ngOnInit(): void {
@@ -65,4 +64,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
+  navigateToPath(path) {
+    this.router.navigate([path]);
+  }
+
 }

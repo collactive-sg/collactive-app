@@ -30,7 +30,7 @@ export class UserDataService {
   getUserDetails(uid: String) {
     return this.afs.firestore.collection('users').doc(`${uid}`).get();
   }
-  
+
   async setIsDonor(uid: String, data) {
     await this.afs.collection('users').doc(`${uid}`).set(data, {merge: true})
   }
@@ -62,6 +62,21 @@ export class UserDataService {
 
   deleteChildProfile(uid: String, cid: String) {
     return this.afs.collection('users').doc(`${uid}`).collection('children').doc(`${cid}`).delete();
+  }
+
+  // for user filtering
+  getDonorsByDietaryRestrictions(donorPrefs, isOnHealthSupplements) {
+    donorPrefs.push({ name: "Health supplements", checked: isOnHealthSupplements });
+    donorPrefs = donorPrefs.filter(x => x.checked);
+    if (donorPrefs.length === 0) {
+      return this.afs.firestore.collection('users').get();
+    }
+    return this.afs.collection('users')
+      .ref.where('dietary-restrictions', 'array-contains-any', donorPrefs).get();
+  }
+
+  getAllChildren() {
+    return this.afs.firestore.collectionGroup('children').get();
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="topbar">
     <div *ngIf='isShowBackButton'>
-        <a href="{{backButtonPath}}">
+        <a (click)="navigateToBackPath()">
             <i class="fa fa-arrow-left" style="color:black; margin-top: 1px;" ></i>
         </a>
     </div>

@@ -55,11 +55,12 @@ export class BasicDetailsComponent implements OnInit {
           this.userDataService.getUserDoc(this.currentUser.uid).subscribe(userDoc => {
             this.isDonor = userDoc['isDonor'];
             if (userDoc['dateOfBirth'] !== undefined) {
-              let dobArr = userDoc['dateOfBirth'].split('-');
+              var dobString = userDoc['dateOfBirth'];
+              let dobDate = new Date(dobString)
               this.dateOfBirth = {
-                day: parseInt(dobArr[0]),
-                month: parseInt(dobArr[1]),
-                year: parseInt(dobArr[2]),
+                day: dobDate.getDate(),
+                month: dobDate.getMonth() + 1,
+                year: dobDate.getFullYear(),
               }
             }
             if (userDoc['areaOfResidency'] !== undefined) {
@@ -119,9 +120,16 @@ export class BasicDetailsComponent implements OnInit {
       return;
     }
 
-    let dobStr = `${this.dateOfBirth.day}-${this.dateOfBirth.month}-${this.dateOfBirth.year}`;
+    let dobTimeStamp = new Date(this.dateOfBirth['year'], this.dateOfBirth['month'], this.dateOfBirth['day']).getTime();
+    
+    if (isNaN(dobTimeStamp)) {
+      window.alert("Please fill in a valid date for the date of birth");
+      document.getElementById("dateOfBirth").style.border = "1px solid red";
+      return;
+    }
+
     this.userDataService.updateUserDoc(this.currentUser.uid, {
-      'dateOfBirth' : dobStr,
+      'dateOfBirth' : dobTimeStamp,
       'areaOfResidency' : this.areasOptions[this.areaOfResidency],
       'firstName': this.FirstName.value,
       'lastName': this.LastName.value
@@ -136,13 +144,13 @@ export class BasicDetailsComponent implements OnInit {
   onImgSelected(e) {
     let selectedFile = e.target.files[0];
     if (selectedFile.size > 5200000) {
-      window.prompt("The image uploaded has a very high resolution. Please choose an image that is less than 5MB");
+      window.alert("The image uploaded has a very high resolution. Please choose an image that is less than 5MB");
     } else {
       this.userDataService.uploadProfileImg(this.currentUser.uid, selectedFile).then(() => {
         const url = URL.createObjectURL(selectedFile);
         this.showProfileImg(url);
       }).catch(err => {
-        window.prompt("We are unable to upload your picture right now. Please try again later.");
+        window.alert("We are unable to upload your picture right now. Please try again later.");
       })
     }
   }

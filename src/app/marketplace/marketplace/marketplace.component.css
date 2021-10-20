@@ -13,3 +13,16 @@
     justify-content: space-between;
     align-items: center;
 }
+
+
+
+.done-btn {
+    text-decoration: underline;
+}
+
+.top-icons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}

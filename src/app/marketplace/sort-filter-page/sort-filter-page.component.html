@@ -1,8 +1,4 @@
 <div class="sort-filter-page">
-    <div class="top-icons">
-        <i class="fa fa-arrow-left" (click)="this.close()" style="color:#3B485F; margin-top: 1px;" ></i>
-        <span class="done-btn" (click)="this.applyFilter()">Done</span>
-    </div>
 
     <div class="section">
         <span style="font-size: 20px; text-decoration: underline;">Sort By:</span>
@@ -19,16 +15,16 @@
     <div class="section">
         <span style="font-size: 20px; text-decoration: underline;">Filter:</span>
         
-        <form class="form-inline" [formGroup]="this.filterForm">
+        <form class="form-inline">
             <div class="filter-section">
                 <span>Type of Milk</span>
                 <div id="milk-type-choices">
                     <div class="form-check form-check-inline" id="fresh-choice">
-                        <input formControlName="milkType" class="form-check-input" type="radio" name="milkType" id="fresh" value='Fresh'>
+                        <input   class="form-check-input" type="radio" name="milkType" id="fresh" value='Fresh' [(ngModel)]="milkType">
                         <label class="form-check-label" for="female">Fresh</label>
                     </div>
                     <div class="form-check form-check-inline" id="frozen-choice">
-                        <input formControlName="milkType" class="form-check-input" type="radio" name="milkType" id="frozen" value='Frozen'>
+                        <input   class="form-check-input" type="radio" name="milkType" id="frozen" value='Frozen' [(ngModel)]="milkType">
                     <label class="form-check-label" for="male">Frozen</label>
                     </div>
                 </div>
@@ -59,23 +55,23 @@
             </div>
             
             <div class="filter-section">
-                <form class="form-inline" [formGroup]="this.filterForm">
+                <form class="form-inline">
                     <span>Donor's Baby Age</span>
                     <div class="donor-baby-age">
                         <div class="form-check form-check-inline donor-baby-age-choice" id="one-month-choice">
-                            <input formControlName="donorBabyAge" class="form-check-input" type="radio"  id="one-month" >
+                            <input   class="form-check-input" name="donorBabyAge" type="radio"  id="one-month" value="1" [(ngModel)]="donorBabyAge">
                             <label class="form-check-label" > &lt; 1 month </label>
                         </div>
                         <div class="form-check form-check-inline donor-baby-age-choice" id="six-month-choice">
-                            <input formControlName="donorBabyAge" class="form-check-input" type="radio" id="six-month" >
+                            <input   class="form-check-input" name="donorBabyAge" type="radio" id="six-month" value="2" [(ngModel)]="donorBabyAge">
                             <label class="form-check-label" >&lt; 6 months </label>
                         </div>
                         <div class="form-check form-check-inline donor-baby-age-choice" id="three-month-choice">
-                            <input formControlName="donorBabyAge" class="form-check-input" type="radio" id="three-month" >
+                            <input   class="form-check-input" name="donorBabyAge" type="radio" id="three-month" value="3" [(ngModel)]="donorBabyAge">
                             <label class="form-check-label" >&lt; 3 months </label>
                         </div>
                         <div class="form-check form-check-inline donor-baby-age-choice" id="more-six-month-choice">
-                            <input formControlName="donorBabyAge" class="form-check-input" type="radio" id="more-six-month" >
+                            <input   class="form-check-input" name="donorBabyAge" type="radio" id="more-six-month" value="4" [(ngModel)]="donorBabyAge">
                             <label class="form-check-label" >&gt; 6 months </label>
                         </div>
                     </div>

@@ -1,0 +1,16 @@
+<app-topbar [isShowBackButton]="true" [backButtonPath]="'listing/' + this.listingID"></app-topbar>
+<div *ngIf="this.currentUserDetails">
+    <div *ngIf="receiverDetails && listingID">
+        <h2>To: {{receiverDetails.firstName}} {{receiverDetails.lastName}}</h2>
+        <h3>listing: {{listingID}}</h3>
+        <div *ngIf="messages">
+            <div *ngFor="let message of messages">
+                <h6>{{message.senderFirstName}} {{message.senderLastName}}: {{message.message}}</h6>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input [(ngModel)]="newMessage">
+        <button *ngIf="newMessage" (click)="send(newMessage)">Send</button>
+    </div>
+</div>

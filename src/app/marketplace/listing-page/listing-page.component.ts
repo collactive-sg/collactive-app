@@ -97,30 +97,31 @@ export class ListingPageComponent implements OnInit {
   }
 
   convertDOBToDateString() {
-    if (this.listingData.dateExpressed !== undefined) { 
-      let str:string = this.listingOwnerDetails.dateOfBirth;
-      return str.replace(/-/g, '/');
+    if (this.listingOwnerDetails.dateOfBirth !== undefined) { 
+      let dobDate = new Date(this.listingOwnerDetails.dateOfBirth)
+      let dateOfBirth = {
+        day: dobDate.getDate(),
+        month: dobDate.getMonth(),
+        year: dobDate.getFullYear(),
+      }
+
+      return`${dateOfBirth['day']}-${dateOfBirth['month']}-${dateOfBirth['year']}`;
     } else {
       return "";
     }
   }
 
   convertDietaryRestrictionsToString() {
+    let str:string = "";
     if (this.listingOwnerDetails['dietary-restrictions'] !== undefined) {
-      if (this.listingOwnerDetails['dietary-restrictions'].length == 0) {
-        return "None"
-      } else {
-        return this.listingOwnerDetails['dietary-restrictions']
-                .filter(ele=> ele.checked).map(ele=>" " + ele.name);
-      }
-    } else {
-      return "";
-    }
+      str =  this.listingOwnerDetails['dietary-restrictions']
+              .filter(ele=> ele.checked).map(ele=>" " + ele.name).join().trim();
+    } 
+    return str === "" ? "None" : str;
   }
 
   getListingOwnerChilAllergies(child:any[]) {
-    console.log(child)
-    return child.filter(ele => ele.checked).map(ele=>ele.name)
+    return child['allergies'].filter(ele => ele.checked).map(ele=>ele.name)
   }
 
   likeListing() {
@@ -140,6 +141,14 @@ export class ListingPageComponent implements OnInit {
     } else {
       window.alert("You cannot delete this listing.")
     }
+  }
+
+  navigateToChat() {
+    this.router.navigate([`chat/${this.listingID}/${this.listingOwnerUID}`]);
+  }
+
+  navigateToChatrooms() {
+    this.router.navigate(['chatrooms']);
   }
 
 }

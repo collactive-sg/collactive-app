@@ -31,34 +31,23 @@ export class TypeSetupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onNextButtonClick() {
-    if (this.isDonor == undefined) {
-      window.alert("Please choose a role.");
-    } else {
-      this.router.navigate(['profile-setup/basic-details']);
-      this.userDataService.updateUserDoc(this.currentUser.uid, {"isDonor": this.isDonor});
-    }
+  updateDonorStatus() {
+    this.router.navigate(['profile-setup/basic-details']);
+    this.userDataService.updateUserDoc(this.currentUser.uid, {"isDonor": this.isDonor});
+
   }
 
   onClickDonor() {
     document.getElementById('donor').style.borderWidth = '4px';
     document.getElementById('receiver').style.borderWidth = '0px';
-    document.getElementById('not-decided').style.borderColor = '#FFFFFF';
     this.isDonor = true;
+    this.updateDonorStatus()
   }
 
   onClickReceiver() {
     document.getElementById('receiver').style.borderWidth = '4px';
     document.getElementById('donor').style.borderWidth = '0px';
-    document.getElementById('not-decided').style.borderColor = '#FFFFFF';
     this.isDonor = false;
+    this.updateDonorStatus()
   }
-
-  onClickNotDecided() {
-    document.getElementById('not-decided').style.borderColor = '#E793A2';
-    document.getElementById('receiver').style.borderWidth = '0px';
-    document.getElementById('donor').style.borderWidth = '0px';
-    this.isDonor = false;
-  }
-
 }

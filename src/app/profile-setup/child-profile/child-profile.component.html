@@ -63,8 +63,8 @@
     <div class="accordion" id="allergenListAccordion">
     <div class="accordion-item">
       <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allergenList" aria-expanded="false" aria-controls="allergenList">
-          Eg. Nuts
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#allergenList" aria-expanded="false" aria-controls="allergenList" >
+          {{this.convertAllergiesToString()}}
         </button>
       </h2>
       <div id="allergenList" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#allergenListAccordion">
@@ -86,7 +86,6 @@
   </a>
   
   <div class="next-button" (click)="onNextButtonClick()">
-    <div style="margin-right: 10px;">Next</div>
-    <i class="fa fa-arrow-right"></i>
+    <div>Next</div>
   </div>
 </div>

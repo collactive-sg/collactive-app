@@ -1,6 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-sort-filter-page',
@@ -9,11 +7,11 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class SortFilterPageComponent implements OnInit {
 
-  isDatePostedSortSelected = false;
-  isDateExpressedSortSelected = false;
-  filterForm: FormGroup;
+  currentUser;
+  @Input() isDatePostedSortSelected;
+  @Input() isDateExpressedSortSelected;
 
-  dietaryRestrictions = [
+  @Input() dietaryRestrictions = [
     { name: "Halal", checked: false },
     { name: "Vegan", checked: false },
     { name: "Vegetarian", checked: false },
@@ -25,68 +23,55 @@ export class SortFilterPageComponent implements OnInit {
     // { name: "Health supplements", checked: false }
   ]
 
-  isOnHealthSupplements = false;
+  @Input() milkType:string;
+  @Input() donorBabyAge:string;
+  @Input() isOnHealthSupplements:boolean;
 
   constructor(
-    public activeModal: NgbActiveModal,
     ) { }
 
   ngOnInit(): void {
-    this.filterForm = new FormGroup({
-      milkType: new FormControl(''),
-      // healthSupplements: new FormControl("", Validators.required),
-      donorBabyAge: new FormControl('')
-    });
+
+    this.setStyleOfHealthSupplements(this.isOnHealthSupplements);
+    this.setStyleOfDateExpressedSort(this.isDateExpressedSortSelected);
+    this.setStyleOfDatePostedSort(this.isDatePostedSortSelected);
   }
 
   addDatePostedSort() {
     this.isDatePostedSortSelected = !this.isDatePostedSortSelected;
-    if (this.isDatePostedSortSelected) {
-      document.getElementById("date-posted-sort").style.background = "#3B485F"
-      document.getElementById("date-posted-sort").style.color = "#FFFFFF"
-    } else {
-      document.getElementById("date-posted-sort").style.background = "#FFFFFF"
-      document.getElementById("date-posted-sort").style.color = "#3B485F"
-    }
+    this.setStyleOfDatePostedSort(this.isDatePostedSortSelected);
   }
 
   addDateExpressedSort() {
     this.isDateExpressedSortSelected = !this.isDateExpressedSortSelected;
-    if (this.isDateExpressedSortSelected) {
-      document.getElementById("date-expressed-sort").style.background = "#3B485F"
-      document.getElementById("date-expressed-sort").style.color = "#FFFFFF"
-    } else {
-      document.getElementById("date-expressed-sort").style.background = "#FFFFFF"
-      document.getElementById("date-expressed-sort").style.color = "#3B485F"
-    }
+    this.setStyleOfDateExpressedSort(this.isDateExpressedSortSelected);
   }
 
+  setStyleOfDateExpressedSort(res:boolean) {
+    document.getElementById("date-expressed-sort").style.background = res? "#3B485F" : "#FFFFFF";
+    document.getElementById("date-expressed-sort").style.color = res? "#FFFFFF" : "#3B485F"
+  }
+
+  setStyleOfDatePostedSort(res:boolean) {
+    document.getElementById("date-posted-sort").style.background = res? "#3B485F" : "#FFFFFF";
+    document.getElementById("date-posted-sort").style.color = res? "#FFFFFF" : "#3B485F"
+  }
+  
   addHealthSupplementsFilterYes() {
     this.isOnHealthSupplements = true;
-    document.getElementById("yes-button").style.background = "#3B485F"
-    document.getElementById("no-button").style.background = "#fff"
-    document.getElementById("yes-button").style.color = "#FFFFFF"
-    document.getElementById("no-button").style.color = "#9896AF"
-    
+    this.setStyleOfHealthSupplements(this.isOnHealthSupplements)
   }
+
+  setStyleOfHealthSupplements(res:boolean) {
+    document.getElementById("yes-button").style.background = res ? "#3B485F" : "#fff"
+    document.getElementById("no-button").style.background = res ? "#fff" : "#3B485F"
+    document.getElementById("yes-button").style.color = res ? "#FFFFFF" : "#9896AF"
+    document.getElementById("no-button").style.color = res ? "#9896AF" : "#FFFFFF"
+  }
+
   addHealthSupplementsFilterNo() {
     this.isOnHealthSupplements = false;
-    document.getElementById("no-button").style.background = "#3B485F"
-    document.getElementById("yes-button").style.background = "#fff"
-    document.getElementById("no-button").style.color = "#FFFFFF"
-    document.getElementById("yes-button").style.color = "#9896AF"
+    this.setStyleOfHealthSupplements(this.isOnHealthSupplements)
   }
 
-
-  get MilkType() { return this.filterForm.get('milkType') }
-  get DonorBabyAge() { return this.filterForm.get('donorBabyAge') }
-  
-
-  applyFilter() {
-    this.activeModal.close();
-  }
-
-  close() {
-    this.activeModal.close();
-  }
 }

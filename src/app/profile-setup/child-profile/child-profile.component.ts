@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { element } from 'protractor';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 
@@ -78,6 +79,25 @@ export class ChildProfileComponent implements OnInit {
 
       }
     }
+  }
+
+  convertAllergiesToString() {
+    let str = "";
+    this.allergens.forEach(element => {
+      if (element.checked) {
+        str = str.concat(element.name);
+        str = str.concat("_ ")
+      }
+    });
+
+    if (str.length == 0) {
+      str = "e.g. Nuts";
+    } else {
+      str = str.replace(/_([^_]*)$/, '$1')
+      str = str.replace(/_/g, ', ')
+    }
+
+    return str;
   }
 
   addChild() {
