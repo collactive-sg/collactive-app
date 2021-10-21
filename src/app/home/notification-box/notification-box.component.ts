@@ -16,6 +16,7 @@ export class NotificationBoxComponent implements OnInit {
   @Input() notificationID:string;
   @Input() listingID;
   @Input() isRead;
+  @Input() senderID:string;
 
 
   constructor(
@@ -37,7 +38,11 @@ export class NotificationBoxComponent implements OnInit {
   }
 
   goToNotification() {
-    this.router.navigate([`listing/${this.listingID}`])
+    if (this.type === 'like') {
+      this.router.navigate([`listing/${this.listingID}`])
+    } else if (this.type === 'chat') {
+      this.router.navigate([`chat/${this.listingID}/${this.senderID}`])
+    }
     this.notificationService.readNotification(this.notificationID);
   }
 

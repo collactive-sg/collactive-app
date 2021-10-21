@@ -73,12 +73,7 @@ export class ChatComponent implements OnInit {
           } else {
             this.currentGroupID = this.listingID + this.currentUser.uid;
           }
-          this.chatService.getChatroom(this.currentGroupID).subscribe(groupDetails => {
-            if (groupDetails) {
-              this.currentGroupDetails = groupDetails.data();
-              this.getMessagesfromGroup();
-            }
-          })
+          this.getGroupDetails();
         })
       })
      }})
@@ -96,6 +91,15 @@ export class ChatComponent implements OnInit {
         return this.getMessagesfromGroup();
       })
     }
+  }
+
+  getGroupDetails() {
+    return this.chatService.getChatroom(this.currentGroupID).pipe().subscribe(groupDetails => {
+      if (groupDetails) {
+        this.currentGroupDetails = groupDetails;
+        this.getMessagesfromGroup();
+      }
+    })
   }
 
   // updates the list of messages
@@ -122,4 +126,61 @@ export class ChatComponent implements OnInit {
     this.router.navigate([`listing/${this.listingID}`]);
   }
 
+  // below are functions for request listing
+  handleListingRequest(donorRequestAction: string) {
+    if (this.currentUser.uid !== this.listingDetails.donorID) {
+      this.changeRequestStatusAsReceiver();
+    } else {
+      this.changeListingRequestStatusAsDonor(donorRequestAction);
+    }
+    return this.getGroupDetails();
+  }
+
+  changeRequestStatusAsReceiver() {
+    if (this.currentGroupDetails.requestStatus === "none") {
+      this.chatService.updateChatroomRequest(this.currentGroupID, "requested");
+      let recentMessage = "Requested for your donation";
+      this.send(recentMessage);
+      this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+    }
+  }
+
+  changeListingRequestStatusAsDonor(donorRequestAction: string) {
+    if (this.currentGroupDetails.requestStatus === "requested") {
+      if (donorRequestAction === "accept") {
+        this.chatService.updateChatroomRequest(this.currentGroupID, "accepted");
+        this.listingService.editlisting({"status": "accepted"}, this.listingID);
+        let recentMessage = "Accepted your request for donation";
+        this.send(recentMessage);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+      } else if (donorRequestAction === "reject" || donorRequestAction === "reset") {
+        this.chatService.updateChatroomRequest(this.currentGroupID, "none");
+        let recentMessage = "Rejected your request for donation";
+        this.send(recentMessage);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+      }
+    } else if (this.currentGroupDetails.requestStatus === "accepted") {
+      if (donorRequestAction === "collacted") {
+        this.chatService.updateChatroomRequest(this.currentGroupID, "collacted");
+        let recentMessage = "Awesome! The donation is collacted";
+        this.send(recentMessage);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        this.listingService.editlisting({"status": "collacted"}, this.listingID);
+      } else if (donorRequestAction === "reset") {
+        this.chatService.updateChatroomRequest(this.currentGroupID, "none");
+        let recentMessage = "Reset the donation listing";
+        this.send(recentMessage);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        this.listingService.editlisting({"status": "live"}, this.listingID);
+      }
+    } else if (this.listingDetails.status === "collacted") {
+      if (donorRequestAction === "reset") {
+        this.chatService.updateChatroomRequest(this.currentGroupID, "none");
+        let recentMessage = "Reset the donation listing";
+        this.send(recentMessage);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        this.listingService.editlisting({"status": "live"}, this.listingID);
+      }
+    }
+  }
 }

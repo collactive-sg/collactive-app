@@ -39,20 +39,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
           this.currUserFullName = user.firstName + " " + user.lastName;
           this.isDonor = user.isDonor;
         })
-      });
+      })
   }
+  
 
   close() {
     this.activeModal.close();
   }
-
-  logout() {
-    this.activeModal.close();
-    this.auth.logout().then( () => {
-      this.router.navigate(['login'])
-    })
-  }
-
+  
   showProfileImg(url) {
       const frame = document.getElementById('frame');
       if (frame !== null) {
@@ -65,7 +59,15 @@ export class SidebarComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
   navigateToPath(path) {
+    this.close();
     this.router.navigate([path]);
+  }
+
+  logout() {
+    this.close();
+    this.auth.logout().then(() => {
+      this.router.navigate(['/login']);
+    });
   }
 
 }

@@ -26,9 +26,9 @@ export class AuthService {
     return await this.afAuth.signInWithEmailAndPassword(email, password);
   }
 
-  async logout() {
-    this.afAuth.signOut();
-  }
+  // async logout() {
+  //   this.afAuth.signOut();
+  // }
 
   async register(email: string, password: string) {
     return await this.afAuth
@@ -53,5 +53,9 @@ export class AuthService {
 
   getUserAuthState() {
     return this.afAuth;
+  }
+
+  async logout() {
+    return await this.afAuth.signOut();
   }
 }
