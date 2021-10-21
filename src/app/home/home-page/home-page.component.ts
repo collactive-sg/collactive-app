@@ -38,12 +38,17 @@ export class HomePageComponent implements OnInit {
             this.isDonor = userData['isDonor'];
           })
           this.listingService.getAllLiveListings().pipe().subscribe(res => {
-            this.currentUserListings = res.filter(x => x["donorID"] === this.currentUser.uid);
             var sortedRecentListings = res.sort((a, b)=> b["dateExpressed"] - a["dateExpressed"]);
             for (let i = 0; i < 4; i++) {
+              if (sortedRecentListings[i] == undefined) {
+                break;
+              } 
               this.recentListings.push(sortedRecentListings[i]);
             }
           });
+          this.listingService.getAllListingsByUser(this.currentUser.uid).pipe().subscribe(res => {
+            this.currentUserListings = res;
+          })
           this.notificationService.getNotificationsByUserID(this.currentUser.uid).pipe().subscribe(res => {
             if (res) {
               res.forEach(notif => {
@@ -57,6 +62,10 @@ export class HomePageComponent implements OnInit {
 
   goToNotificationPage() {
     return this.router.navigate(['home/notifications'])
+  }
+
+  navigateToChatrooms() {
+    this.router.navigate(['chatrooms']);
   }
 
 }

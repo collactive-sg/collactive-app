@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
   selector: 'app-donate',
@@ -8,7 +9,14 @@ import { Router } from '@angular/router';
 })
 export class DonateComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+  ) { 
+    this.auth.getUserAuthState().authState.subscribe((user) => {
+      if (user) { this.router.navigate(['/home']);}
+    })
+  }
 
   ngOnInit(): void {
   }

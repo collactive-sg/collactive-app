@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
   selector: 'app-articles',
@@ -7,7 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ArticlesComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private auth: AuthService,
+  ) { 
+    this.auth.getUserAuthState().authState.subscribe((user) => {
+      if (user) { this.router.navigate(['/home']);}
+    })
+  }
 
   ngOnInit(): void {
   }

@@ -27,8 +27,7 @@ export class SidebarComponent implements OnInit {
       .onAuthStateChanged((user) => {
         if (user) {
          this.currentUser = user;
-        }
-        this.userDataService.getProfileImg(this.currentUser.uid).pipe().subscribe(url => {       
+         this.userDataService.getProfileImg(this.currentUser.uid).pipe().subscribe(url => {       
           this.showProfileImg(url);
         });
         this.userDataService.getUserDetails(this.currentUser.uid).then((res:any) => {
@@ -36,6 +35,7 @@ export class SidebarComponent implements OnInit {
           this.currUserFullName = user.firstName + " " + user.lastName;
           this.isDonor = user.isDonor;
         })
+        }
       });
   }
 
@@ -45,12 +45,22 @@ export class SidebarComponent implements OnInit {
 
   showProfileImg(url) {
     const frame = document.getElementById('frame');
-    frame.style.backgroundImage = `url(${url})`;
-    frame.style.backgroundSize = `cover`;
+    if (frame !== null) {
+      frame.style.backgroundImage = `url(${url})`;
+      frame.style.backgroundSize = `cover`;
+    }
   }
 
   navigateToPath(path) {
+    this.close();
     this.router.navigate([path]);
+  }
+
+  logout() {
+    this.close();
+    this.auth.logout().then(() => {
+      this.router.navigate(['/login']);
+    });
   }
 
 }

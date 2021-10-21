@@ -9,6 +9,53 @@
             </div>
         </div>
     </div>
+    <div *ngIf="this.listingDetails !== undefined">
+        <div *ngIf="this.currentGroupDetails !== undefined">
+            <div *ngIf="this.currentUser.uid !== this.listingDetails.donorID">
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'none'" 
+                    class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
+                        Request for breastmilk
+                </div>
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" 
+                    class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
+                        Breastmilk donation requested
+                </div>
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'" 
+                    class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
+                        Breastmilk donation accepted
+                </div>
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'" 
+                    class="mt-2 mb-2 request-button">
+                        Breastmilk donation collacted!
+                </div>
+            </div>
+        </div>
+        <div *ngIf="this.currentUser.uid === this.listingDetails.donorID">
+            <div *ngIf="this.currentGroupDetails !== undefined">
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'">
+                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('accept')">
+                        Accept request
+                    </div>
+                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reject')">
+                        Reject request
+                    </div>
+                </div>
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'">
+                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('collacted')">
+                        Mark listing as collacted
+                    </div>
+                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
+                        Reset listing
+                    </div>
+                </div>
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'">
+                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
+                        Reset listing to live
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div>
         <input [(ngModel)]="newMessage">
         <button *ngIf="newMessage" (click)="send(newMessage)">Send</button>

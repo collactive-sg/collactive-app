@@ -50,4 +50,8 @@ export class AuthService {
   getUserAuthState() {
     return this.afAuth;
   }
+
+  async logout() {
+    return await this.afAuth.signOut();
+  }
 }
