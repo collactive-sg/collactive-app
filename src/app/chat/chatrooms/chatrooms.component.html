@@ -3,7 +3,7 @@
         <i class="fa fa-arrow-left" (click)="this.closeChatrooms()" style="margin-top: 1px;"></i>
     </div>
 </div>
-<div *ngIf="!this.currentUserDetails || !this.chatrooms" class="loading">
+<div *ngIf="!this.currentUserDetails || this.chatrooms.length == 0" class="loading">
     <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
     </div>
