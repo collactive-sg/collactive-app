@@ -51,6 +51,7 @@ export class HomePageComponent implements OnInit {
           })
           this.notificationService.getNotificationsByUserID(this.currentUser.uid).pipe().subscribe(res => {
             if (res) {
+              this.notifications = [];
               res.forEach(notif => {
                 if (!notif['read']) this.notifications.push(notif);
               })
@@ -62,6 +63,13 @@ export class HomePageComponent implements OnInit {
 
   goToNotificationPage() {
     return this.router.navigate(['home/notifications'])
+  }
+
+  readAllNotifications() {
+    if (this.notifications.length > 0) {
+      this.notifications.forEach(notif => this.notificationService.readNotification(notif.notificationID));
+    }
+
   }
 
   navigateToChatrooms() {

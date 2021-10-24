@@ -13,6 +13,7 @@ export class NotificationsPageComponent implements OnInit {
   isDonor;
 
   notifications = [];
+  notificationsObervable;
 
   constructor(
     private auth: AuthService,
@@ -25,6 +26,7 @@ export class NotificationsPageComponent implements OnInit {
           this.currentUser = user;
           this.notificationService.getNotificationsByUserID(this.currentUser.uid).pipe().subscribe(res => {
             if (res) {
+              this.notifications = [];
               res.forEach(notif => {
                 this.notifications.push(notif);
               })
@@ -35,4 +37,9 @@ export class NotificationsPageComponent implements OnInit {
       });
   }
 
+  readAllNotifications() {
+    if (this.notifications.length > 0) {
+      this.notifications.forEach(notif => this.notificationService.readNotification(notif.notificationID));
+    }
+  }
 }

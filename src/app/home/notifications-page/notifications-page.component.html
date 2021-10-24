@@ -5,6 +5,9 @@
         <div style="font-size: 14px; text-align:center;">You have no notifications.</div>
     </div>
     <div class="notifications">
+        <div *ngIf="this.notifications.length > 0" 
+            style="text-decoration: underline; font-size: small;" 
+            (click)="this.readAllNotifications()">Read all</div>
         <div  *ngFor="let notification of this.notifications">
             <app-notification-box 
                 [senderFirstName]='notification.sender_firstname'
