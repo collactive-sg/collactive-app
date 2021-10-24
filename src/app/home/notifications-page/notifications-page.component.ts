@@ -13,7 +13,6 @@ export class NotificationsPageComponent implements OnInit {
   isDonor;
 
   notifications = [];
-  notificationsObervable;
 
   constructor(
     private auth: AuthService,
