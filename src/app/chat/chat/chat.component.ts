@@ -75,12 +75,12 @@ export class ChatComponent implements OnInit {
     if (this.currentGroupDetails === undefined || this.currentGroupDetails.members === undefined) {
       return this.chatService.createChatroom(this.listingID, this.currentUser.uid, this.members, "private", message).then(() => {
         this.newMessage = '';
-        return this.getMessagesfromGroup();
+        // return this.getMessagesfromGroup();
       });
     } else {
       return this.chatService.sendMessage(this.listingID, this.currentGroupID, message, this.currentUser.uid, this.receiverID, this.isListingOwner).then(() => {
         this.newMessage = '';
-        return this.getMessagesfromGroup();
+        // return this.getMessagesfromGroup();
       })
     }
   }
