@@ -87,7 +87,7 @@ export class ChatroomsComponent implements OnInit {
   }
 
   closeChatrooms() {
-    this.router.navigate(['marketplace'])
+    this.router.navigate(['home'])
   }
 
   filterByAsReceiver() {

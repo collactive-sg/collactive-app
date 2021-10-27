@@ -183,4 +183,7 @@ export class ChatComponent implements OnInit {
       }
     }
   }
+  closeChat() {
+    this.router.navigate(['chatrooms']);
+  }
 }

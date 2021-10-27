@@ -20,3 +20,7 @@
 .next-button:hover {
     cursor: pointer;
 }
+
+.start-page {
+    margin-top: 20px;
+}
