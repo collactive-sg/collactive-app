@@ -106,17 +106,17 @@ export class PrivateChatService {
     return this.afs.collection("chatrooms", ref => {return ref.orderBy("modifiedAt", "desc").where('members', 'array-contains', userID)}).valueChanges();
   }
 
-  getChatRoomsByStatus(userID: string, isDonor: boolean) {
-    if (isDonor) {
-      return this.afs.collection("chatrooms").ref
-      .where('createdBy', '!=', userID).where('members', 'array-contains', userID)
-      .orderBy('createdBy')
-      .orderBy("modifiedAt", "desc").get();
-    } else {
-      return this.afs.collection("chatrooms").ref
-      .where('createdBy', '==', userID).where('members', 'array-contains', userID)
-      .orderBy("modifiedAt", "desc").get();
-    }
-  }
+  // getChatRoomsByStatus(userID: string, isDonor: boolean) {
+  //   if (isDonor) {
+  //     return this.afs.collection("chatrooms").ref
+  //     .where('createdBy', '!=', userID).where('members', 'array-contains', userID)
+  //     .orderBy('createdBy')
+  //     .orderBy("modifiedAt", "desc").get();
+  //   } else {
+  //     return this.afs.collection("chatrooms").ref
+  //     .where('createdBy', '==', userID).where('members', 'array-contains', userID)
+  //     .orderBy("modifiedAt", "desc").get();
+  //   }
+  // }
 
 }
