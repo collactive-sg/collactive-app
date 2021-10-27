@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { PrivateChatService } from 'src/app/service/chat/private-chat.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
@@ -30,12 +30,10 @@ export class ChatComponent implements OnInit {
   currentGroupDetails;
 
   messages = [];
-
-  windowHistory;
+  isListingOwner: boolean;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private auth: AuthService,
     private chatService: PrivateChatService,
     private userDataService: UserDataService,
@@ -49,12 +47,6 @@ export class ChatComponent implements OnInit {
       this.members.push(this.receiverID); 
     });
 
-    this.userDataService.getUserDetails(this.receiverID).then(userDetails => {
-      if (userDetails) {
-        this.receiverDetails = userDetails.data();
-      }
-    })
-
     this.auth.getUserAuthState().onAuthStateChanged((user) => {
      if (user) {
       this.currentUser = user;
@@ -64,11 +56,11 @@ export class ChatComponent implements OnInit {
         this.currentUserDetails = res.data();
         this.members.push(this.currentUser.uid);
 
-        let listingOwnerID;
         this.listingService.getListingByID(this.listingID).pipe().subscribe((listing: any) => {
           this.listingDetails = listing;
-          listingOwnerID = listing.donorID;
-          if (listingOwnerID === this.currentUser.uid) {
+  
+          this.isListingOwner = listing.donorID === this.currentUser.uid
+          if (this.isListingOwner) {
             this.currentGroupID = this.listingID + this.receiverID;
           } else {
             this.currentGroupID = this.listingID + this.currentUser.uid;
@@ -80,13 +72,13 @@ export class ChatComponent implements OnInit {
   }
 
   send(message) {
-    if (this.currentGroupDetails === undefined) {
+    if (this.currentGroupDetails === undefined || this.currentGroupDetails.members === undefined) {
       return this.chatService.createChatroom(this.listingID, this.currentUser.uid, this.members, "private", message).then(() => {
         this.newMessage = '';
         return this.getMessagesfromGroup();
       });
     } else {
-      return this.chatService.sendMessage(this.listingID, this.currentGroupID, message, this.currentUser.uid, this.receiverID).then(() => {
+      return this.chatService.sendMessage(this.listingID, this.currentGroupID, message, this.currentUser.uid, this.receiverID, this.isListingOwner).then(() => {
         this.newMessage = '';
         return this.getMessagesfromGroup();
       })
@@ -113,8 +105,13 @@ export class ChatComponent implements OnInit {
             messageWithName.senderFirstName = this.currentUserDetails.firstName;
             messageWithName.senderLastName = this.currentUserDetails.lastName;
           } else {
-            messageWithName.senderFirstName = this.receiverDetails.firstName;
-            messageWithName.senderLastName = this.receiverDetails.lastName;
+            this.userDataService.getUserDetails(this.receiverID).then(userDetails => {
+              if (userDetails) {
+                this.receiverDetails = userDetails.data();
+                messageWithName.senderFirstName = this.receiverDetails.firstName;
+                messageWithName.senderLastName = this.receiverDetails.lastName;
+              }
+            })
           }
           this.messages.push(messageWithName);
         })
@@ -122,8 +119,9 @@ export class ChatComponent implements OnInit {
     })
   }
 
-  onPrevButtonClick() {
-    this.router.navigate([`listing/${this.listingID}`]);
+  // for notifications
+  updateLastSeen() {
+    return this.chatService.updateChatRoomLastSeen(this.currentGroupID, this.isListingOwner, this.currentUser.uid);
   }
 
   // below are functions for request listing

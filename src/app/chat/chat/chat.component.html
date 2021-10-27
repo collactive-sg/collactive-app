@@ -1,4 +1,4 @@
-<app-topbar [isShowBackButton]="true"></app-topbar>
+<app-topbar [isShowBackButton]="true" (click)="this.updateLastSeen()"></app-topbar>
 <div *ngIf="this.currentUserDetails">
     <div *ngIf="receiverDetails && listingID">
         <h2>To: {{receiverDetails.firstName}} {{receiverDetails.lastName}}</h2>
@@ -11,7 +11,7 @@
     </div>
     <div *ngIf="this.listingDetails !== undefined">
         <div *ngIf="this.currentGroupDetails !== undefined">
-            <div *ngIf="this.currentUser.uid !== this.listingDetails.donorID">
+            <div *ngIf="!this.isListingOwner">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'none'" 
                     class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
                         Request for breastmilk
@@ -30,8 +30,8 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="this.currentUser.uid === this.listingDetails.donorID">
-            <div *ngIf="this.currentGroupDetails !== undefined">
+        <div *ngIf="this.currentGroupDetails !== undefined">
+            <div *ngIf="this.isListingOwner">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'">
                     <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('accept')">
                         Accept request
