@@ -9,6 +9,12 @@
                 <li class="list-group-item">
                     <h4>{{chatroom.firstName}} {{chatroom.lastName}}</h4>
                     <h5>{{chatroom.recentMessage.message}}</h5>
+                    <div *ngIf="isListingOwner">
+                        <h5>{{chatroom.recentMsgsForDonor}}</h5>
+                    </div>
+                    <div *ngIf="!isListingOwner">
+                        <h5>{{chatroom.recentMsgsForReceiver}}</h5>
+                    </div>
                 </li>
             </ul>
         </div>

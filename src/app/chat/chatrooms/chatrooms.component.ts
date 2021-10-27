@@ -16,6 +16,7 @@ export class ChatroomsComponent implements OnInit {
 
   chatrooms = [];
   receiverID: string;
+  isListingOwner: boolean;
 
 
   constructor(
@@ -34,12 +35,17 @@ export class ChatroomsComponent implements OnInit {
          
         this.currentUserDetails = res.data();
 
-        this.chatService.getAllChatrooms(this.currentUser.uid).then(chatrooms => {
-          chatrooms.forEach(chatroom => {
-            this.addNameToChatroom(chatroom);
-          });
-        })
-          
+        this.chatService.getAllChatrooms(this.currentUser.uid).subscribe(
+          (chatrooms) => {
+            if (chatrooms) {
+              this.chatrooms = [];
+              chatrooms.forEach(chatroom => {
+                this.addNameToChatroom(chatroom);
+                this.isListingOwner = (chatroom["members"][0] === this.currentUser.uid);
+              });
+            }
+          }
+        )
       });
         
       }
@@ -54,7 +60,7 @@ export class ChatroomsComponent implements OnInit {
   }
 
   addNameToChatroom(chatroom) {
-    let chatroomData = chatroom.data();
+    let chatroomData = chatroom;
     let chatMembers = chatroomData["members"];
     let receiver;
     // check is possible since only 2 members

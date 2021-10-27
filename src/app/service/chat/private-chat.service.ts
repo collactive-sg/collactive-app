@@ -64,7 +64,7 @@ export class PrivateChatService {
         message: message,
         sentBy: sentBy
       }
-    }, {merge: true})
+    }, {merge: true});
   }
 
   updateChatroomRequest(groupID: string, requestStatus: string) {
@@ -103,7 +103,7 @@ export class PrivateChatService {
   }
 
   getAllChatrooms(userID: string) {
-    return this.afs.collection("chatrooms").ref.orderBy("modifiedAt", "desc").where('members', 'array-contains', userID).get();
+    return this.afs.collection("chatrooms", ref => {return ref.orderBy("modifiedAt", "desc").where('members', 'array-contains', userID)}).valueChanges();
   }
 
   getChatRoomsByStatus(userID: string, isDonor: boolean) {
