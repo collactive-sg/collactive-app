@@ -9,36 +9,36 @@
         <div *ngIf="this.currentGroupDetails !== undefined">
             <div *ngIf="this.currentUser.uid !== this.listingDetails.donorID">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'none'" 
-                    class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
+                    class="mt-2 mb-2 request-button"  id="request"  (click)="handleListingRequest('')">
                         Request for breastmilk
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" 
-                    class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
-                        Breastmilk donation requested
+                    class="mt-2 mb-2 request-button"  id="request-sent"  (click)="handleListingRequest('')">
+                        Request Sent
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'" 
-                    class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
+                    class="mt-2 mb-2 request-button" id="accepted" (click)="handleListingRequest('')">
                         Breastmilk donation accepted
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'" 
-                    class="mt-2 mb-2 request-button">
+                    class="mt-2 mb-2 request-button"  id="collacted"  >
                         Breastmilk donation collacted!
                 </div>
             </div>
         </div>
         <div *ngIf="this.currentUser.uid === this.listingDetails.donorID">
             <div *ngIf="this.currentGroupDetails !== undefined">
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'">
-                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('accept')">
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" class="side-by-side-btns" >
+                    <div class="mt-2 mb-2 request-button"  id="accept"  (click)="handleListingRequest('accept')">
                         Accept request
                     </div>
-                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reject')">
+                    <div class="mt-2 mb-2 request-button"  id="reject"  (click)="handleListingRequest('reject')">
                         Reject request
                     </div>
                 </div>
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'">
-                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('collacted')">
-                        Mark listing as collacted
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'"  class="side-by-side-btns" >
+                    <div class="mt-2 mb-2 request-button" id="collact" (click)="handleListingRequest('collacted')">
+                        Mark this collacted
                     </div>
                     <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
                         Reset listing
