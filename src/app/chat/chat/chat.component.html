@@ -6,6 +6,9 @@
         </div>
     </div>
     <div *ngIf="this.listingDetails !== undefined">
+        <!-- <div class="listingDetails">
+            
+        </div> -->
         <div *ngIf="this.currentGroupDetails !== undefined">
             <div *ngIf="this.currentUser.uid !== this.listingDetails.donorID">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'none'" 

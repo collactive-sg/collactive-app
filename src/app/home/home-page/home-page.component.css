@@ -10,6 +10,23 @@
     overflow-y: scroll;
     max-height: 18vh;
 }
+.fa.fa-bell {
+    margin-right: 5px;
+}
+
+.no-notif-box {
+    background: #F2F2F2;
+    box-shadow: 3px 4px 6px 2px rgba(0, 0, 0, 0.04);
+    border-radius: 7px;
+    width: 100%;
+    color: #9896AF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    height: 50px;
+}
+
 .donor-label {
     width: 60px;
     border: 1px solid #F38397;

@@ -32,7 +32,7 @@
     <div class="form-group" >
       <div>Date of Birth</div>
       <div class="input-group" style="display: flex; align-items:center">
-        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" id="dateOfBirth" ngbDatepicker #d="ngbDatepicker" [maxDate]="maxDate" [(ngModel)]='dateOfBirth'>
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" id="dateOfBirth" ngbDatepicker #d="ngbDatepicker" pickadate=100 [maxDate]="maxDate" [minDate]="minDate" [(ngModel)]='dateOfBirth'>
         <div class="input-group-append">
           <i class="fa fa-calendar" style="font-size: 24px; margin-left: 10px;" (click)="d.toggle()" type="button"></i>
         </div>

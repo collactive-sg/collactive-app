@@ -94,7 +94,7 @@
 .message-list {
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    /* justify-content: end; */
 }
 
 .new-message-area {
