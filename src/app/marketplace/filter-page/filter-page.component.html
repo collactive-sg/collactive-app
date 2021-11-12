@@ -42,9 +42,13 @@
                 </div>
             </div>
 
-            <div class="filter-section" id="health-supplements">
-                <div>Health Supplements</div>
-                <div class="toggle-button">
+            <div class="filter-section" >
+                <div id="choose-health-supplements">
+                    <div>Health Supplements</div>
+                    <input class="form-check-input pull-right" [(ngModel)]="isHealthSupplementsFilterChosen"
+                        type="checkbox" value="true" id="flexCheckDefault">
+                </div>
+                <div [ngClass]="this.isHealthSupplementsFilterChosen ? 'toggle-button active' : 'toggle-button inactive'">
                     <div class="yes-button" id="yes-button" (click)="addHealthSupplementsFilterYes()">
                         Yes
                     </div>

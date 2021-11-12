@@ -65,8 +65,10 @@ export class UserDataService {
   }
 
   // for user filtering
-  getDonorsByDietaryRestrictions(donorPrefs, isOnHealthSupplements) {
-    donorPrefs.push({ name: "Health supplements", checked: isOnHealthSupplements });
+  getDonorsByDietaryRestrictions(donorPrefs, isOnHealthSupplements, isHealthSupplementsFilterChosen) {
+    if (isHealthSupplementsFilterChosen) {
+      donorPrefs.push({ name: "Health supplements", checked: isOnHealthSupplements });
+    }
     donorPrefs = donorPrefs.filter(x => x.checked);
     if (donorPrefs.length === 0) {
       return this.afs.firestore.collection('users').get();

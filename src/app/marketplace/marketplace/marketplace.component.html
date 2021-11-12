@@ -19,13 +19,13 @@
         <i class="fa fa-arrow-left" (click)="this.closeFilterPage()" style="color:#3B485F; margin-top: 1px;" ></i>
         <span class="done-btn" (click)="this.applyFilter()">Done</span>
     </div>
-    <app-sort-filter-page 
+    <app-filter-page 
         [isDatePostedSortSelected]='isDatePostedSortSelected'
         [dietaryRestrictions]='dietaryRestrictions'
         [isDateExpressedSortSelected]='isDateExpressedSortSelected'
         [milkType]='milkType'
         [donorBabyAge]='donorBabyAge'
         [isOnHealthSupplements]='isOnHealthSupplements'
-    ></app-sort-filter-page>
-
+        [isHealthSupplementsFilterChosen] = 'isHealthSupplementsFilterChosen'
+    ></app-filter-page>
 </div>

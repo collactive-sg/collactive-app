@@ -1,16 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sort-filter-page',
-  templateUrl: './sort-filter-page.component.html',
-  styleUrls: ['./sort-filter-page.component.css']
+  selector: 'app-filter-page',
+  templateUrl: './filter-page.component.html',
+  styleUrls: ['./filter-page.component.css']
 })
-export class SortFilterPageComponent implements OnInit {
+export class FilterPageComponent implements OnInit {
 
   currentUser;
   @Input() isDatePostedSortSelected;
   @Input() isDateExpressedSortSelected;
-
+  @Input() isHealthSupplementsFilterChosen;
   @Input() dietaryRestrictions = [
     { name: "Halal", checked: false },
     { name: "Vegan", checked: false },
@@ -58,8 +58,10 @@ export class SortFilterPageComponent implements OnInit {
   }
   
   addHealthSupplementsFilterYes() {
-    this.isOnHealthSupplements = true;
-    this.setStyleOfHealthSupplements(this.isOnHealthSupplements)
+    if (this.isHealthSupplementsFilterChosen) {
+      this.isOnHealthSupplements = true;
+      this.setStyleOfHealthSupplements(this.isOnHealthSupplements)
+    }
   }
 
   setStyleOfHealthSupplements(res:boolean) {
@@ -70,8 +72,10 @@ export class SortFilterPageComponent implements OnInit {
   }
 
   addHealthSupplementsFilterNo() {
-    this.isOnHealthSupplements = false;
-    this.setStyleOfHealthSupplements(this.isOnHealthSupplements)
+    if (this.isHealthSupplementsFilterChosen) {
+      this.isOnHealthSupplements = false;
+      this.setStyleOfHealthSupplements(this.isOnHealthSupplements)
+    }
   }
 
 }

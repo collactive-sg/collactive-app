@@ -4,7 +4,7 @@ import { element } from 'protractor';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
-import { SortFilterPageComponent } from '../sort-filter-page/sort-filter-page.component';
+import { FilterPageComponent } from '../filter-page/filter-page.component';
 
 @Component({
   selector: 'app-marketplace',
@@ -37,8 +37,9 @@ export class MarketplaceComponent implements OnInit {
   milkType:string = "";
   donorBabyAge:string = "";
   isOnHealthSupplements:boolean = false;
+  isHealthSupplementsFilterChosen:boolean = false;
 
-  @ViewChild(SortFilterPageComponent) sortFilterPage;
+  @ViewChild(FilterPageComponent) FilterPage;
 
   constructor(
     public listingService: ListingService,
@@ -74,12 +75,13 @@ export class MarketplaceComponent implements OnInit {
   }
 
   applyFilter() {
-    this.isDatePostedSortSelected = this.sortFilterPage.isDatePostedSortSelected;
-    this.isDateExpressedSortSelected = this.sortFilterPage.isDateExpressedSortSelected;
-    this.milkType = this.sortFilterPage.milkType;
-    this.donorBabyAge = this.sortFilterPage.donorBabyAge;
-    this.isOnHealthSupplements = this.sortFilterPage.isOnHealthSupplements;
-    this.dietaryRestrictions = this.sortFilterPage.dietaryRestrictions;
+    this.isDatePostedSortSelected = this.FilterPage.isDatePostedSortSelected;
+    this.isDateExpressedSortSelected = this.FilterPage.isDateExpressedSortSelected;
+    this.milkType = this.FilterPage.milkType;
+    this.donorBabyAge = this.FilterPage.donorBabyAge;
+    this.isOnHealthSupplements = this.FilterPage.isOnHealthSupplements;
+    this.dietaryRestrictions = this.FilterPage.dietaryRestrictions;
+    this.isHealthSupplementsFilterChosen = this.FilterPage.isHealthSupplementsFilterChosen;
     this.filterListing();
     this.closeFilterPage()
   }
@@ -111,7 +113,7 @@ export class MarketplaceComponent implements OnInit {
 
       // filter by diet
       let matchedDonorIDArray = [];
-      this.userDataService.getDonorsByDietaryRestrictions(this.dietaryRestrictions, this.isOnHealthSupplements)
+      this.userDataService.getDonorsByDietaryRestrictions(this.dietaryRestrictions, this.isOnHealthSupplements, this.isHealthSupplementsFilterChosen)
       .then(res => {
                   
         res.forEach(x => x.data()["userID"] !== undefined? matchedDonorIDArray.push(x.data()["userID"]): null);
