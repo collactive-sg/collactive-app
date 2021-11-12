@@ -192,18 +192,5 @@ export class ChatComponent implements OnInit {
   closeChat() {
     this.router.navigate(['chatrooms']);
   }
-  // showProfileImgReceiver(url) {
-  //   const frame = document.getElementById(`frame-reciever`);
-  //   if (url.length > 0 && frame != null) {
-  //     frame.style.backgroundImage = `url(${url})`;
-  //     frame.style.backgroundSize = `cover`;
-  //   }
-  // }
-  // showProfileImgSender(url) {
-  //   const frame = document.getElementById("frame-sender");
-  //   if (url.length > 0 && frame != null) {
-  //     frame.style.backgroundImage = `url(${url})`;
-  //     frame.style.backgroundSize = `cover`;
-  //   }
-  // }
+  
 }
