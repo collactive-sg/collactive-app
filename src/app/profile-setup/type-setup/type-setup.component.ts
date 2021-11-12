@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
+import { TypeInfoModalComponent } from '../type-info-modal/type-info-modal.component';
 
 @Component({
   selector: 'app-type-setup',
@@ -17,6 +19,7 @@ export class TypeSetupComponent implements OnInit {
     private router: Router,
     private userDataService: UserDataService,
     private auth: AuthService,
+    private modalService: NgbModal
   ) {
     this.auth.getUserAuthState()
       .onAuthStateChanged((user) => {
@@ -29,6 +32,10 @@ export class TypeSetupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  openInfoModal() {
+    this.modalService.open(TypeInfoModalComponent, { centered: true });
   }
 
   updateDonorStatus() {

@@ -32,7 +32,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
         }
         this.subscriptions.push(this.userDataService.getProfileImg(this.currentUser.uid).pipe().subscribe(
           url => this.showProfileImg(url),
-          err => this.close()
         ))
         this.userDataService.getUserDetails(this.currentUser.uid).then((res:any) => {
           var user = res.data()
@@ -48,11 +47,12 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
   
   showProfileImg(url) {
-      const frame = document.getElementById('frame');
-      if (frame !== null) {
-        frame.style.backgroundImage = `url(${url})`;
-        frame.style.backgroundSize = `cover`;
-      }
+      // const frame = document.getElementById('frame');
+      // if (url) {
+      //   frame.style.backgroundImage = `url(${url})`;
+      //   frame.style.backgroundSize = `cover`;
+      // }
+
   }
 
   ngOnDestroy(): void {

@@ -5,7 +5,6 @@ import { PrivateChatService } from 'src/app/service/chat/private-chat.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 
-
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
@@ -52,12 +51,14 @@ export class ChatComponent implements OnInit {
     this.userDataService.getUserDetails(this.receiverID).then(userDetails => {
       if (userDetails) {
         this.receiverDetails = userDetails.data();
+        this.userDataService.getProfileImg(userDetails.data()['userID']).subscribe(url => this.showProfileImgReceiver(url))
       }
     })
 
     this.auth.getUserAuthState().onAuthStateChanged((user) => {
      if (user) {
       this.currentUser = user;
+      this.userDataService.getProfileImg(user.uid).subscribe(url => this.showProfileImgSender(url))
 
       this.userDataService.getUserDetails(this.currentUser.uid).then(res => {
         
@@ -154,10 +155,12 @@ export class ChatComponent implements OnInit {
         this.send(recentMessage);
         this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
       } else if (donorRequestAction === "reject" || donorRequestAction === "reset") {
-        this.chatService.updateChatroomRequest(this.currentGroupID, "none");
-        let recentMessage = "Rejected your request for donation";
-        this.send(recentMessage);
-        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        if (confirm(`Are you sure you want to ${donorRequestAction} this listing?`)) {
+          this.chatService.updateChatroomRequest(this.currentGroupID, "none");
+          let recentMessage = "Rejected your request for donation";
+          this.send(recentMessage);
+          this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        }
       }
     } else if (this.currentGroupDetails.requestStatus === "accepted") {
       if (donorRequestAction === "collacted") {
@@ -185,5 +188,19 @@ export class ChatComponent implements OnInit {
   }
   closeChat() {
     this.router.navigate(['chatrooms']);
+  }
+  showProfileImgReceiver(url) {
+    const frame = document.getElementById(`frame-reciever`);
+    if (url.length > 0 && frame != null) {
+      frame.style.backgroundImage = `url(${url})`;
+      frame.style.backgroundSize = `cover`;
+    }
+  }
+  showProfileImgSender(url) {
+    const frame = document.getElementById("frame-sender");
+    if (url.length > 0 && frame != null) {
+      frame.style.backgroundImage = `url(${url})`;
+      frame.style.backgroundSize = `cover`;
+    }
   }
 }

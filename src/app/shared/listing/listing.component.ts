@@ -70,7 +70,7 @@ export class ListingComponent implements OnInit {
 
   showProfileImg(url) {
     const frame = document.getElementById(`frame-${this.listingID}`);
-    if (frame !== null) {
+    if (url) {
       frame.style.backgroundImage = `url(${url})`;
       frame.style.backgroundSize = `cover`;
       document.getElementById(`profile-icon-${this.listingID}`).style.display = 'none';

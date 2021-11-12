@@ -68,16 +68,16 @@ export class ChildProfileComponent implements OnInit {
   get gender() { return this.childProfileForm.get('gender'); }
 
   onNextButtonClick() {
-    if (this.saveChild()) {
-      this.router.navigate(['profile-setup/completed-profile-setup']);
-    } else if (!this.saveChild && this.childrenProfiles.length === 0) {
-      
-    } else {
-      if (window.confirm("The current child profile form is incomplete. If you move on, the profile for this new child will not be saved (previously saved child profiles are unaffected).")) {
+    if (!this.saveChild() && this.childrenProfiles.length < 1) {
+      if (!window.confirm("The details you entered either wrong or incomplete. We encourage you to input your child's details to find appropriate matches for you. Please input your child's details if possible.")) {
         this.router.navigate(['profile-setup/completed-profile-setup']);
-      } else {
-
       }
+    } else if (!this.saveChild() && this.childrenProfiles.length >= 1 ) {
+      if (!window.confirm("The details you entered are either wrong or incomplete. If you move on, the profile for this new child will not be saved (previously saved child profiles are unaffected).")) {
+        this.router.navigate(['profile-setup/completed-profile-setup']);
+      }
+    } else {
+      this.router.navigate(['profile-setup/completed-profile-setup']);
     }
   }
 
@@ -92,6 +92,25 @@ export class ChildProfileComponent implements OnInit {
 
     if (str.length == 0) {
       str = "e.g. Nuts";
+    } else {
+      str = str.replace(/_([^_]*)$/, '$1')
+      str = str.replace(/_/g, ', ')
+    }
+
+    return str;
+  }
+
+  convertAllergiesListToString(lst) {
+    let str = "";
+    lst.forEach(element => {
+      if (element.checked) {
+        str = str.concat(element.name);
+        str = str.concat("_ ")
+      }
+    });
+
+    if (str.length == 0) {
+      str = "None";
     } else {
       str = str.replace(/_([^_]*)$/, '$1')
       str = str.replace(/_/g, ', ')
@@ -120,16 +139,16 @@ export class ChildProfileComponent implements OnInit {
   }
 
   correctFields() {
+    document.getElementById("name").style.borderColor = "#ced4da";
+    document.getElementById("childDateOfBirth").style.borderColor = "#ced4da";
+    document.getElementById("gender").style.borderColor = "#ced4da";
     if (this.name.invalid) {
-      window.alert("Please input your child's name.");
       document.getElementById("name").style.borderColor = "red";
       return false;
     } else if (this.dateOfBirth.invalid) {
-      window.alert("Please input your child's date of birth.");
       document.getElementById("childDateOfBirth").style.borderColor = "red";
       return false;
     } else if (this.gender.invalid) {
-      window.alert("Please input your child's gender");
       document.getElementById("gender").style.borderColor = "red";
       return false;
     } else {

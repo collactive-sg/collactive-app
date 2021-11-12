@@ -23,3 +23,23 @@
     background-image: url('../../../assets/check-solid.svg');
     opacity: 0.4;
 }
+
+.saved-child-label {
+    font-size: 1rem
+}
+
+.saved-child-field {
+    background: #EBEBEB;
+    min-height: 2rem;
+}
+.split-dob-gender {
+    width: 48%;
+}
+.split-dob-gender-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gender-choice {
+    padding-left: 0%;
+}

@@ -33,25 +33,25 @@
             <div *ngIf="this.currentGroupDetails !== undefined">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" class="side-by-side-btns" >
                     <div class="mt-2 mb-2 request-button"  id="accept"  (click)="handleListingRequest('accept')">
-                        Accept request
+                        Accept
                     </div>
                     <div class="mt-2 mb-2 request-button"  id="reject"  (click)="handleListingRequest('reject')">
-                        Reject request
+                        Reject
                     </div>
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'"  class="side-by-side-btns" >
                     <div class="mt-2 mb-2 request-button" id="collact" (click)="handleListingRequest('collacted')">
                         Mark this collacted
                     </div>
-                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
+                    <!-- <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
                         Reset listing
-                    </div>
+                    </div> -->
                 </div>
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'">
+                <!-- <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'">
                     <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
                         Reset listing to live
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -67,12 +67,14 @@
             <div *ngFor="let message of messages">
                 <div *ngIf="message.sentBy == this.receiverDetails.userID">
                     <div class="message-area-receiver">
+                        <div class="photo-upload photo-receiver" id="frame-receiver"></div>
                         <div class="message-receiver"> {{message.message}}</div>
                     </div> 
                 </div>
                 <div *ngIf="message.sentBy == this.currentUserDetails.userID">
                     <div class="message-area-sender">
                         <div class="message-sender"> {{message.message}}</div>
+                        <div class="photo-upload photo-sender" id="frame-sender"></div>
                     </div> 
                 </div>
             </div>
