@@ -32,6 +32,9 @@ export class ChatComponent implements OnInit {
 
   windowHistory;
 
+  receiverProfilePhoto;
+  senderProfilePhoto;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -51,14 +54,14 @@ export class ChatComponent implements OnInit {
     this.userDataService.getUserDetails(this.receiverID).then(userDetails => {
       if (userDetails) {
         this.receiverDetails = userDetails.data();
-        this.userDataService.getProfileImg(userDetails.data()['userID']).subscribe(url => this.showProfileImgReceiver(url))
+        this.userDataService.getProfileImg(userDetails.data()['userID']).subscribe(url => this.receiverProfilePhoto = url)
       }
     })
 
     this.auth.getUserAuthState().onAuthStateChanged((user) => {
      if (user) {
       this.currentUser = user;
-      this.userDataService.getProfileImg(user.uid).subscribe(url => this.showProfileImgSender(url))
+      this.userDataService.getProfileImg(user.uid).subscribe(url => this.senderProfilePhoto = url)
 
       this.userDataService.getUserDetails(this.currentUser.uid).then(res => {
         
@@ -189,18 +192,18 @@ export class ChatComponent implements OnInit {
   closeChat() {
     this.router.navigate(['chatrooms']);
   }
-  showProfileImgReceiver(url) {
-    const frame = document.getElementById(`frame-reciever`);
-    if (url.length > 0 && frame != null) {
-      frame.style.backgroundImage = `url(${url})`;
-      frame.style.backgroundSize = `cover`;
-    }
-  }
-  showProfileImgSender(url) {
-    const frame = document.getElementById("frame-sender");
-    if (url.length > 0 && frame != null) {
-      frame.style.backgroundImage = `url(${url})`;
-      frame.style.backgroundSize = `cover`;
-    }
-  }
+  // showProfileImgReceiver(url) {
+  //   const frame = document.getElementById(`frame-reciever`);
+  //   if (url.length > 0 && frame != null) {
+  //     frame.style.backgroundImage = `url(${url})`;
+  //     frame.style.backgroundSize = `cover`;
+  //   }
+  // }
+  // showProfileImgSender(url) {
+  //   const frame = document.getElementById("frame-sender");
+  //   if (url.length > 0 && frame != null) {
+  //     frame.style.backgroundImage = `url(${url})`;
+  //     frame.style.backgroundSize = `cover`;
+  //   }
+  // }
 }
