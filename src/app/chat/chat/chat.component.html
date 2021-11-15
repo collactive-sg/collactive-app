@@ -1,4 +1,14 @@
 <app-topbar [isShowBackButton]="true" (click)="this.updateLastSeen()"></app-topbar>
+<div *ngIf="this.currentUser !== undefined">
+    <div class="mt-2 text-danger" *ngIf="!this.isEmailVerified">
+        Your email is not verified. 
+        <button (click)="resendVerificationEmail()">Resend verfication email</button>
+    </div>
+    <div class="mt-2 text-danger" *ngIf="!this.isCompleteProfile">
+        Your profile setup is incomplete. Please complete it before making a posting.
+        <button (click)="navigateToProfileSettings()">Complete profile setup</button>
+    </div>
+</div>
 <div *ngIf="this.currentUserDetails">
     <div *ngIf="receiverDetails && listingID">
         <h2>To: {{receiverDetails.firstName}} {{receiverDetails.lastName}}</h2>
