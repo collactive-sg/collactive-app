@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  NgbCalendar,
   NgbDateStruct,
   NgbInputDatepickerConfig
 } from '@ng-bootstrap/ng-bootstrap';
@@ -8,7 +7,6 @@ import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, FormControl, 
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
-import * as $ from 'jquery';
 
 
 @Component({

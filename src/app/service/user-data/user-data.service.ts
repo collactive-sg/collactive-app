@@ -98,7 +98,7 @@ export class UserDataService {
         && childrenDetails
         && childrenDetails.length >= 1
         && dietaryPreferences.length > 7
-        && lifestyleInfo.length > 2
+        && Object.keys(lifestyleInfo).length > 2
     } else {
       return firstName 
         && lastName 
