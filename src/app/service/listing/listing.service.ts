@@ -69,6 +69,12 @@ export class ListingService {
       res.forEach( res => {
         this.afs.collection(`notifications`).doc(`${res.id}`).delete(); 
       })
+    }).then(() => {
+      return this.afs.collection('chatrooms').ref.where('listingID', '==', listingID).get()
+    }).then(res => {
+      res.forEach( res => {
+        this.afs.collection(`chatrooms`).doc(`${res.id}`).delete(); 
+      })
     });
   }
   
