@@ -1,4 +1,14 @@
-<app-topbar [isShowBackButton]="true" [backButtonPath]="'listing/' + this.listingID"></app-topbar>
+<app-topbar [isShowBackButton]="true" (click)="this.updateLastSeen()"></app-topbar>
+<div *ngIf="this.currentUser !== undefined">
+    <div class="mt-2 text-danger" *ngIf="!this.isEmailVerified">
+        Your email is not verified. Please verify it before chatting. 
+        <button (click)="resendVerificationEmail()">Resend verfication email</button>
+    </div>
+    <div class="mt-2 text-danger" *ngIf="!this.isCompleteProfile">
+        Your profile setup is incomplete. Please complete it before chatting.
+        <button (click)="navigateToProfileSettings()">Complete profile setup</button>
+    </div>
+</div>
 <div *ngIf="this.currentUserDetails">
     <div *ngIf="receiverDetails && listingID">
         <h2>To: {{receiverDetails.firstName}} {{receiverDetails.lastName}}</h2>
@@ -11,7 +21,7 @@
     </div>
     <div *ngIf="this.listingDetails !== undefined">
         <div *ngIf="this.currentGroupDetails !== undefined">
-            <div *ngIf="this.currentUser.uid !== this.listingDetails.donorID">
+            <div *ngIf="!this.isListingOwner">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'none'" 
                     class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
                         Request for breastmilk
@@ -30,8 +40,8 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="this.currentUser.uid === this.listingDetails.donorID">
-            <div *ngIf="this.currentGroupDetails !== undefined">
+        <div *ngIf="this.currentGroupDetails !== undefined">
+            <div *ngIf="this.isListingOwner">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'">
                     <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('accept')">
                         Accept request

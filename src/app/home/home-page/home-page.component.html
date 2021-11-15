@@ -10,12 +10,24 @@
     <div class="mt-2 chat-button" (click)="navigateToChatrooms()">
         View all chats
     </div>
+    <div *ngIf="this.currentUser !== undefined">
+        <div class="mt-2 text-danger" *ngIf="!this.isEmailVerified">
+            Your email is not verified. 
+            <button (click)="resendVerificationEmail()">Resend verfication email</button>
+        </div>
+        <div class="mt-2 text-danger" *ngIf="!this.isCompleteProfile">
+            Your profile setup is incomplete. Please complete it before making a posting.
+            <button (click)="navigateToProfileSettings()">Complete profile setup</button>
+        </div>
+    </div>
     <div class="mt-1" *ngIf="this.isDonor">
         <div style="font-size: 18px;">Notifications</div> 
         <div *ngIf="this.notifications.length === 0">
             <div style="font-size: 14px; text-align:center;">No new notifications.</div>
         </div>
         <div class="notifications">
+            <div *ngIf="this.notifications.length > 0" style="text-decoration: underline; font-size: small;" 
+                (click)="this.readAllNotifications()">Read all</div>
             <div  *ngFor="let notification of this.notifications">
                 <app-notification-box 
                     [senderFirstName]='notification.sender_firstname'

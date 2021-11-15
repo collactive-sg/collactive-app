@@ -15,6 +15,7 @@ export class ChatroomsComponent implements OnInit {
   currentUserDetails;
 
   chatrooms = [];
+  allChatrooms = [];
   receiverID: string;
 
 
@@ -34,12 +35,18 @@ export class ChatroomsComponent implements OnInit {
          
         this.currentUserDetails = res.data();
 
-        this.chatService.getAllChatrooms(this.currentUser.uid).then(chatrooms => {
-          chatrooms.forEach(chatroom => {
-            this.addNameToChatroom(chatroom);
-          });
-        })
-          
+        this.chatService.getAllChatrooms(this.currentUser.uid).pipe().subscribe(
+          (chatrooms) => {
+            if (chatrooms) {
+              this.chatrooms = [];
+              this.allChatrooms = [];
+              chatrooms.forEach(chatroom => {
+                this.addNameToChatroom(chatroom);
+                chatroom["isListingOwner"] = (chatroom["members"][0] === this.currentUser.uid);
+              });
+            }
+          }
+        )
       });
         
       }
@@ -54,7 +61,7 @@ export class ChatroomsComponent implements OnInit {
   }
 
   addNameToChatroom(chatroom) {
-    let chatroomData = chatroom.data();
+    let chatroomData = chatroom;
     let chatMembers = chatroomData["members"];
     let receiver;
     // check is possible since only 2 members
@@ -67,25 +74,29 @@ export class ChatroomsComponent implements OnInit {
       chatroomData["firstName"] = receiverDetails.data().firstName;
       chatroomData["lastName"] = receiverDetails.data().lastName;
       this.chatrooms.push(chatroomData);
+      this.allChatrooms.push(chatroomData);
     })
   }
 
-  filterByAsDonor() {
-    return this.chatService.getChatRoomsByStatus(this.currentUser.uid, true).then(chatrooms => {
-      this.chatrooms = [];
-      chatrooms.forEach(chatroom => {
-        this.addNameToChatroom(chatroom);
-      })
-    })
+  filterByAsDonor(isDonor: boolean) {
+    this.chatrooms = [];
+    if (isDonor) {
+      this.allChatrooms.forEach(chatroom => {
+        if (chatroom["members"][0] === this.currentUser.uid) {
+          this.chatrooms.push(chatroom);
+        }
+      });
+    } else {
+      this.allChatrooms.forEach(chatroom => {
+        if (chatroom["members"][0] !== this.currentUser.uid) {
+          this.chatrooms.push(chatroom);
+        }
+      });
+    }
   }
 
-  filterByAsReceiver() {
-    return this.chatService.getChatRoomsByStatus(this.currentUser.uid, false).then(chatrooms => {
-      this.chatrooms = [];
-      chatrooms.forEach(chatroom => {
-        this.addNameToChatroom(chatroom);
-      })
-    })
+  clearFilters() {
+    this.chatrooms = this.allChatrooms;
   }
 
 }
