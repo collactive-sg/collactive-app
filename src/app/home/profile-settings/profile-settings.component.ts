@@ -172,11 +172,13 @@ export class ProfileSettingsComponent implements OnInit {
     }
   }
 
-  showProfileImg(url) {
+  showProfileImg(url:string) {
     const frame = document.getElementById('frame');
-    frame.style.backgroundImage = `url(${url})`;
-    frame.style.backgroundSize = `cover`;
-    document.getElementById('plus-icon').style.display = 'none';
+    if (url.length > 0) {
+      frame.style.backgroundImage = `url(${url})`;
+      frame.style.backgroundSize = `cover`;
+      document.getElementById('plus-icon').style.display = 'none';
+    }
   }
 
   // Children settings

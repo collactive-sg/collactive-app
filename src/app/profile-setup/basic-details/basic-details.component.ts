@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, FormControl, 
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
-
+import * as $ from 'jquery';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class BasicDetailsComponent implements OnInit {
     month: new Date().getMonth() + 1,
     day: new Date().getDate(),
   }
-  
+  minDate = {year: 1900, month:1, day: 1};
   isDonor: boolean;
   constructor(
     public configDatePicker: NgbInputDatepickerConfig,

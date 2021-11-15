@@ -65,8 +65,10 @@ export class UserDataService {
   }
 
   // for user filtering
-  getDonorsByDietaryRestrictions(donorPrefs, isOnHealthSupplements) {
-    donorPrefs.push({ name: "Health supplements", checked: isOnHealthSupplements });
+  getDonorsByDietaryRestrictions(donorPrefs, isOnHealthSupplements, isHealthSupplementsFilterChosen) {
+    if (isHealthSupplementsFilterChosen) {
+      donorPrefs.push({ name: "Health supplements", checked: isOnHealthSupplements });
+    }
     donorPrefs = donorPrefs.filter(x => x.checked);
     if (donorPrefs.length === 0) {
       return this.afs.firestore.collection('users').get();
@@ -77,6 +79,34 @@ export class UserDataService {
 
   getAllChildren() {
     return this.afs.firestore.collectionGroup('children').get();
+  }
+
+  checkIfCompleteProfile(isDonor, userDetails, childrenDetails) {
+    var firstName = userDetails["firstName"];
+    var lastName = userDetails["lastName"];
+    var lifestyleInfo = userDetails["lifestyle-info"];
+    var dietaryPreferences = userDetails["dietary-restrictions"];
+    var areaOfResidency = userDetails["areaOfResidency"];
+    var dateOfBirth = userDetails["dateOfBirth"];
+    if (isDonor) {
+      return firstName 
+        && lastName 
+        && areaOfResidency 
+        && dateOfBirth
+        && lifestyleInfo
+        && dietaryPreferences
+        && childrenDetails
+        && childrenDetails.length >= 1
+        && dietaryPreferences.length > 7
+        && lifestyleInfo.length > 2
+    } else {
+      return firstName 
+        && lastName 
+        && areaOfResidency 
+        && dateOfBirth
+        && childrenDetails
+        && childrenDetails.length >= 1
+    }
   }
 
 }

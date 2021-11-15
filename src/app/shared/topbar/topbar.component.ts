@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-topbar',
@@ -12,19 +13,26 @@ export class TopbarComponent implements OnInit {
 
   @Input() isShowBackButton;
   @Input() isShowMenu;
+  @Input() isShowChats;
 
   constructor(
     private modalService: NgbModal, 
-    private _location: Location
+    private _location: Location,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
   }
-  open() {
+  openSidebar() {
     const modalRef = this.modalService.open(SidebarComponent);
   }
 
   navigateToBackPath(){
     this._location.back();
   }
+
+  openChats() {
+    this.router.navigate(["chatrooms"]);
+  }
+
 }

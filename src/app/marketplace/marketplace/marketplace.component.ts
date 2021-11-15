@@ -4,7 +4,8 @@ import { element } from 'protractor';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
-import { SortFilterPageComponent } from '../sort-filter-page/sort-filter-page.component';
+import { FilterPageComponent } from '../filter-page/filter-page.component';
+import { SortPageComponent } from '../sort-page/sort-page.component';
 
 @Component({
   selector: 'app-marketplace',
@@ -18,10 +19,13 @@ export class MarketplaceComponent implements OnInit {
   currentUserData;
   isDonor;
   showFilterPage:boolean = false;
+  DateExpressedSortSelectedHighLow = 'DatePostedSortSelectedHighLow';
+  DateExpressedSortSelectedLowHigh = 'DateExpressedSortSelectedLowHigh';
+  DatePostedSortSelectedHighLow = 'DatePostedSortSelectedHighLow';
+  DatePostedSortSelectedLowHigh = 'DatePostedSortSelectedLowHigh';
 
-  //filter attributes
-  isDatePostedSortSelected:boolean = false;
-  isDateExpressedSortSelected:boolean = false;
+  sortChoice:string = '';
+  showSortPage:boolean = false;
   dietaryRestrictions = [
     { name: "Halal", checked: false },
     { name: "Vegan", checked: false },
@@ -31,14 +35,15 @@ export class MarketplaceComponent implements OnInit {
     { name: "Dairy-free", checked: false },
     { name: "Gluten-free", checked: false },
     { name: "Nut-free", checked: false },
-    // { name: "Health supplements", checked: false }
   ]
 
   milkType:string = "";
   donorBabyAge:string = "";
   isOnHealthSupplements:boolean = false;
+  isHealthSupplementsFilterChosen:boolean = false;
 
-  @ViewChild(SortFilterPageComponent) sortFilterPage;
+  @ViewChild(FilterPageComponent) FilterPage;
+  @ViewChild(SortPageComponent) SortPage;
 
   constructor(
     public listingService: ListingService,
@@ -65,7 +70,6 @@ export class MarketplaceComponent implements OnInit {
   }
 
   openFilterPage() {
-
     this.showFilterPage = true;
   }
 
@@ -73,20 +77,63 @@ export class MarketplaceComponent implements OnInit {
     this.showFilterPage = false;
   }
 
+  openSortPage() {
+    this.showSortPage = true;
+  }
+
+  closeSortPage() {
+    this.showSortPage = false;
+  }
+
   applyFilter() {
-    this.isDatePostedSortSelected = this.sortFilterPage.isDatePostedSortSelected;
-    this.isDateExpressedSortSelected = this.sortFilterPage.isDateExpressedSortSelected;
-    this.milkType = this.sortFilterPage.milkType;
-    this.donorBabyAge = this.sortFilterPage.donorBabyAge;
-    this.isOnHealthSupplements = this.sortFilterPage.isOnHealthSupplements;
-    this.dietaryRestrictions = this.sortFilterPage.dietaryRestrictions;
+    // this.isDatePostedSortSelected = this.FilterPage.isDatePostedSortSelected;
+    // this.isDateExpressedSortSelected = this.FilterPage.isDateExpressedSortSelected;
+    this.milkType = this.FilterPage.milkType;
+    this.donorBabyAge = this.FilterPage.donorBabyAge;
+    this.isOnHealthSupplements = this.FilterPage.isOnHealthSupplements;
+    this.dietaryRestrictions = this.FilterPage.dietaryRestrictions;
+    this.isHealthSupplementsFilterChosen = this.FilterPage.isHealthSupplementsFilterChosen;
     this.filterListing();
     this.closeFilterPage()
   }
 
+  applySort() {
+    this.sortChoice = this.SortPage.sortChoice;
+    this.sortListing();
+    this.closeSortPage();
+  }
+
+  sortListing() {
+    switch (this.sortChoice) {
+    case this.DateExpressedSortSelectedHighLow:
+      this.liveListings = this.liveListings.sort((a, b) => b["dateExpressed"] - a["dateExpressed"]);
+      break;
+    case this.DateExpressedSortSelectedLowHigh:
+      this.liveListings = this.liveListings.sort((a, b) => a["dateExpressed"] - b["dateExpressed"]);
+      break;
+    case this.DatePostedSortSelectedHighLow:
+      this.liveListings = this.liveListings.sort((a, b) => b["dateCreated"] - a["dateCreated"]);
+      break;
+    case this.DatePostedSortSelectedLowHigh:
+      this.liveListings = this.liveListings.sort((a, b) => a["dateCreated"] - b["dateCreated"]);
+      break;
+    default:
+      break;
+    }
+    // filter by date expressed
+    // if (this.isDateExpressedSortSelected) {
+    //   this.liveListings = this.liveListings.sort((a, b) => b["dateExpressed"] - a["dateExpressed"]);
+    // }
+
+    // filter by date posted
+    // if (this.isDatePostedSortSelected) {
+    //   this.liveListings = this.liveListings.sort((a, b) => b["dateCreated"] - a["dateCreated"]);
+    // }
+  }
+
   clearFilters() {
-    this.isDatePostedSortSelected = false;
-    this.isDateExpressedSortSelected = false;
+    // this.isDatePostedSortSelected = false;
+    // this.isDateExpressedSortSelected = false;
     this.dietaryRestrictions = [
       { name: "Halal", checked: false },
       { name: "Vegan", checked: false },
@@ -111,22 +158,12 @@ export class MarketplaceComponent implements OnInit {
 
       // filter by diet
       let matchedDonorIDArray = [];
-      this.userDataService.getDonorsByDietaryRestrictions(this.dietaryRestrictions, this.isOnHealthSupplements)
+      this.userDataService.getDonorsByDietaryRestrictions(this.dietaryRestrictions, this.isOnHealthSupplements, this.isHealthSupplementsFilterChosen)
       .then(res => {
                   
         res.forEach(x => x.data()["userID"] !== undefined? matchedDonorIDArray.push(x.data()["userID"]): null);
 
         this.liveListings = this.liveListings.filter(x => matchedDonorIDArray.includes(x["donorID"]));
-        
-        // filter by date expressed
-        if (this.isDateExpressedSortSelected) {
-          this.liveListings = this.liveListings.sort((a, b) => b["dateExpressed"] - a["dateExpressed"]);
-        }
-
-        // filter by date posted
-        if (this.isDatePostedSortSelected) {
-          this.liveListings = this.liveListings.sort((a, b) => b["dateCreated"] - a["dateCreated"]);
-        }
 
         // filter by milk type
         if (this.milkType) {

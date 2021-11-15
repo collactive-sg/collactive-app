@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 import { PrivateChatService } from 'src/app/service/chat/private-chat.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
   members = [];
   newMessage = '';
 
+  isDonor:boolean;
   listingID;
   listingDetails;
 
@@ -35,13 +36,17 @@ export class ChatComponent implements OnInit {
   messages = [];
   isListingOwner: boolean;
 
+  receiverProfilePhoto;
+  senderProfilePhoto;
+
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
     private chatService: PrivateChatService,
     private userDataService: UserDataService,
     private listingService: ListingService,
-    private router: Router
+    private router: Router,
+    private _location: Location
   ) { }
 
   ngOnInit(): void {
@@ -51,18 +56,28 @@ export class ChatComponent implements OnInit {
       this.members.push(this.receiverID); 
     });
 
+    this.userDataService.getUserDetails(this.receiverID).then(userDetails => {
+      if (userDetails) {
+        this.receiverDetails = userDetails.data();
+        this.userDataService.getProfileImg(userDetails.data()['userID']).subscribe(url => this.receiverProfilePhoto = url)
+      }
+    })
+
     this.auth.getUserAuthState().onAuthStateChanged((user) => {
      if (user) {
       this.currentUser = user;
+      this.userDataService.getProfileImg(user.uid).subscribe(url => this.senderProfilePhoto = url)
       this.isEmailVerified = this.currentUser.emailVerified;
+      
 
       this.userDataService.getUserDetails(this.currentUser.uid).then(res => {
         
         this.currentUserDetails = res.data();
+        this.isDonor = this.currentUserDetails['isDonor']
         this.userDataService.getChildren(user.uid).then(res => {
           this.childrenDetails = [];
           res.forEach(child => this.childrenDetails.push(child.data()));
-          this.isCompleteProfile = this.checkIfCompleteProfile(this.currentUserDetails, this.childrenDetails);
+          this.isCompleteProfile = this.userDataService.checkIfCompleteProfile(this.isDonor, this.currentUserDetails, this.childrenDetails);
         })
         this.members.push(this.currentUser.uid);
 
@@ -142,10 +157,9 @@ export class ChatComponent implements OnInit {
 
   // for notifications
   updateLastSeen() {
-    if (this.notifyUserVerification()) {
-      return;
-    }
-    return this.chatService.updateChatRoomLastSeen(this.currentGroupID, this.isListingOwner, this.currentUser.uid);
+    this.notifyUserVerification()
+    this.chatService.updateChatRoomLastSeen(this.currentGroupID, this.isListingOwner, this.currentUser.uid);
+    this._location.back();
   }
 
   // below are functions for request listing
@@ -179,10 +193,12 @@ export class ChatComponent implements OnInit {
         this.send(recentMessage);
         this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
       } else if (donorRequestAction === "reject" || donorRequestAction === "reset") {
-        this.chatService.updateChatroomRequest(this.currentGroupID, "none");
-        let recentMessage = "Rejected your request for donation";
-        this.send(recentMessage);
-        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        if (confirm(`Are you sure you want to ${donorRequestAction} this listing?`)) {
+          this.chatService.updateChatroomRequest(this.currentGroupID, "none");
+          let recentMessage = "Rejected your request for donation";
+          this.send(recentMessage);
+          this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        }
       }
     } else if (this.currentGroupDetails.requestStatus === "accepted") {
       if (donorRequestAction === "collacted") {
@@ -217,34 +233,6 @@ export class ChatComponent implements OnInit {
   resendVerificationEmail() {
     this.auth.resendEmailVerification(this.currentUser);
     window.alert("Email verfication sent and will arrive shortly! Please chack your email for it.");
-  }
-
-  checkIfCompleteProfile(userDetails, childrenDetails) {
-    var firstName = userDetails["firstName"];
-    var lastName = userDetails["lastName"];
-    var lifestyleInfo = userDetails["lifestyle-info"];
-    var dietaryPreferences = userDetails["dietary-restrictions"];
-    var areaOfResidency = userDetails["areaOfResidency"];
-    var dateOfBirth = userDetails["dateOfBirth"];
-    if (firstName === undefined ||
-      lastName === undefined || 
-      lifestyleInfo === undefined || 
-      dietaryPreferences === undefined || 
-      areaOfResidency === undefined ||
-      dateOfBirth === undefined ||
-      childrenDetails === undefined) {
-        return false;
-      }
-    if (lifestyleInfo.length < 3) {
-      return false;
-    }
-    if (dietaryPreferences.length < 8) {
-      return false;
-    }
-    if (childrenDetails.length < 1) {
-      return false;
-    }
-    return true;
   }
 
   notifyUserVerification() {

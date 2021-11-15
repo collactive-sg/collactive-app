@@ -1,0 +1,19 @@
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info-text {
+    width: 48%;
+}
+
+.full-modal {
+    padding: 5px;
+}
+
+.close {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+}

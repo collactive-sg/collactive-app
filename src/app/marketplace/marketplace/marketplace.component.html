@@ -1,8 +1,11 @@
-<div *ngIf="!this.showFilterPage">
+<div *ngIf="!this.showFilterPage && !this.showSortPage">
     <app-topbar [isShowBackButton]="false" [isShowMenu]="true"></app-topbar>
     <div class="marketplace-header">
         <span style="font-size: 22px;">Marketplace</span>
-        <i class="fa fa-filter" (click)="this.openFilterPage()"></i>
+        <div>
+            <i class="fa fa-sort" style="margin-right: 0.5rem;" (click)="this.openSortPage()"></i>
+            <i class="fa fa-filter" (click)="this.openFilterPage()"></i>
+        </div>
     </div>
     <div class="listings" *ngIf="this.currentUser !== undefined">
         <div class="mt-3" *ngIf="this.liveListings !== undefined && this.liveListings.length === 0">
@@ -19,13 +22,21 @@
         <i class="fa fa-arrow-left" (click)="this.closeFilterPage()" style="color:#3B485F; margin-top: 1px;" ></i>
         <span class="done-btn" (click)="this.applyFilter()">Done</span>
     </div>
-    <app-sort-filter-page 
-        [isDatePostedSortSelected]='isDatePostedSortSelected'
+    <app-filter-page 
         [dietaryRestrictions]='dietaryRestrictions'
-        [isDateExpressedSortSelected]='isDateExpressedSortSelected'
         [milkType]='milkType'
         [donorBabyAge]='donorBabyAge'
         [isOnHealthSupplements]='isOnHealthSupplements'
-    ></app-sort-filter-page>
+        [isHealthSupplementsFilterChosen] = 'isHealthSupplementsFilterChosen'
+    ></app-filter-page>
+</div>
 
+<div *ngIf="this.showSortPage">
+    <div class="top-icons">
+        <i class="fa fa-arrow-left" (click)="this.closeSortPage()" style="color:#3B485F; margin-top: 1px;" ></i>
+        <span class="done-btn" (click)="this.applySort()">Done</span>
+    </div>
+    <app-sort-page 
+        [sortChoice] = 'this.sortChoice'
+    ></app-sort-page>
 </div>

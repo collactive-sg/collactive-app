@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SortFilterPageComponent } from './sort-filter-page.component';
+import { FilterPageComponent } from './filter-page.component';
 
-describe('SortFilterPageComponent', () => {
-  let component: SortFilterPageComponent;
-  let fixture: ComponentFixture<SortFilterPageComponent>;
+describe('FilterPageComponent', () => {
+  let component: FilterPageComponent;
+  let fixture: ComponentFixture<FilterPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SortFilterPageComponent ]
+      declarations: [ FilterPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SortFilterPageComponent);
+    fixture = TestBed.createComponent(FilterPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,73 +1,110 @@
-<app-topbar [isShowBackButton]="true" (click)="this.updateLastSeen()"></app-topbar>
-<div *ngIf="this.currentUser !== undefined">
-    <div class="mt-2 text-danger" *ngIf="!this.isEmailVerified">
-        Your email is not verified. Please verify it before chatting. 
-        <button (click)="resendVerificationEmail()">Resend verfication email</button>
-    </div>
-    <div class="mt-2 text-danger" *ngIf="!this.isCompleteProfile">
-        Your profile setup is incomplete. Please complete it before chatting.
-        <button (click)="navigateToProfileSettings()">Complete profile setup</button>
-    </div>
-</div>
-<div *ngIf="this.currentUserDetails">
-    <div *ngIf="receiverDetails && listingID">
-        <h2>To: {{receiverDetails.firstName}} {{receiverDetails.lastName}}</h2>
-        <h3>listing: {{listingID}}</h3>
-        <div *ngIf="messages">
-            <div *ngFor="let message of messages">
-                <h6>{{message.senderFirstName}} {{message.senderLastName}}: {{message.message}}</h6>
-            </div>
+
+<div class="start-page">
+    <div class="top-bar">
+        <i class="fa fa-arrow-left"  (click)="this.updateLastSeen()" style="margin-right: 1.5rem;"></i>
+        <div *ngIf="receiverDetails">
+                {{receiverDetails.firstName}} {{receiverDetails.lastName}}
         </div>
     </div>
     <div *ngIf="this.listingDetails !== undefined">
-        <div *ngIf="this.currentGroupDetails !== undefined">
+        <!-- <div class="listingDetails">
+            
+        </div> -->
+        <div *ngIf="this.currentGroupDetails !== undefined && this.isEmailVerified && this.isCompleteProfile ">
             <div *ngIf="!this.isListingOwner">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'none'" 
-                    class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
+                    class="mt-2 mb-2 request-button"  id="request"  (click)="handleListingRequest('')">
                         Request for breastmilk
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" 
-                    class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
-                        Breastmilk donation requested
+                    class="mt-2 mb-2 request-button"  id="request-sent"  (click)="handleListingRequest('')">
+                        Request Sent
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'" 
-                    class="mt-2 mb-2 request-button" (click)="handleListingRequest('')">
+                    class="mt-2 mb-2 request-button" id="accepted" (click)="handleListingRequest('')">
                         Breastmilk donation accepted
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'" 
-                    class="mt-2 mb-2 request-button">
+                    class="mt-2 mb-2 request-button"  id="collacted"  >
                         Breastmilk donation collacted!
                 </div>
             </div>
         </div>
-        <div *ngIf="this.currentGroupDetails !== undefined">
+        <div *ngIf="this.currentGroupDetails !== undefined && this.isEmailVerified && this.isCompleteProfile">
             <div *ngIf="this.isListingOwner">
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'">
-                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('accept')">
-                        Accept request
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" class="side-by-side-btns" >
+                    <div class="mt-2 mb-2 request-button"  id="accept"  (click)="handleListingRequest('accept')">
+                        Accept
                     </div>
-                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reject')">
-                        Reject request
+                    <div class="mt-2 mb-2 request-button"  id="reject"  (click)="handleListingRequest('reject')">
+                        Reject
                     </div>
                 </div>
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'">
-                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('collacted')">
-                        Mark listing as collacted
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'"  class="side-by-side-btns" >
+                    <div class="mt-2 mb-2 request-button" id="collact" (click)="handleListingRequest('collacted')">
+                        Mark this collacted
                     </div>
-                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
+                    <!-- <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
                         Reset listing
-                    </div>
+                    </div> -->
                 </div>
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'">
+                <!-- <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'">
                     <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
                         Reset listing to live
                     </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="!this.currentUserDetails || !this.receiverDetails || !this.listingID" class="loading">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div *ngIf="this.currentUserDetails && !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
+    <div>
+        <div class="verify" *ngIf="!this.isEmailVerified">
+            Your email is not verified. Please verify it before chatting. 
+            <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
+        </div>
+        <div class="verify" *ngIf="!this.isCompleteProfile">
+            Your profile setup is incomplete. Please complete it before chatting.
+            <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="this.currentUserDetails && this.isEmailVerified && this.isCompleteProfile ">
+    <div *ngIf="receiverDetails && listingID" #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages-area">
+        <div *ngIf="messages" class="message-list">
+            <div *ngFor="let message of messages">
+                <div *ngIf="message.sentBy == this.receiverDetails.userID">
+                    <div class="message-area-receiver">
+                        <div class="photo-upload photo-receiver" 
+                        [ngStyle] = "{'background-image' :'url(' + this.receiverProfilePhoto + ')' }"
+                        ></div>
+                        <div class="message-receiver"> {{message.message}}</div>
+                    </div> 
+                </div>
+                <div *ngIf="message.sentBy == this.currentUserDetails.userID">
+                    <div class="message-area-sender">
+                        <div class="message-sender"> {{message.message}}</div>
+                        <div class="photo-upload photo-sender" 
+                        [ngStyle] = "{'background-image' :'url(' + this.senderProfilePhoto + ')' }"
+                        ></div>
+                    </div> 
                 </div>
             </div>
         </div>
     </div>
-    <div>
-        <input [(ngModel)]="newMessage">
-        <button *ngIf="newMessage" (click)="send(newMessage)">Send</button>
+    
+    <div class="new-message">
+        <div class="new-message-area">
+            <textarea class="new-message-box" role="textbox" maxlines="5" (keydown.enter)="send(newMessage)" [(ngModel)]="newMessage" contenteditable></textarea>
+            <div class="send-btn"  (click)="send(newMessage)" >
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            </div>
+        </div>
     </div>
 </div>
