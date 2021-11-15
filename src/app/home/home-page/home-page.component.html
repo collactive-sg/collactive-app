@@ -96,11 +96,11 @@
         <div *ngIf=" !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
             <div>
                 <div class="verify" *ngIf="!this.isEmailVerified">
-                    Your email is not verified. Please verify it before chatting. 
+                    Your email is not verified. Please verify it.
                     <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
                 </div>
                 <div class="verify" *ngIf="!this.isCompleteProfile">
-                    Your profile setup is incomplete. Please complete it before chatting.
+                    Your profile setup is incomplete. Please complete it.
                     <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
                 </div>
             </div>
