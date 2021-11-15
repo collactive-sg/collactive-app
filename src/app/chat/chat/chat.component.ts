@@ -77,6 +77,12 @@ export class ChatComponent implements OnInit {
           }
           this.getGroupDetails();
         })
+
+        this.userDataService.getUserDetails(this.receiverID).then(userDetails => {
+          if (userDetails) {
+            this.receiverDetails = userDetails.data();
+          }
+        });
       })
      }})
   }
@@ -246,8 +252,8 @@ export class ChatComponent implements OnInit {
     if (!this.isEmailVerified) {
       if (window.confirm("Your email is not verified. Please verify your email before chatting. Would you like a email verification resent?")) {
         this.resendVerificationEmail();
-        return true;
       }
+      return true;
     } else if (!this.isCompleteProfile) {
       if (window.confirm("Your profile is not complete. Please complete your profile in profile settings before chatting.")) {
         this.navigateToProfileSettings();
