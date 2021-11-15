@@ -108,7 +108,6 @@ export class HomePageComponent implements OnInit {
       areaOfResidency === undefined ||
       dateOfBirth === undefined ||
       childrenDetails === undefined) {
-        console.log("here")
         return false;
       }
     if (lifestyleInfo.length < 3) {

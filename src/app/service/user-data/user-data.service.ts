@@ -79,10 +79,4 @@ export class UserDataService {
     return this.afs.firestore.collectionGroup('children').get();
   }
 
-  checkIfProfileComplete(userID: String) {
-    return this.getUserDetails(userID).then(
-      res => console.log(res)
-    )
-  }
-
 }
