@@ -54,6 +54,7 @@ export class ChatComponent implements OnInit {
     this.auth.getUserAuthState().onAuthStateChanged((user) => {
      if (user) {
       this.currentUser = user;
+      this.isEmailVerified = this.currentUser.emailVerified;
 
       this.userDataService.getUserDetails(this.currentUser.uid).then(res => {
         
@@ -243,12 +244,12 @@ export class ChatComponent implements OnInit {
   notifyUserVerification() {
     // additional check if user is not verified. returns true if any violation made
     if (!this.isEmailVerified) {
-      if (window.confirm("Your email is not verified. Please verify your email before making a listing. Would you like a email verification resent?")) {
+      if (window.confirm("Your email is not verified. Please verify your email before chatting. Would you like a email verification resent?")) {
         this.resendVerificationEmail();
         return true;
       }
     } else if (!this.isCompleteProfile) {
-      if (window.confirm("Your profile is not complete. Please complete your profile in profile settings before making a listing.")) {
+      if (window.confirm("Your profile is not complete. Please complete your profile in profile settings before chatting.")) {
         this.navigateToProfileSettings();
       }
       return true;
