@@ -20,6 +20,19 @@ export class NotificationsService {
     return this.afs.collection('notifications').doc(`${notifId}`).set({"read": true}, {merge:true})
   }
 
+  readNotificationsBeforeLastSeen(userID, lastSeen) {
+    return this.afs.collection('notifications', ref => { return ref.where("receiver_userID", "==", userID)
+      .orderBy('createdAt', 'desc')}).get().subscribe(res => {
+        if (res) {
+          res.forEach(notif => {
+            if (!notif.data()['read'] && lastSeen > notif.data()['createdAt']) {
+              this.readNotification(notif.data()['notificationID']);
+            }
+          })
+        }
+      })
+  }
+
   createLikeNotification(listingID, userID, post) {
     return this.userDataService.getUserDetails(userID).then(userDetails => {
       return this.afs.collection(`notifications`).add({
@@ -28,7 +41,7 @@ export class NotificationsService {
         sender_firstname: userDetails.data()["firstName"],
         sender_lastname: userDetails.data()["lastName"],
         receiver_userID: post["donorID"],
-        createdAt: Date.now(),
+        createdAt: new Date(),
         read: false,
         type: "like",
       }).then(res => {

@@ -81,4 +81,32 @@ export class UserDataService {
     return this.afs.firestore.collectionGroup('children').get();
   }
 
+  checkIfCompleteProfile(isDonor, userDetails, childrenDetails) {
+    var firstName = userDetails["firstName"];
+    var lastName = userDetails["lastName"];
+    var lifestyleInfo = userDetails["lifestyle-info"];
+    var dietaryPreferences = userDetails["dietary-restrictions"];
+    var areaOfResidency = userDetails["areaOfResidency"];
+    var dateOfBirth = userDetails["dateOfBirth"];
+    if (isDonor) {
+      return firstName 
+        && lastName 
+        && areaOfResidency 
+        && dateOfBirth
+        && lifestyleInfo
+        && dietaryPreferences
+        && childrenDetails
+        && childrenDetails.length >= 1
+        && dietaryPreferences.length > 7
+        && lifestyleInfo.length > 2
+    } else {
+      return firstName 
+        && lastName 
+        && areaOfResidency 
+        && dateOfBirth
+        && childrenDetails
+        && childrenDetails.length >= 1
+    }
+  }
+
 }

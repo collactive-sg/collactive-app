@@ -1,8 +1,9 @@
-<div class="start-page">
+<app-topbar [isShowBackButton]="true"></app-topbar>
+<!-- <div class="start-page">
     <div class="top-icons">
         <i class="fa fa-arrow-left" (click)="this.closeChatrooms()" style="margin-top: 1px;"></i>
     </div>
-</div>
+</div> -->
 <div *ngIf="!this.currentUserDetails || !this.chatrooms" class="loading">
     <div class="spinner-border" role="status">
         <span class="sr-only">Loading...</span>
@@ -11,8 +12,9 @@
 <div class="mt-1" *ngIf="this.currentUserDetails && this.chatrooms" >
     <h1>Chats</h1>
     <div *ngIf="this.currentUserDetails.isDonor" class="filter-section"> 
-        <div class="filter-button" (click)="filterByAsDonor()">As donor</div>
-        <div class="filter-button" (click)="filterByAsReceiver()">As receiver</div>
+        <div class="filter-button" (click)="filterByAsDonor(true)">As donor</div>
+        <div class="filter-button" (click)="filterByAsDonor(false)">As receiver</div>
+        <div class="filter-button" (click)="clearFilters()">Clear</div>
     </div>
     <div *ngIf="chatrooms.length !== 0">
         <div class="mt-3" *ngFor="let chatroom of chatrooms">

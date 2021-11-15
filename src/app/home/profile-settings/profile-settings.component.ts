@@ -158,10 +158,6 @@ export class ProfileSettingsComponent implements OnInit {
     }
   }
 
-  onPrevButtonClick() {
-    this.router.navigate(['home']);
-  }
-
   onImgSelected(e) {
     let selectedFile = e.target.files[0];
     if (selectedFile.size > 5200000) {

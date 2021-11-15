@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { NotificationsService } from '../notif/notifications.service';
+import firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +26,13 @@ export class PrivateChatService {
       modifiedAt: new Date(),
       type: type,
       listingID: listingID,
-      requestStatus: "none"
-    }).then(()=> {
-      return this.sendMessage(listingID, groupID, message, createdBy, receiver);
+      requestStatus: "none",
+      donorLastSeen: new Date(),
+      receiverLastSeen: new Date(),
+      recentMsgsForDonor: 0,
+      recentMsgsForReceiver: 0,
+    }, {merge: true}).then(()=> {
+      return this.sendMessage(listingID, groupID, message, createdBy, receiver, false);
     });
   }
 
@@ -35,7 +40,7 @@ export class PrivateChatService {
     return this.afs.collection("chatrooms").doc(groupID).valueChanges();
   }
 
-  sendMessage(listingID: string, groupID: string, message: string, sentBy: string, receiver: string) {
+  sendMessage(listingID: string, groupID: string, message: string, sentBy: string, receiver: string, isListingOwner: boolean) {
     let sentAt = new Date();
     return this.afs.collection("messages").doc(groupID).collection("messages").add({
       message: message,
@@ -44,6 +49,8 @@ export class PrivateChatService {
     })
     .then(() => {
       return this.updateChatroomMessage(groupID, message, sentBy, sentAt);
+    }).then(() => {
+      return this.updateChatroomRecentMsgCount(groupID, isListingOwner);
     })
     .then(() => {
       return this.notificationsService.createChatNotification(listingID, sentBy, receiver, message);
@@ -57,11 +64,38 @@ export class PrivateChatService {
         message: message,
         sentBy: sentBy
       }
-    }, {merge: true})
+    }, {merge: true});
   }
 
   updateChatroomRequest(groupID: string, requestStatus: string) {
-    return this.afs.collection("chatrooms").doc(groupID).set({requestStatus: requestStatus}, {merge: true})
+    return this.afs.collection("chatrooms").doc(groupID).set({requestStatus: requestStatus}, {merge: true});
+  }
+
+  // chat notifications cleanup related function
+  updateChatRoomLastSeen(groupID: string, isDonor: boolean, userID: string) {
+    let lastSeen = new Date();
+    if (isDonor) {
+      return this.afs.collection("chatrooms").doc(groupID)
+      .set({donorLastSeen: lastSeen, recentMsgsForDonor: 0}, {merge: true})
+      .then(() => {
+        return this.notificationsService.readNotificationsBeforeLastSeen(userID, lastSeen);
+      });
+    } else {
+      return this.afs.collection("chatrooms").doc(groupID)
+      .set({receiverLastSeen: new Date(), recentMsgsForReceiver: 0}, {merge: true})
+      .then(() => {
+        return this.notificationsService.readNotificationsBeforeLastSeen(userID, lastSeen);
+      });
+    }
+  }
+
+  updateChatroomRecentMsgCount(groupID: string, isListingOwner: boolean) {
+    const increment = firebase.firestore.FieldValue.increment(1);
+    if (isListingOwner) {
+      return this.afs.collection("chatrooms").doc(groupID).update({recentMsgsForReceiver: increment});
+    } else {
+      return this.afs.collection("chatrooms").doc(groupID).update({recentMsgsForDonor: increment});
+    }
   }
 
   getMessages(groupID: string) {
@@ -69,20 +103,20 @@ export class PrivateChatService {
   }
 
   getAllChatrooms(userID: string) {
-    return this.afs.collection("chatrooms").ref.orderBy("modifiedAt", "desc").where('members', 'array-contains', userID).get();
+    return this.afs.collection("chatrooms", ref => {return ref.orderBy("modifiedAt", "desc").where('members', 'array-contains', userID)}).valueChanges();
   }
 
-  getChatRoomsByStatus(userID: string, isDonor: boolean) {
-    if (isDonor) {
-      return this.afs.collection("chatrooms").ref
-      .where('createdBy', '!=', userID).where('members', 'array-contains', userID)
-      .orderBy('createdBy')
-      .orderBy("modifiedAt", "desc").get();
-    } else {
-      return this.afs.collection("chatrooms").ref
-      .where('createdBy', '==', userID).where('members', 'array-contains', userID)
-      .orderBy("modifiedAt", "desc").get();
-    }
-  }
+  // getChatRoomsByStatus(userID: string, isDonor: boolean) {
+  //   if (isDonor) {
+  //     return this.afs.collection("chatrooms").ref
+  //     .where('createdBy', '!=', userID).where('members', 'array-contains', userID)
+  //     .orderBy('createdBy')
+  //     .orderBy("modifiedAt", "desc").get();
+  //   } else {
+  //     return this.afs.collection("chatrooms").ref
+  //     .where('createdBy', '==', userID).where('members', 'array-contains', userID)
+  //     .orderBy("modifiedAt", "desc").get();
+  //   }
+  // }
 
 }

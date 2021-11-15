@@ -47,11 +47,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
   
   showProfileImg(url) {
-      // const frame = document.getElementById('frame');
-      // if (url) {
-      //   frame.style.backgroundImage = `url(${url})`;
-      //   frame.style.backgroundSize = `cover`;
-      // }
+      const frame = document.getElementById('frame');
+      if (url) {
+        frame.style.backgroundImage = `url(${url})`;
+        frame.style.backgroundSize = `cover`;
+      }
 
   }
 

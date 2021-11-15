@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 import { PrivateChatService } from 'src/app/service/chat/private-chat.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-chat',
@@ -14,6 +15,9 @@ export class ChatComponent implements OnInit {
 
   currentUser;
   currentUserDetails;
+  childrenDetails;
+  isCompleteProfile;
+  isEmailVerified;
 
   // the one receiving the message
   receiverID: string;
@@ -22,6 +26,7 @@ export class ChatComponent implements OnInit {
   members = [];
   newMessage = '';
 
+  isDonor:boolean;
   listingID;
   listingDetails;
 
@@ -29,19 +34,19 @@ export class ChatComponent implements OnInit {
   currentGroupDetails;
 
   messages = [];
-
-  windowHistory;
+  isListingOwner: boolean;
 
   receiverProfilePhoto;
   senderProfilePhoto;
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private auth: AuthService,
     private chatService: PrivateChatService,
     private userDataService: UserDataService,
-    private listingService: ListingService
+    private listingService: ListingService,
+    private router: Router,
+    private _location: Location
   ) { }
 
   ngOnInit(): void {
@@ -62,37 +67,56 @@ export class ChatComponent implements OnInit {
      if (user) {
       this.currentUser = user;
       this.userDataService.getProfileImg(user.uid).subscribe(url => this.senderProfilePhoto = url)
+      this.isEmailVerified = this.currentUser.emailVerified;
+      
 
       this.userDataService.getUserDetails(this.currentUser.uid).then(res => {
         
         this.currentUserDetails = res.data();
+        this.isDonor = this.currentUserDetails['isDonor']
+        this.userDataService.getChildren(user.uid).then(res => {
+          this.childrenDetails = [];
+          res.forEach(child => this.childrenDetails.push(child.data()));
+          this.isCompleteProfile = this.userDataService.checkIfCompleteProfile(this.isDonor, this.currentUserDetails, this.childrenDetails);
+        })
         this.members.push(this.currentUser.uid);
 
-        let listingOwnerID;
         this.listingService.getListingByID(this.listingID).pipe().subscribe((listing: any) => {
           this.listingDetails = listing;
-          listingOwnerID = listing.donorID;
-          if (listingOwnerID === this.currentUser.uid) {
+  
+          this.isListingOwner = listing.donorID === this.currentUser.uid
+          if (this.isListingOwner) {
             this.currentGroupID = this.listingID + this.receiverID;
           } else {
             this.currentGroupID = this.listingID + this.currentUser.uid;
           }
           this.getGroupDetails();
         })
+
+        this.userDataService.getUserDetails(this.receiverID).then(userDetails => {
+          if (userDetails) {
+            this.receiverDetails = userDetails.data();
+          }
+        });
       })
      }})
   }
 
   send(message) {
-    if (this.currentGroupDetails === undefined) {
+    
+    if (this.notifyUserVerification()) {
+      return;
+    }
+
+    if (this.currentGroupDetails === undefined || this.currentGroupDetails.members === undefined) {
       return this.chatService.createChatroom(this.listingID, this.currentUser.uid, this.members, "private", message).then(() => {
         this.newMessage = '';
-        return this.getMessagesfromGroup();
+        // return this.getMessagesfromGroup();
       });
     } else {
-      return this.chatService.sendMessage(this.listingID, this.currentGroupID, message, this.currentUser.uid, this.receiverID).then(() => {
+      return this.chatService.sendMessage(this.listingID, this.currentGroupID, message, this.currentUser.uid, this.receiverID, this.isListingOwner).then(() => {
         this.newMessage = '';
-        return this.getMessagesfromGroup();
+        // return this.getMessagesfromGroup();
       })
     }
   }
@@ -117,8 +141,13 @@ export class ChatComponent implements OnInit {
             messageWithName.senderFirstName = this.currentUserDetails.firstName;
             messageWithName.senderLastName = this.currentUserDetails.lastName;
           } else {
-            messageWithName.senderFirstName = this.receiverDetails.firstName;
-            messageWithName.senderLastName = this.receiverDetails.lastName;
+            this.userDataService.getUserDetails(this.receiverID).then(userDetails => {
+              if (userDetails) {
+                this.receiverDetails = userDetails.data();
+                messageWithName.senderFirstName = this.receiverDetails.firstName;
+                messageWithName.senderLastName = this.receiverDetails.lastName;
+              }
+            })
           }
           this.messages.push(messageWithName);
         })
@@ -126,12 +155,18 @@ export class ChatComponent implements OnInit {
     })
   }
 
-  onPrevButtonClick() {
-    this.router.navigate([`listing/${this.listingID}`]);
+  // for notifications
+  updateLastSeen() {
+    this.notifyUserVerification()
+    this.chatService.updateChatRoomLastSeen(this.currentGroupID, this.isListingOwner, this.currentUser.uid);
+    this._location.back();
   }
 
   // below are functions for request listing
   handleListingRequest(donorRequestAction: string) {
+    if (this.notifyUserVerification()) {
+      return;
+    }
     if (this.currentUser.uid !== this.listingDetails.donorID) {
       this.changeRequestStatusAsReceiver();
     } else {
@@ -189,8 +224,31 @@ export class ChatComponent implements OnInit {
       }
     }
   }
-  closeChat() {
-    this.router.navigate(['chatrooms']);
+
+  // checking for valid profile settings start here
+  navigateToProfileSettings() {
+    this.router.navigate(["/profile-settings"]);
   }
-  
+
+  resendVerificationEmail() {
+    this.auth.resendEmailVerification(this.currentUser);
+    window.alert("Email verfication sent and will arrive shortly! Please chack your email for it.");
+  }
+
+  notifyUserVerification() {
+    // additional check if user is not verified. returns true if any violation made
+    if (!this.isEmailVerified) {
+      if (window.confirm("Your email is not verified. Please verify your email before chatting. Would you like a email verification resent?")) {
+        this.resendVerificationEmail();
+      }
+      return true;
+    } else if (!this.isCompleteProfile) {
+      if (window.confirm("Your profile is not complete. Please complete your profile in profile settings before chatting.")) {
+        this.navigateToProfileSettings();
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

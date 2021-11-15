@@ -1,6 +1,7 @@
+
 <div class="start-page">
     <div class="top-bar">
-        <i class="fa fa-arrow-left" (click)="this.closeChat()" style="margin-right: 20px;"></i>
+        <i class="fa fa-arrow-left"  (click)="this.updateLastSeen()" style="margin-right: 1.5rem;"></i>
         <div *ngIf="receiverDetails">
                 {{receiverDetails.firstName}} {{receiverDetails.lastName}}
         </div>
@@ -9,8 +10,8 @@
         <!-- <div class="listingDetails">
             
         </div> -->
-        <div *ngIf="this.currentGroupDetails !== undefined">
-            <div *ngIf="this.currentUser.uid !== this.listingDetails.donorID">
+        <div *ngIf="this.currentGroupDetails !== undefined && this.isEmailVerified && this.isCompleteProfile ">
+            <div *ngIf="!this.isListingOwner">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'none'" 
                     class="mt-2 mb-2 request-button"  id="request"  (click)="handleListingRequest('')">
                         Request for breastmilk
@@ -29,8 +30,8 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="this.currentUser.uid === this.listingDetails.donorID">
-            <div *ngIf="this.currentGroupDetails !== undefined">
+        <div *ngIf="this.currentGroupDetails !== undefined && this.isEmailVerified && this.isCompleteProfile">
+            <div *ngIf="this.isListingOwner">
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" class="side-by-side-btns" >
                     <div class="mt-2 mb-2 request-button"  id="accept"  (click)="handleListingRequest('accept')">
                         Accept
@@ -61,7 +62,20 @@
         <span class="sr-only">Loading...</span>
     </div>
 </div>
-<div *ngIf="this.currentUserDetails">
+<div *ngIf="this.currentUserDetails && !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
+    <div>
+        <div class="verify" *ngIf="!this.isEmailVerified">
+            Your email is not verified. Please verify it before chatting. 
+            <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
+        </div>
+        <div class="verify" *ngIf="!this.isCompleteProfile">
+            Your profile setup is incomplete. Please complete it before chatting.
+            <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="this.currentUserDetails && this.isEmailVerified && this.isCompleteProfile ">
     <div *ngIf="receiverDetails && listingID" #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages-area">
         <div *ngIf="messages" class="message-list">
             <div *ngFor="let message of messages">

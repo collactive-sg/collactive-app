@@ -17,6 +17,9 @@
             <div style="text-decoration: underline; text-align: center; font-size: small;  margin-top: 4px;" (click)="this.goToNotificationPage()">See activity</div>
         </div>
         <div class="notifications" *ngIf="this.notifications.length > 0" >
+            <div *ngIf="this.notifications.length > 0" style="text-decoration: underline; font-size: small;" 
+                (click)="this.readAllNotifications()">Read all
+            </div>
             <div  *ngFor="let notification of this.notifications">
                 <app-notification-box 
                     [senderFirstName]='notification.sender_firstname'
@@ -31,7 +34,7 @@
             </div>
             <div style="text-decoration: underline; text-align: center; font-size: small;" (click)="this.goToNotificationPage()">See all</div>
         </div>
-        <div class="mt-1">
+        <div class="mt-1" *ngIf="(this.isEmailVerified && this.isCompleteProfile)">
           <div style="font-size: 18px;">My postings</div>
             <div *ngIf="this.currentUserListings.length === 0">
                 <h6>You don't have any postings here yet. Start by creating a new post!</h6>
@@ -42,7 +45,18 @@
                 </div>
             </div>
         </div>
-        
+        <div *ngIf=" !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
+            <div>
+                <div class="verify" *ngIf="!this.isEmailVerified">
+                    Your email is not verified. Please verify it before chatting. 
+                    <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
+                </div>
+                <div class="verify" *ngIf="!this.isCompleteProfile">
+                    Your profile setup is incomplete. Please complete it before chatting.
+                    <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
+                </div>
+            </div>
+        </div>
     </div>
     <div *ngIf="!this.isDonor">
         <div style="font-size: 18px;">Notifications</div> 
@@ -68,7 +82,7 @@
             </div>
             <div style="text-decoration: underline; text-align: center; font-size: small;" (click)="this.goToNotificationPage()">See all</div>
         </div>
-        <div class="mt-3">
+        <div class="mt-3" *ngIf="this.isEmailVerified && this.isCompleteProfile">
             <h3>New postings</h3>
             <div *ngIf="this.recentListings.length === 0">
                 <h6>There are no new posts here yet.</h6>
@@ -79,7 +93,18 @@
                 </div>
             </div>
         </div>
-        
+        <div *ngIf=" !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
+            <div>
+                <div class="verify" *ngIf="!this.isEmailVerified">
+                    Your email is not verified. Please verify it before chatting. 
+                    <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
+                </div>
+                <div class="verify" *ngIf="!this.isCompleteProfile">
+                    Your profile setup is incomplete. Please complete it before chatting.
+                    <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
