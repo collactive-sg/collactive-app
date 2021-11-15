@@ -8,8 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 export class FilterPageComponent implements OnInit {
 
   currentUser;
-  @Input() isDatePostedSortSelected;
-  @Input() isDateExpressedSortSelected;
+  // @Input() isDatePostedSortSelected;
+  // @Input() isDateExpressedSortSelected;
   @Input() isHealthSupplementsFilterChosen;
   @Input() dietaryRestrictions = [
     { name: "Halal", checked: false },
@@ -31,30 +31,7 @@ export class FilterPageComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-
     this.setStyleOfHealthSupplements(this.isOnHealthSupplements);
-    this.setStyleOfDateExpressedSort(this.isDateExpressedSortSelected);
-    this.setStyleOfDatePostedSort(this.isDatePostedSortSelected);
-  }
-
-  addDatePostedSort() {
-    this.isDatePostedSortSelected = !this.isDatePostedSortSelected;
-    this.setStyleOfDatePostedSort(this.isDatePostedSortSelected);
-  }
-
-  addDateExpressedSort() {
-    this.isDateExpressedSortSelected = !this.isDateExpressedSortSelected;
-    this.setStyleOfDateExpressedSort(this.isDateExpressedSortSelected);
-  }
-
-  setStyleOfDateExpressedSort(res:boolean) {
-    document.getElementById("date-expressed-sort").style.background = res? "#3B485F" : "#FFFFFF";
-    document.getElementById("date-expressed-sort").style.color = res? "#FFFFFF" : "#3B485F"
-  }
-
-  setStyleOfDatePostedSort(res:boolean) {
-    document.getElementById("date-posted-sort").style.background = res? "#3B485F" : "#FFFFFF";
-    document.getElementById("date-posted-sort").style.color = res? "#FFFFFF" : "#3B485F"
   }
   
   addHealthSupplementsFilterYes() {
@@ -76,6 +53,23 @@ export class FilterPageComponent implements OnInit {
       this.isOnHealthSupplements = false;
       this.setStyleOfHealthSupplements(this.isOnHealthSupplements)
     }
+  }
+
+  clearFilters() {
+    this.dietaryRestrictions = [
+      { name: "Halal", checked: false },
+      { name: "Vegan", checked: false },
+      { name: "Vegetarian", checked: false },
+      { name: "Kosher", checked: false },
+      { name: "Pescatarian", checked: false },
+      { name: "Dairy-free", checked: false },
+      { name: "Gluten-free", checked: false },
+      { name: "Nut-free", checked: false },
+    ]
+
+    this.milkType = "";
+    this.donorBabyAge= "";
+    this.isOnHealthSupplements = false;
   }
 
 }

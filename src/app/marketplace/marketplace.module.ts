@@ -8,10 +8,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditListingComponent } from './edit-listing/edit-listing.component';
 import { FilterPageComponent } from './filter-page/filter-page.component';
+import { SortPageComponent } from './sort-page/sort-page.component';
 
 
 @NgModule({
-  declarations: [MarketplaceComponent, ListingPageComponent, NewListingComponent, EditListingComponent, FilterPageComponent],
+  declarations: [MarketplaceComponent, ListingPageComponent, NewListingComponent, EditListingComponent, FilterPageComponent, SortPageComponent],
   imports: [
     CommonModule,
     SharedModule,

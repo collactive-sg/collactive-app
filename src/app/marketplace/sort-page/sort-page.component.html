@@ -1,0 +1,24 @@
+<div class="sort-page">
+    <div class="section">
+        <span style="font-size: 20px; text-decoration: underline;">Sort By:</span>
+    </div>
+    <div class="sort-section">
+        <div class="form-check form-check-inline donor-baby-age-choice" id="three-month-choice">
+            <input   class="form-check-input" name="isDateExpressedSortSelectedHighLow" type="radio" id="isDateExpressedSortSelectedHighLow" value="DateExpressedSortSelectedHighLow" [(ngModel)]="sortChoice">
+            <label class="form-check-label" >Date expressed - Latest to Earliest </label>
+        </div>
+        <div class="form-check form-check-inline donor-baby-age-choice" id="more-six-month-choice">
+            <input   class="form-check-input" name="isDateExpressedSortSelectedLowHigh" type="radio" id="isDateExpressedSortSelectedLowHigh" value="DateExpressedSortSelectedLowHigh" [(ngModel)]="sortChoice">
+            <label class="form-check-label" >Date expressed - Earliest to Latest</label>
+        </div>
+        <div class="form-check form-check-inline donor-baby-age-choice" id="one-month-choice">
+            <input   class="form-check-input" name="isDatePostedSortSelectedHighLow" type="radio"  id="isDatePostedSortSelectedHighLow" value="DatePostedSortSelectedHighLow" [(ngModel)]="sortChoice">
+            <label class="form-check-label" >Date posted - Latest to Earliest</label>
+        </div>
+        <div class="form-check form-check-inline donor-baby-age-choice" id="six-month-choice">
+            <input   class="form-check-input" name="isDatePostedSortSelectedLowHigh" type="radio" id="isDatePostedSortSelectedLowHigh" value="DatePostedSortSelectedLowHigh" [(ngModel)]="sortChoice">
+            <label class="form-check-label" >Date posted - Earliest to Latest</label>
+        </div>
+    </div>
+    <span class="clear-filter-sort" (click)="this.clearSort()">Clear Sort</span>
+</div>
