@@ -70,4 +70,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
     });
   }
 
+  deleteAccount() {
+    if (window.confirm("Are you sure you would like to delete your account? All your listing information will be deleted")) {
+      this.logout();
+      return this.userDataService.deleteUserData(this.currentUser.uid);
+    }
+  }
+
 }
