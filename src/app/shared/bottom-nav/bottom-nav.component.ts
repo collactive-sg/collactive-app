@@ -9,13 +9,15 @@ import { Router } from '@angular/router';
 export class BottomNavComponent implements OnInit {
 
   @Input() isDonor;
-  currentPath = "/home";
-  constructor(private router: Router) { }
+  currentPath;
+
+  constructor(private router: Router) {
+    this.currentPath = this.router.url
+   }
 
   ngOnInit(): void {}
 
   navigatePath(path: string) {
-    this.currentPath = path;
     this.router.navigate([path]);
   }
 

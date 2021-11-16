@@ -1,6 +1,6 @@
 <app-topbar [isShowBackButton]="true"></app-topbar>
 <div>
-    <div class="section-header">
+    <div class="section-header" *ngIf="this.type != TYPE_SETTINGS">
         <h3>Dietary Restrictions</h3>
         <div style="margin-top: -5px; line-height: 20px;">Fill in these details to help us better meet your needs</div>
         <div class="progress" style="height:3px; margin-top:10px">
@@ -8,6 +8,10 @@
         </div>
     </div>
     
+    <div class="section-header" *ngIf="this.type == TYPE_SETTINGS">
+        <h3>Dietary Restrictions</h3>
+    </div>
+
     <ul class="list-group list-group-flush">
         <div class="list-gap"></div>
         <li class="list-group-item" *ngFor="let restriction of dietaryRestrictions">
@@ -17,9 +21,12 @@
         </li>
     </ul>
 
-    <div class="next-button" (click)="onNextButtonClick()">
-        <div style="margin-right: 10px;">Next</div>
-        <i class="fa fa-arrow-right"></i>
-    </div>
+    <div class="next-button" (click)="onNextButtonClick()" *ngIf="this.type == TYPE_SETTINGS">
+        Save
+      </div>
+    
+      <div class="next-button" (click)="onNextButtonClick()" *ngIf="this.type != TYPE_SETTINGS">
+        Next
+      </div>
 
 </div>

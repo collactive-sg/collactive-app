@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
+import { TYPE_SETTINGS } from '../constants';
 
 @Component({
   selector: 'app-lifestyle-information',
@@ -13,12 +15,15 @@ export class LifestyleInformationComponent implements OnInit {
 
   lifestyleInfoForm : FormGroup;
   currentUser;
-  
+  readonly TYPE_SETTINGS = TYPE_SETTINGS;
+  type;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
     private auth: AuthService,
     private userDataService: UserDataService,
+    private _location: Location
     ) {
       this.lifestyleInfoForm = this.formBuilder.group({
         isSmoker: new FormControl(true, Validators.required),
@@ -41,11 +46,11 @@ export class LifestyleInformationComponent implements OnInit {
           });
         }
       });
+      this.type = window.history.state.type
     }
 
   ngOnInit(): void {
   }
-
 
   get IsSmoker() { return this.lifestyleInfoForm.get('isSmoker') }
   get IsDrinker() { return this.lifestyleInfoForm.get('isDrinker') }
@@ -80,8 +85,9 @@ export class LifestyleInformationComponent implements OnInit {
   }
 
   onNextButtonClick() {
-    this.router.navigate(['profile-setup/dietary-restrictions']);
     this.userDataService.updateUserDoc(this.currentUser.uid, {"lifestyle-info": this.lifestyleInfoForm.value});
+    if (this.type == TYPE_SETTINGS) this._location.back()
+    else this.router.navigate(['profile-setup/dietary-restrictions']);
   }
 
 }

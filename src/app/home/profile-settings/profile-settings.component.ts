@@ -30,6 +30,7 @@ export class ProfileSettingsComponent implements OnInit {
     month: new Date().getMonth() + 1,
     day: new Date().getDate(),
   }
+
   lifestyleInfoForm;
   dietaryRestrictions;
   allergens = [
@@ -48,28 +49,12 @@ export class ProfileSettingsComponent implements OnInit {
   constructor(public configDatePicker: NgbInputDatepickerConfig,
     public calendarDatePicker: NgbCalendar,
     private formBuilder: FormBuilder,
-    private router: Router,
+    public router: Router,
     private userDataService: UserDataService,
     private auth: AuthService
   ) { 
-    this.donorForm = this.formBuilder.group({
-      isDonor: new FormControl(true, Validators.required),
-    });
-
-    this.lifestyleInfoForm = this.formBuilder.group({
-      isSmoker: new FormControl(true, Validators.required),
-      isDrinker: new FormControl(true, Validators.required),
-      isCaffeineConsumer: new FormControl(true, Validators.required),
-    });
-
-    this.childProfileForm = this.formBuilder.group({
-      name: new FormControl('', Validators.required),
-      dateOfBirth: new FormControl('', Validators.required),
-      gender: new FormControl('', Validators.required)
-    });
-
     // setting datepicker popup to close only on click outside
-    configDatePicker.autoClose = 'outside';
+
     this.auth.getUserAuthState()
     .onAuthStateChanged((user) => {
       if (user) {
@@ -125,53 +110,31 @@ export class ProfileSettingsComponent implements OnInit {
         this.currentUser = ''
       }
     });
-}
+  }
 
   ngOnInit(): void {
   }
 
+  convertAllergiesToString(allergies) {
+    let str = "";
+    allergies.forEach(element => {
+      if (element.checked) {
+        str = str.concat(element.name);
+        str = str.concat("_ ")
+      }
+    });
 
-  // get DateOfBirth() { return this.basicDetailsForm.get('dateOfBirth') }
-
-  onDoneButtonClick() {
-    let dobTimeStamp = new Date(this.dateOfBirth['year'], this.dateOfBirth['month'], this.dateOfBirth['day']).getTime();
-    
-    if (isNaN(dobTimeStamp)) {
-      window.alert("Please fill in a valid date for the date of birth");
-      document.getElementById("dateOfBirth").style.border = "1px solid red";
-      return;
-    }
-    if (this.isDonor) {
-      this.userDataService.updateUserDoc(this.currentUser.uid, {
-        'dateOfBirth' : dobTimeStamp,
-        'areaOfResidency' : this.areasOptions[this.areaOfResidency],
-        'dietary-restrictions': this.dietaryRestrictions,
-        'lifestyle-info': this.lifestyleInfoForm.value,
-        'isDonor': this.donorForm.value["isDonor"]
-      });
+    if (str.length == 0) {
+      str = "";
     } else {
-      this.userDataService.updateUserDoc(this.currentUser.uid, {
-        'dateOfBirth' : dobTimeStamp,
-        'areaOfResidency' : this.areasOptions[this.areaOfResidency],
-        'isDonor': this.donorForm.value["isDonor"]
-      });
+      str = str.replace(/_([^_]*)$/, '$1')
+      str = str.replace(/_/g, ', ')
+      str = "Allergic to ".concat(str)
     }
-  }
 
-  onImgSelected(e) {
-    let selectedFile = e.target.files[0];
-    if (selectedFile.size > 5200000) {
-      window.prompt("The image uploaded has a very high resolution. Please choose an image that is less than 5MB");
-    } else {
-      this.userDataService.uploadProfileImg(this.currentUser.uid, selectedFile).then(() => {
-        const url = URL.createObjectURL(selectedFile);
-        this.showProfileImg(url);
-      }).catch(err => {
-        window.prompt("We are unable to upload your picture right now. Please try again later.");
-      })
-    }
+    return str;
   }
-
+  
   showProfileImg(url:string) {
     const frame = document.getElementById('frame');
     if (url.length > 0) {
@@ -179,108 +142,5 @@ export class ProfileSettingsComponent implements OnInit {
       frame.style.backgroundSize = `cover`;
       document.getElementById('plus-icon').style.display = 'none';
     }
-  }
-
-  // Children settings
-
-  addChild() {
-    // reset form and childID
-    this.currentChildID = undefined;
-    this.childProfileForm = this.formBuilder.group({
-      name: new FormControl('', Validators.required),
-      dateOfBirth: new FormControl('', Validators.required),
-      gender: new FormControl('', Validators.required)
-    });
-    this.allergens = [
-      {name: "Shellfish (lobster, prawn, shrimp, crab etc.)", checked: false},
-      {name:"Eggs", checked: false},
-      {name:"Cow’s milk", checked: false},
-      {name:"Peanuts and other tree nuts", checked: false},
-      {name:"Grains such as wheat, oat, and barley", checked: false},
-      {name:"Soy", checked: false},
-      {name:"Fish", checked: false},
-    ]
-  }
-
-  get name() { return this.childProfileForm.get('name'); }
-  get childDateOfBirth() { return this.childProfileForm.get('dateOfBirth'); }
-  get gender() { return this.childProfileForm.get('gender'); }
-
-  correctFields() {
-    if (this.name.invalid) {
-      window.alert("Please input your child's name.");
-      document.getElementById("name").style.borderColor = "red";
-      return false;
-    } else if (this.dateOfBirth.invalid) {
-      window.alert("Please input your child's date of birth.");
-      document.getElementById("childDateOfBirth").style.borderColor = "red";
-      return false;
-    } else if (this.gender.invalid) {
-      window.alert("Please input your child's gender");
-      document.getElementById("gender").style.borderColor = "red";
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  saveChild() {
-    if (!this.correctFields()) {
-      return false;
-    }
-
-    let childProfile = {
-      "name": this.childProfileForm.controls.name.value,
-      "dateOfBirth": this.childProfileForm.controls.dateOfBirth.value, 
-      "gender": this.childProfileForm.controls.gender.value,
-      "allergies": this.allergens
-    }
-    
-    if (this.currentChildID === undefined) {
-      this.userDataService.addNewChildProfile(this.currentUser.uid, childProfile);
-    } else {
-      childProfile["childID"] = this.currentChildID;
-      this.userDataService.updateChildProfile(this.currentUser.uid, this.currentChildID, childProfile);
-    }
-    this.updateExistingChildren();
-    this.addChild();
-    return true;
-  }
-
-  selectChildProfile(childID: String) {
-    if (childID === undefined) {
-      window.location.reload();
-    }
-    this.userDataService.getChildProfile(this.currentUser.uid, childID).subscribe(
-      doc => {
-        let currentChild = doc.data();
-        this.childProfileForm.controls.name.setValue(currentChild["name"]);
-        this.childProfileForm.controls.dateOfBirth.setValue(currentChild["dateOfBirth"]);
-        this.childProfileForm.controls.gender.setValue(currentChild["gender"]);
-        this.allergens = currentChild["allergies"];
-        this.currentChildID = childID;
-      } 
-    );
-  }
-
-  updateExistingChildren() {
-    this.childrenProfiles = [];
-    this.userDataService.getChildren(this.currentUser.uid).then(collection => {
-      collection.docs.forEach(doc => this.childrenProfiles.push(doc.data()))
-    });
-  }
-
-  deleteChildProfile(childID: String) {
-    this.userDataService.deleteChildProfile(this.currentUser.uid, childID);
-    this.updateExistingChildren();
-  }
-
-  doesChildHaveAllergies(child) {
-    for (let i = 0; i < child['allergies'].length; i++) {
-      if (child['allergies'][i].checked) {
-        return true;
-      }
-    }
-    return false;
   }
 }

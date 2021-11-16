@@ -1,13 +1,16 @@
 <div class="bottom-navbar">
-    <a (click)="navigatePath('/home')">
-        <i class="fa fa-home"></i>
-    </a>
-    <a (click)="navigatePath('/marketplace')">
-        <i class="fa fa-shopping-bag" style="font-size: 0.9rem;"></i>
-    </a>
-    <a (click)="navigatePath('/landing/articles')">
+    <div class="nav-item" (click)="navigatePath('/home')" [ngStyle]=" {'color' : this.currentPath == '/home' ? '#F38397' : '#546684' }" >
+        <i class="fa fa-home" ></i>
+        Home
+    </div>
+    <div class="nav-item" (click)="navigatePath('/marketplace')" [ngStyle]=" {'color' : this.currentPath == '/marketplace' ? '#F38397' : '#546684' }" >
+        <i class="fa fa-shopping-bag" ></i>
+        Marketplace
+    </div>
+    <div class="nav-item" (click)="navigatePath('/landing/articles')" [ngStyle]=" {'color' : this.currentPath == '/landing/articles' ? '#F38397' : '#546684' }" >
         <i class="fa fa-book"></i>
-    </a>
+        Education
+    </div>
 </div>
 <a (click)="navigatePath('/new-listing')">
     <div class="add-button" *ngIf="this.isDonor">

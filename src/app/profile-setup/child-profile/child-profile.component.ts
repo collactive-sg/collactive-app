@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, OnInit, Input} from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { element } from 'protractor';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
+import { TYPE_SETTINGS } from '../constants';
+
 
 @Component({
   selector: 'app-child-profile',
@@ -14,6 +17,9 @@ export class ChildProfileComponent implements OnInit {
 
   currentUser;
   isDonor;
+
+  readonly TYPE_SETTINGS = TYPE_SETTINGS;
+  type;
 
   childProfileForm: FormGroup;
   maxDate = {
@@ -38,6 +44,7 @@ export class ChildProfileComponent implements OnInit {
     private router: Router,
     private auth: AuthService,
     private userDataService: UserDataService,
+    private _location: Location
     ) { 
       this.childProfileForm = this.formBuilder.group({
         name: new FormControl('', Validators.required),
@@ -59,6 +66,8 @@ export class ChildProfileComponent implements OnInit {
           );
         };
       });
+    this.type = window.history.state.type
+
   }
 
   ngOnInit(): void {
@@ -70,12 +79,20 @@ export class ChildProfileComponent implements OnInit {
   onNextButtonClick() {
     if (!this.saveChild() && this.childrenProfiles.length < 1) {
       if (!window.confirm("The details you entered either wrong or incomplete. We encourage you to input your child's details to find appropriate matches for you. Please input your child's details if possible.")) {
-        this.router.navigate(['profile-setup/completed-profile-setup']);
+        this.navigateToNextPage();
       }
     } else if (!this.saveChild() && this.childrenProfiles.length >= 1 ) {
       if (!window.confirm("The details you entered are either wrong or incomplete. If you move on, the profile for this new child will not be saved (previously saved child profiles are unaffected).")) {
-        this.router.navigate(['profile-setup/completed-profile-setup']);
+        this.navigateToNextPage();
       }
+    } else {
+      this.navigateToNextPage();
+    }
+  }
+
+  navigateToNextPage() {
+    if (this.type == TYPE_SETTINGS) {
+      return this._location.back();
     } else {
       this.router.navigate(['profile-setup/completed-profile-setup']);
     }

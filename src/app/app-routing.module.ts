@@ -25,6 +25,7 @@ import { EditListingComponent } from './marketplace/edit-listing/edit-listing.co
 import { NotificationsPageComponent } from './home/notifications-page/notifications-page.component';
 import { ChatComponent } from './chat/chat/chat.component';
 import { ChatroomsComponent } from './chat/chatrooms/chatrooms.component';
+import { ChangeStatusComponent } from './home/change-status/change-status.component';
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
@@ -51,6 +52,7 @@ const routes: Routes = [
   {path: 'marketplace', component: MarketplaceComponent, canActivate: [AuthGuard]},
   {path: 'chat/:lid/:uid', component: ChatComponent, canActivate: [AuthGuard]},
   {path: 'chatrooms', component: ChatroomsComponent, canActivate: [AuthGuard]},
+  {path: 'change-status', component: ChangeStatusComponent, canActivate: [AuthGuard]},
 ];
 
 

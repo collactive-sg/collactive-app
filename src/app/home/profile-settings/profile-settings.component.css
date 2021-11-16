@@ -33,6 +33,57 @@
     border-radius: 10px;
 }
 
+.edit-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: -14px;
+}
+
+.clause-edit-btn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.clause-choice {
+    color: #9896AF;
+}
+
+.clause-box {
+    background: #EAE9F2;
+    border-radius: 7px;
+    padding: 0.4rem;
+}
+
+.one-clause {
+    padding: 0.125rem;
+}
+
+hr {
+    margin: 0;
+}
+
+.declare {
+    margin-bottom: 1rem;
+    color: #9896AF;
+}
+
+
+.basic-details-show {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.basic-details-text-show {
+    width: 60%;
+}
+
 .fa.fa-plus {
     color: #E793A2; 
     font-size: 24px;
