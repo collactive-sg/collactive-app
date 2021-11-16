@@ -1,0 +1,30 @@
+<app-topbar [isShowBackButton]="true"></app-topbar>
+
+<div class="start-page profile-photo" id="frame"></div>
+
+<div class="curr-status">
+    Your current status is a 
+    <div *ngIf="isDonor" class="label donor-label">
+        Donor
+    </div>
+    <div *ngIf="!isDonor" class="label">
+        Receiver
+    </div>
+</div>
+
+
+<div class="buttons">
+    <div class="change-status-btn" (click)="onClickChangeStatus()" >
+        Change Status
+    </div>
+
+    <div class="back-btn" id="receiver" (click)="onClickBack()">
+        Back to Home
+    </div>
+</div>
+<div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;" (click)="this.openInfoModal()">
+    <i class="fa fa-question-circle-o"> </i>
+</div>
+
+
+

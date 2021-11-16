@@ -1,11 +1,14 @@
 <app-topbar [isShowBackButton]="true"></app-topbar>
 <div>
-  <div class="section-header">
+  <div class="section-header" *ngIf="this.type != TYPE_SETTINGS">
     <h3>Basic Profile Details</h3>
     <div style="margin-top: -5px; line-height: 20px;">Fill in these details to help us better meet your needs</div>
     <div class="progress" style="height:3px; margin-top:10px">
       <div class="progress-bar" style="width: 16.67%; background: #E793A2;" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
+  </div>
+  <div class="section-header" *ngIf="this.type == TYPE_SETTINGS">
+    <h3>Basic Profile Details</h3>
   </div>
   <div class="details">
     <div class="profile-photo">
@@ -49,7 +52,13 @@
       <option value="4">Central</option>
     </select>
   </div>
-  <div class="next-button" (click)="onNextButtonClick()">
-        <div>Next</div>
-    </div>
+  
+  <div class="next-button" (click)="onNextButtonClick()" *ngIf="this.type == TYPE_SETTINGS">
+    Save
+  </div>
+
+  <div class="next-button" (click)="onNextButtonClick()" *ngIf="this.type != TYPE_SETTINGS">
+    Next
+  </div>
+
 </div>

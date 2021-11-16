@@ -96,16 +96,15 @@ export class UserDataService {
         && lifestyleInfo
         && dietaryPreferences
         && childrenDetails
-        && childrenDetails.length >= 1
-        && dietaryPreferences.length > 7
-        && lifestyleInfo.length > 2
+        && childrenDetails.length > 0
+        && dietaryPreferences.length > 8
     } else {
       return firstName 
         && lastName 
         && areaOfResidency 
         && dateOfBirth
         && childrenDetails
-        && childrenDetails.length >= 1
+        && childrenDetails.length > 0
     }
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   NgbCalendar,
   NgbDateStruct,
@@ -8,8 +8,8 @@ import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, FormControl, 
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
-import * as $ from 'jquery';
-
+import { TYPE_SETTINGS } from '../constants';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-basic-details',
@@ -21,6 +21,9 @@ export class BasicDetailsComponent implements OnInit {
 
   model: NgbDateStruct;
   nameForm: FormGroup;
+
+  readonly TYPE_SETTINGS = TYPE_SETTINGS;
+  type;
 
   currentUser;
 
@@ -40,6 +43,7 @@ export class BasicDetailsComponent implements OnInit {
     private router: Router,
     private userDataService: UserDataService,
     private auth: AuthService,
+    private _location: Location
     ) { 
      // setting datepicker popup to close only on click outside
       configDatePicker.autoClose = 'outside';
@@ -83,6 +87,7 @@ export class BasicDetailsComponent implements OnInit {
         lastName: new FormControl('', Validators.required)
       });
 
+      this.type = window.history.state.type
   }
 
   ngOnInit(): void {
@@ -134,10 +139,17 @@ export class BasicDetailsComponent implements OnInit {
       'firstName': this.FirstName.value,
       'lastName': this.LastName.value
     })
-    if (this.isDonor) {
-      this.router.navigate(['profile-setup/health-declaration']);
+    
+    this.navigateToNextPage();
+  }
+
+  navigateToNextPage() {
+    if (this.type == TYPE_SETTINGS) {
+      return this._location.back();
+    } else if (this.isDonor) {
+      return this.router.navigate(['profile-setup/health-declaration']);
     } else {
-      this.router.navigate(['profile-setup/child-profile']);
+      return this.router.navigate(['profile-setup/child-profile']);
     }
   }
 

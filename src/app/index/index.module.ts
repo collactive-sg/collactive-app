@@ -10,13 +10,15 @@ import { ReceiveComponent } from './landing/receive/receive.component';
 import { JoinTheCommunityComponent } from './landing/join-the-community/join-the-community.component';
 import { BreastMilkSharingComponent } from './landing/breast-milk-sharing/breast-milk-sharing.component';
 import { ArticlesComponent } from './landing/articles/articles.component';
+import { ProfileSetupModule } from "../profile-setup/profile-setup.module";
 
 @NgModule({
   declarations: [LoginComponent, LandingComponent, ForgetPasswordComponent, DonateComponent, ReceiveComponent, JoinTheCommunityComponent, BreastMilkSharingComponent, ArticlesComponent],
   imports: [CommonModule, 
     SharedModule, 
     ReactiveFormsModule,
-    FormsModule,],
+    FormsModule,
+    ProfileSetupModule],
   exports: [
     LoginComponent,
     LandingComponent,

@@ -1,0 +1,50 @@
+
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    overflow:hidden;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.25);
+
+} 
+
+.change-status-btn {
+    background: #546684;
+    border-radius: 40px;
+    display: flex;
+    padding: 0.4rem;
+    margin: 0.5rem;
+
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.back-btn {
+    border: 1px solid #9896AF;
+    padding: 0.4rem;
+    margin: 0.5rem;
+    color: #546684;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.curr-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+.label {
+    margin-top: 0.5rem;
+}
+
+.buttons {
+    margin-top: 2rem;
+}

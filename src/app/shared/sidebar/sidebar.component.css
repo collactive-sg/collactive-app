@@ -13,13 +13,7 @@
     align-items: center;
 
 }
-.donor-label {
-    width: 60px;
-    border: 1px solid #F38397;
-    text-align: center;
-    border-radius: 40px;
-    color: #F38397;
-}
+
 .photo-upload {
     height: 30vw;
     width: 30vw;

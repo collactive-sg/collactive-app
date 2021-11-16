@@ -41,7 +41,6 @@ export class TypeSetupComponent implements OnInit {
   updateDonorStatus() {
     this.router.navigate(['profile-setup/basic-details']);
     this.userDataService.updateUserDoc(this.currentUser.uid, {"isDonor": this.isDonor});
-
   }
 
   onClickDonor() {

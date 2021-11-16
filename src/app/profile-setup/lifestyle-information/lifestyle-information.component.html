@@ -1,17 +1,19 @@
 <app-topbar [isShowBackButton]="true"></app-topbar>
 <div>
-    <div class="section-header">
+    <div class="section-header" *ngIf="this.type != this.TYPE_SETTINGS">
         <h3>Lifestyle Information</h3>
         <div style="margin-top: -5px; line-height: 20px;">Fill in these details to help us better meet your needs</div>
         <div class="progress" style="height:3px; margin-top:10px">
         <div class="progress-bar" style="width: 50.0%; background: #E793A2;" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
+    <div class="section-header" *ngIf="this.type == this.TYPE_SETTINGS">
+        <h3>Lifestyle Information</h3>
+    </div>
     
     <div class="statement">
         <div>I do not smoke</div>
         <div class="agree-checkbox">
-
             <div class="toggle-button">
                 <div class="yes-button" id="smoker-toggle-yes" (click)="changeSmokerFormValue(false)">
                     Yes
@@ -20,18 +22,6 @@
                     No
                 </div>
             </div>
-        <!-- <form class="form-inline" [formGroup]="lifestyleInfoForm">
-            <div class="form-group">
-                <div class="form-check form-check-inline">
-                    <input formControlName="isSmoker" class="form-check-input" type="radio" name="isSmoker" id="doesNotSmoke" [value]="false">
-                    <label class="form-check-label" for="doesNotSmoke">Yes</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input formControlName="isSmoker" class="form-check-input" type="radio" name="isSmoker" id="smokes" [value]="true">
-                    <label class="form-check-label" for="smokes">No</label>
-                </div>
-            </div>
-        </form> -->
         </div>
     </div>
 
@@ -46,18 +36,6 @@
                     No
                 </div>
             </div>
-            <!-- <form class="form-inline" [formGroup]="lifestyleInfoForm">
-                <div class="form-group">
-                    <div class="form-check form-check-inline">
-                        <input formControlName="isDrinker" class="form-check-input" type="radio" name="isDrinker" id="doesNotDrink" [value]="false">
-                        <label class="form-check-label" for="doesNotDrink">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input formControlName="isDrinker" class="form-check-input" type="radio" name="isDrinker" id="drinks" [value]="true">
-                        <label class="form-check-label" for="drinks">No</label>
-                    </div>
-                </div>
-            </form> -->
        </div>
     </div>
 
@@ -72,24 +50,16 @@
                     No
                 </div>
             </div>
-            <!-- <form class="form-inline" [formGroup]="lifestyleInfoForm">
-                <div class="form-group">
-                    <div class="form-check form-check-inline">
-                        <input formControlName="isCaffeineConsumer" class="form-check-input" type="radio" name="isCaffeineConsumer" id="doesNotDrinkCoffee" [value]="false">
-                        <label class="form-check-label" for="doesNotDrinkCoffee">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input formControlName="isCaffeineConsumer" class="form-check-input" type="radio" name="isCaffeineConsumer" id="drinksCoffee" [value]="true">
-                        <label class="form-check-label" for="drinksCoffee">No</label>
-                    </div>
-                </div>
-            </form> -->
         </div>
     </div>
 
-    <div class="next-button" (click)="onNextButtonClick()">
-        <div style="margin-right: 10px;">Next</div>
-        <i class="fa fa-arrow-right"></i>
+    <div class="next-button" (click)="onNextButtonClick()" *ngIf="this.type != this.TYPE_SETTINGS">
+        Next
     </div>
+
+    <div class="next-button" (click)="onNextButtonClick()" *ngIf="this.type == this.TYPE_SETTINGS">
+        Save
+    </div>
+
 
 </div>

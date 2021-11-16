@@ -22,6 +22,6 @@ import { TypeInfoModalComponent } from './type-info-modal/type-info-modal.compon
     ReactiveFormsModule,
     FormsModule,
   ],
-  exports: []
+  exports: [BasicDetailsComponent, HealthDeclarationComponent, LifestyleInformationComponent, DietaryRestrictionsComponent, ChildProfileComponent, CompletedProfileSetupComponent]
 })
 export class ProfileSetupModule { }

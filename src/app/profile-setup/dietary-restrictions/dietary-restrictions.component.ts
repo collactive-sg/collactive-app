@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 import { AuthService } from 'src/app/service/auth/auth.service';
-
+import { TYPE_SETTINGS } from '../constants';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-dietary-restrictions',
   templateUrl: './dietary-restrictions.component.html',
@@ -22,12 +23,15 @@ export class DietaryRestrictionsComponent implements OnInit {
     { name: "Health supplements", checked: false }
   ]
 
+  readonly TYPE_SETTINGS = TYPE_SETTINGS;
+  type;
   currentUser;
   
   constructor(
     private router: Router,
     private auth: AuthService,
     private userDataService: UserDataService,
+    private _location: Location
   ) { 
     this.auth.getUserAuthState().authState.subscribe((user) => {
       if (user) {
@@ -39,14 +43,16 @@ export class DietaryRestrictionsComponent implements OnInit {
         });
       }
     });
+    this.type = window.history.state.type
   }
 
   ngOnInit(): void {
   }
 
   onNextButtonClick() {
-    this.router.navigate(['profile-setup/child-profile']);
     this.userDataService.updateUserDoc(this.currentUser.uid, {"dietary-restrictions": this.dietaryRestrictions});
+    if (this.type == TYPE_SETTINGS) return this._location.back();
+    else this.router.navigate(['profile-setup/child-profile']);
   }
 
 }
