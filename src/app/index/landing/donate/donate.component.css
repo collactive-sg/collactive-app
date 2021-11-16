@@ -9,8 +9,8 @@
     text-decoration: underline;
     cursor: pointer;
     text-align: right;
-    top: 28px;
-    left: 80vw;
+    top: 22px;
+    left: 85vw;
     position: absolute;
     color: #3B485F;
 }
@@ -65,5 +65,5 @@ img {
     border-radius: 50%;
 }
 .pagination span.active{
-    background-color: #88515b;
+    background-color: #3B485F;
 }
