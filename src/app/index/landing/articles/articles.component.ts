@@ -10,12 +10,8 @@ import { AuthService } from 'src/app/service/auth/auth.service';
 export class ArticlesComponent implements OnInit {
 
   constructor(
-    private router: Router,
-    private auth: AuthService,
   ) { 
-    this.auth.getUserAuthState().authState.subscribe((user) => {
-      if (user) { this.router.navigate(['/home']);}
-    })
+    
   }
 
   ngOnInit(): void {

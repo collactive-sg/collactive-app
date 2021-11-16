@@ -12,8 +12,9 @@
     box-shadow: 0px -1px 10px 0px #00000040;
 }
 
-.fa {
+.a {
     color: #546684;
+    text-decoration: none;
 }
 
 .add-button {
@@ -47,4 +48,16 @@
         left: 50%;
         margin-left: 160px;
     }
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: small;
+    color: #546684;
+}
+
+.fa {
+    font-size: 1.1rem;
 }

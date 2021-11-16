@@ -11,11 +11,11 @@
 </div>
 <div class="mt-1" *ngIf="this.currentUserDetails && this.chatrooms" >
     <h1>Chats</h1>
-    <div *ngIf="this.currentUserDetails.isDonor" class="filter-section"> 
-        <div class="filter-button" (click)="filterByAsDonor(true)">As donor</div>
-        <div class="filter-button" (click)="filterByAsDonor(false)">As receiver</div>
-        <div class="filter-button" (click)="clearFilters()">Clear</div>
-    </div>
+    <!-- <div *ngIf="this.currentUserDetails.isDonor" class="filter-section">  -->
+        <!-- <div class="filter-button" (click)="filterByAsDonor(true)">As donor</div> -->
+        <!-- <div class="filter-button" (click)="filterByAsDonor(false)">As receiver</div> -->
+        <!-- <div class="filter-button" (click)="clearFilters()">Clear</div> -->
+    <!-- </div> -->
     <div *ngIf="chatrooms.length !== 0">
         <div class="mt-3" *ngFor="let chatroom of chatrooms">
             <div class="one-chat" (click)="onClickChatroom(chatroom)">
