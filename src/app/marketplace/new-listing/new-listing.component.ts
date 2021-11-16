@@ -51,7 +51,7 @@ export class NewListingComponent implements OnInit {
             this.userDataService.getChildren(user.uid).then(res => {
               this.childrenDetails = [];
               res.forEach(child => this.childrenDetails.push(child.data()));
-              this.isCompleteProfile = this.checkIfCompleteProfile(this.currentUserDetails, this.childrenDetails);
+              this.isCompleteProfile = this.userDataService.checkIfCompleteProfile(this.currentUserDetails.isDonor, this.currentUserDetails, this.childrenDetails);
             })
           })
         }
@@ -115,9 +115,16 @@ export class NewListingComponent implements OnInit {
 
     var expressedTimestamp = new Date(this.expressedDate['year'],this.expressedDate['month']-1,this.expressedDate['day']).getTime();
     
-    if (isNaN(expressedTimestamp)) {
-      window.alert("Please fill in a valid date for the date expressed");
-      document.getElementById("expressedDate").style.border = "1px solid red";
+
+    if (isNaN(parseInt(this.NumberOfPacks.value))) {
+      window.alert("Please fill in a valid date for the Number of Packs");
+      document.getElementById("numberOfPacks").style.border = "1px solid red";
+      return;
+    }
+
+    if (isNaN(parseInt(this.VolPerPack.value))) {
+      window.alert("Please fill in a valid date for the vol per pack");
+      document.getElementById("volPerPack").style.border = "1px solid red";
       return;
     }
     
@@ -153,31 +160,4 @@ export class NewListingComponent implements OnInit {
     window.alert("Email verfication sent and will arrive shortly! Please chack your email for it.");
   }
 
-  checkIfCompleteProfile(userDetails, childrenDetails) {
-    var firstName = userDetails["firstName"];
-    var lastName = userDetails["lastName"];
-    var lifestyleInfo = userDetails["lifestyle-info"];
-    var dietaryPreferences = userDetails["dietary-restrictions"];
-    var areaOfResidency = userDetails["areaOfResidency"];
-    var dateOfBirth = userDetails["dateOfBirth"];
-    if (firstName === undefined ||
-      lastName === undefined || 
-      lifestyleInfo === undefined || 
-      dietaryPreferences === undefined || 
-      areaOfResidency === undefined ||
-      dateOfBirth === undefined ||
-      childrenDetails === undefined) {
-        return false;
-      }
-    if (lifestyleInfo.length < 3) {
-      return false;
-    }
-    if (dietaryPreferences.length < 8) {
-      return false;
-    }
-    if (childrenDetails.length < 1) {
-      return false;
-    }
-    return true;
-  }
 }
