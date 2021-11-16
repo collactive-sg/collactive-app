@@ -109,4 +109,43 @@ export class UserDataService {
     }
   }
 
+  // not fully tested out
+  deleteUserData(userID) {
+    // only delete user's listing related stuff. will keep the stuff of user as receiver
+    return this.afs.collection('listings').ref.where('donorID', '==', userID).get().then((listings) => {
+      listings.forEach(listing => {
+        // delete chatrooms
+        this.afs.collection('chatrooms').ref.where('listingID', '==', listing.id).get().then((chatrooms) => {
+          chatrooms.forEach(chatroom => {
+            this.afs.collection('chatrooms').doc(`${chatroom.id}`).delete();
+          })
+        });
+
+        // delete notifications
+        this.afs.collection('notifications').ref.where('listingID', '==', listing.id).get().then((notifications) => {
+          notifications.forEach(notification => {
+            this.afs.collection('notifications').doc(`${notification.id}`).delete();
+          })
+        });
+
+        // delete likes
+        this.afs.collection('likes').ref.where('listingID', '==', listing.id).get().then((likes) => {
+          likes.forEach(like => {
+            this.afs.collection('likes').doc(`${like.id}`).delete();
+          })
+        });
+
+        // delete messages
+        this.afs.collection('messages').ref.where('listingID', '==', listing.id).get().then((messages) => {
+          messages.forEach(message => {
+            this.afs.collection('messages').doc(`${message.id}`).delete();
+          })
+        });
+
+        this.afs.collection('listings').doc(`${listing.id}`).delete();
+        this.afs.collection('listings').doc(userID).delete();
+      })
+    })
+  }
+
 }

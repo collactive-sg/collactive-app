@@ -48,6 +48,10 @@ export class PrivateChatService {
       sentBy: sentBy
     })
     .then(() => {
+      return this.afs.collection("messages").doc(groupID).set({
+        listingID: listingID
+      })
+    }).then(() => {
       return this.updateChatroomMessage(groupID, message, sentBy, sentAt);
     }).then(() => {
       return this.updateChatroomRecentMsgCount(groupID, isListingOwner);
