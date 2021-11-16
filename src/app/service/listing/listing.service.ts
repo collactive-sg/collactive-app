@@ -69,6 +69,24 @@ export class ListingService {
       res.forEach( res => {
         this.afs.collection(`notifications`).doc(`${res.id}`).delete(); 
       })
+    }).then(() => {
+      return this.afs.collection('chatrooms').ref.where('listingID', '==', listingID).get()
+    }).then(res => {
+      res.forEach( res => {
+        this.afs.collection(`chatrooms`).doc(`${res.id}`).delete(); 
+      })
+    }).then(() => {
+      return this.afs.collection('like_listings').ref.where('listingID', '==', listingID).get()
+    }).then(res => {
+      res.forEach( res => {
+        this.afs.collection(`like_listings`).doc(`${res.id}`).delete(); 
+      })
+    }).then(() => {
+      return this.afs.collection('messages').ref.where('listingID', '==', listingID).get()
+    }).then(res => {
+      res.forEach( res => {
+        this.afs.collection(`messages`).doc(`${res.id}`).delete(); 
+      })
     });
   }
   

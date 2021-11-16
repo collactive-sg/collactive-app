@@ -157,7 +157,7 @@ export class ChatComponent implements OnInit {
 
   // for notifications
   updateLastSeen() {
-    this.notifyUserVerification()
+    // this.notifyUserVerification()
     this.chatService.updateChatRoomLastSeen(this.currentGroupID, this.isListingOwner, this.currentUser.uid);
     this._location.back();
   }
