@@ -8,7 +8,12 @@
         </div>
     </div>
     <div *ngIf="this.isDonor">
-        <div style="font-size: 18px;">Notifications</div> 
+        <div class="single-row" >
+            <div style="font-size: 18px;">Notifications</div> 
+            <div *ngIf="this.notifications.length > 0" style="text-decoration: underline; font-size: small;" 
+                (click)="this.readAllNotifications()">Read all
+            </div>
+        </div>
         <div *ngIf="this.notifications.length === 0" >
             <div class="no-notif-box">
                 <i class="fa fa-bell"></i>
@@ -17,9 +22,6 @@
             <div style="text-decoration: underline; text-align: center; font-size: small;  margin-top: 4px;" (click)="this.goToNotificationPage()">See activity</div>
         </div>
         <div class="notifications" *ngIf="this.notifications.length > 0" >
-            <div *ngIf="this.notifications.length > 0" style="text-decoration: underline; font-size: small;" 
-                (click)="this.readAllNotifications()">Read all
-            </div>
             <div  *ngFor="let notification of this.notifications">
                 <app-notification-box 
                     [senderFirstName]='notification.sender_firstname'
