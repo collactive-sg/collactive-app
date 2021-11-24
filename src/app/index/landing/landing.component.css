@@ -1,8 +1,6 @@
 .img-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 85vh;
+    padding: 1rem;
 }
 
 img {
@@ -10,7 +8,21 @@ img {
     display: block;
 }
 
+.carousel-img {
+    filter: invert(100%);
+}
+
+.carousel-box {
+    height: 50vh;
+    margin-top: 1rem;
+}
+
 .next-button {
     margin: auto;
+    margin-top: 3rem;
     background-color: #F38397;
+}
+
+.col-12 {
+    filter: invert(100%);
 }

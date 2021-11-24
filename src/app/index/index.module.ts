@@ -11,6 +11,7 @@ import { JoinTheCommunityComponent } from './landing/join-the-community/join-the
 import { BreastMilkSharingComponent } from './landing/breast-milk-sharing/breast-milk-sharing.component';
 import { ArticlesComponent } from './landing/articles/articles.component';
 import { ProfileSetupModule } from "../profile-setup/profile-setup.module";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';  
 
 @NgModule({
   declarations: [LoginComponent, LandingComponent, ForgetPasswordComponent, DonateComponent, ReceiveComponent, JoinTheCommunityComponent, BreastMilkSharingComponent, ArticlesComponent],
@@ -18,6 +19,7 @@ import { ProfileSetupModule } from "../profile-setup/profile-setup.module";
     SharedModule, 
     ReactiveFormsModule,
     FormsModule,
+    NgbModule,
     ProfileSetupModule],
   exports: [
     LoginComponent,
