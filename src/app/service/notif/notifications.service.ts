@@ -41,7 +41,7 @@ export class NotificationsService {
         sender_firstname: userDetails.data()["firstName"],
         sender_lastname: userDetails.data()["lastName"],
         receiver_userID: post["donorID"],
-        createdAt: new Date(),
+        createdAt:  Date.now(),
         read: false,
         type: "like",
       }).then(res => {
