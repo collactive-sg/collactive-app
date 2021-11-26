@@ -35,7 +35,7 @@
     margin-top: 0px;
     width: 100%;
     padding: 5px;
-    height: 15vh;
+    height: 25vh;
     background: #F9F9F9;
     /* Notif drop */
     box-shadow: 3px 4px 6px 2px rgba(0, 0, 0, 0.03);
@@ -72,6 +72,7 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
     border-radius: 15px;
     color: #FFFFFF;
+    width: 60%;
 }
 
 #collacted {
@@ -97,9 +98,9 @@
 
 .messages-area {
     position: absolute;
-    top: 18vh;
+    top: 26vh;
     left: 0px;
-    height: 72vh;
+    height: 65vh;
     overflow-y: scroll;
     width: 100%;
 }
@@ -208,6 +209,17 @@
     border-radius: 50%;
     background-size : cover;
 } 
+
+.second-row {
+    margin-top: 0.25rem;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: space-between; */
+}
+
+.listing-details {
+    padding: 0.25rem 0.5rem;
+}
 
 .photo-receiver {
     margin-left: 0.75rem;

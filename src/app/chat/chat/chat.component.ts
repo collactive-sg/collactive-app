@@ -83,7 +83,6 @@ export class ChatComponent implements OnInit {
 
         this.listingService.getListingByID(this.listingID).pipe().subscribe((listing: any) => {
           this.listingDetails = listing;
-  
           this.isListingOwner = listing.donorID === this.currentUser.uid
           if (this.isListingOwner) {
             this.currentGroupID = this.listingID + this.receiverID;
@@ -99,12 +98,19 @@ export class ChatComponent implements OnInit {
           }
         });
       })
-     }})
+    }})
   }
 
-  send(message) {
-    
+  navigateToListing() {
+    this.router.navigate([`listing/${this.listingID}`])
+  }
+
+  send(message:string) {
     if (this.notifyUserVerification()) {
+      return;
+    }
+    
+    if (message.trim().length < 1) {
       return;
     }
 
@@ -183,9 +189,35 @@ export class ChatComponent implements OnInit {
       this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
     }
   }
-
+  convertExpressedDateTimestampToDateString() {
+    if (this.listingDetails.dateExpressed !== undefined) {
+      var dateExpressedDaysAgo = "on Invalid Date"
+      if(!isNaN(this.listingDetails.dateExpressed)) {
+        var diffInDays = (new Date().getTime() - this.listingDetails.dateExpressed) / (1000 * 3600 * 24);
+        if (diffInDays == 0) {
+          dateExpressedDaysAgo = "today";
+        } else if (diffInDays > 0) {
+          dateExpressedDaysAgo = `${Math.round(diffInDays)} days ago` 
+        } 
+      }
+      return dateExpressedDaysAgo;
+      
+    } else {
+      return "on Unknown Date"
+    }
+  }
   changeListingRequestStatusAsDonor(donorRequestAction: string) {
-    if (this.currentGroupDetails.requestStatus === "requested") {
+    if (this.listingDetails.status === "collacted") {
+      if (donorRequestAction === "reset") {
+        this.chatService.updateChatroomRequest(this.currentGroupID, "none");
+        let recentMessage = "Reset the donation listing";
+        this.send(recentMessage);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        this.listingService.editlisting({"status": "live"}, this.listingID);
+      } else {
+        window.prompt("This listing has already been collacted")
+      }
+    } else if (this.currentGroupDetails.requestStatus === "requested") {
       if (donorRequestAction === "accept") {
         this.chatService.updateChatroomRequest(this.currentGroupID, "accepted");
         this.listingService.editlisting({"status": "accepted"}, this.listingID);
@@ -214,15 +246,7 @@ export class ChatComponent implements OnInit {
         this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
         this.listingService.editlisting({"status": "live"}, this.listingID);
       }
-    } else if (this.listingDetails.status === "collacted") {
-      if (donorRequestAction === "reset") {
-        this.chatService.updateChatroomRequest(this.currentGroupID, "none");
-        let recentMessage = "Reset the donation listing";
-        this.send(recentMessage);
-        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
-        this.listingService.editlisting({"status": "live"}, this.listingID);
-      }
-    }
+    } 
   }
 
   // checking for valid profile settings start here
