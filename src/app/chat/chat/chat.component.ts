@@ -180,7 +180,12 @@ export class ChatComponent implements OnInit {
   changeRequestStatusAsReceiver() {
     if (this.currentGroupDetails.requestStatus === "none") {
       this.chatService.updateChatroomRequest(this.currentGroupID, "requested");
-      let recentMessage = "Requested for your donation";
+      let recentMessage = "Requested for donation";
+      this.send(recentMessage, true);
+      this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
+    } else if (this.currentGroupDetails.requestStatus === "requested") {
+      this.chatService.updateChatroomRequest(this.currentGroupID, "none");
+      let recentMessage = "Withdrew request for donation";
       this.send(recentMessage, true);
       this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
     }
@@ -191,13 +196,13 @@ export class ChatComponent implements OnInit {
       if (donorRequestAction === "accept") {
         this.chatService.updateChatroomRequest(this.currentGroupID, "accepted");
         this.listingService.editlisting({"status": "accepted"}, this.listingID);
-        let recentMessage = "Accepted your request for donation";
+        let recentMessage = "Accepted request for donation";
         this.send(recentMessage, true);
         this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
       } else if (donorRequestAction === "reject" || donorRequestAction === "reset") {
         if (confirm(`Are you sure you want to ${donorRequestAction} this listing?`)) {
           this.chatService.updateChatroomRequest(this.currentGroupID, "none");
-          let recentMessage = "Rejected your request for donation";
+          let recentMessage = "Rejected request for donation";
           this.send(recentMessage, true);
           this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
         }

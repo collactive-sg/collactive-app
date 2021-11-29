@@ -18,7 +18,7 @@
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" 
                     class="mt-2 mb-2 request-button"  id="request-sent"  (click)="handleListingRequest('')">
-                        Request Sent
+                        Cancel Request
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'" 
                     class="mt-2 mb-2 request-button" id="accepted" (click)="handleListingRequest('')">
@@ -44,15 +44,15 @@
                     <div class="mt-2 mb-2 request-button" id="collact" (click)="handleListingRequest('collacted')">
                         Mark this collacted
                     </div>
-                    <!-- <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
+                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
                         Reset listing
-                    </div> -->
+                    </div>
                 </div>
-                <!-- <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'">
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'">
                     <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
                         Reset listing to live
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
