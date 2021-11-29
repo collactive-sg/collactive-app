@@ -14,8 +14,9 @@ export class HomePageComponent implements OnInit {
   currentUser;
   currentUserData;
   isDonor;
-  isEmailVerified: boolean;
-  isCompleteProfile: boolean;
+  isEmailVerified = true;
+  isCompleteProfile = true;
+  isEmailVerificationSent = false;
   childrenDetails;
 
   recentListings = [];
@@ -118,5 +119,10 @@ export class HomePageComponent implements OnInit {
     window.alert(
       "Email verfication sent and will arrive shortly! Please chack your email for it."
     );
+    this.isEmailVerificationSent = true;
+  }
+
+  reloadPageUponEmailVerified() {
+    window.location.reload();
   }
 }

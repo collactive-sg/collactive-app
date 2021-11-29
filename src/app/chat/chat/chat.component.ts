@@ -16,8 +16,9 @@ export class ChatComponent implements OnInit {
   currentUser;
   currentUserDetails;
   childrenDetails;
-  isCompleteProfile;
-  isEmailVerified;
+  isCompleteProfile = true;
+  isEmailVerified = true;
+  isEmailVerificationSent = false;
 
   // the one receiving the message
   receiverID: string;
@@ -233,6 +234,7 @@ export class ChatComponent implements OnInit {
   resendVerificationEmail() {
     this.auth.resendEmailVerification(this.currentUser);
     window.alert("Email verfication sent and will arrive shortly! Please chack your email for it.");
+    this.isEmailVerificationSent = true;
   }
 
   notifyUserVerification() {
@@ -250,5 +252,9 @@ export class ChatComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  reloadPageUponEmailVerified() {
+    window.location.reload();
   }
 }
