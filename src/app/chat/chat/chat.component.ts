@@ -103,7 +103,7 @@ export class ChatComponent implements OnInit {
      }})
   }
 
-  send(message) {
+  send(message, isStatusMessage: boolean) {
     
     if (this.notifyUserVerification()) {
       return;
@@ -115,7 +115,8 @@ export class ChatComponent implements OnInit {
         // return this.getMessagesfromGroup();
       });
     } else {
-      return this.chatService.sendMessage(this.listingID, this.currentGroupID, message, this.currentUser.uid, this.receiverID, this.isListingOwner).then(() => {
+      return this.chatService.sendMessage(this.listingID, this.currentGroupID, message, 
+        this.currentUser.uid, this.receiverID, this.isListingOwner, isStatusMessage).then(() => {
         this.newMessage = '';
         // return this.getMessagesfromGroup();
       })
@@ -180,8 +181,8 @@ export class ChatComponent implements OnInit {
     if (this.currentGroupDetails.requestStatus === "none") {
       this.chatService.updateChatroomRequest(this.currentGroupID, "requested");
       let recentMessage = "Requested for your donation";
-      this.send(recentMessage);
-      this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+      this.send(recentMessage, true);
+      this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
     }
   }
 
@@ -191,36 +192,36 @@ export class ChatComponent implements OnInit {
         this.chatService.updateChatroomRequest(this.currentGroupID, "accepted");
         this.listingService.editlisting({"status": "accepted"}, this.listingID);
         let recentMessage = "Accepted your request for donation";
-        this.send(recentMessage);
-        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        this.send(recentMessage, true);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
       } else if (donorRequestAction === "reject" || donorRequestAction === "reset") {
         if (confirm(`Are you sure you want to ${donorRequestAction} this listing?`)) {
           this.chatService.updateChatroomRequest(this.currentGroupID, "none");
           let recentMessage = "Rejected your request for donation";
-          this.send(recentMessage);
-          this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+          this.send(recentMessage, true);
+          this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
         }
       }
     } else if (this.currentGroupDetails.requestStatus === "accepted") {
       if (donorRequestAction === "collacted") {
         this.chatService.updateChatroomRequest(this.currentGroupID, "collacted");
         let recentMessage = "Awesome! The donation is collacted";
-        this.send(recentMessage);
-        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        this.send(recentMessage, true);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
         this.listingService.editlisting({"status": "collacted"}, this.listingID);
       } else if (donorRequestAction === "reset") {
         this.chatService.updateChatroomRequest(this.currentGroupID, "none");
         let recentMessage = "Reset the donation listing";
-        this.send(recentMessage);
-        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        this.send(recentMessage, true);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
         this.listingService.editlisting({"status": "live"}, this.listingID);
       }
     } else if (this.listingDetails.status === "collacted") {
       if (donorRequestAction === "reset") {
         this.chatService.updateChatroomRequest(this.currentGroupID, "none");
         let recentMessage = "Reset the donation listing";
-        this.send(recentMessage);
-        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date());
+        this.send(recentMessage, true);
+        this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
         this.listingService.editlisting({"status": "live"}, this.listingID);
       }
     }

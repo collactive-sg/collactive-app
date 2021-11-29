@@ -105,8 +105,8 @@
     
     <div class="new-message">
         <div class="new-message-area">
-            <textarea class="new-message-box" role="textbox" maxlines="5" (keydown.enter)="send(newMessage)" [(ngModel)]="newMessage" contenteditable></textarea>
-            <div class="send-btn"  (click)="send(newMessage)" >
+            <textarea class="new-message-box" role="textbox" maxlines="5" (keydown.enter)="send(newMessage, false)" [(ngModel)]="newMessage" contenteditable></textarea>
+            <div class="send-btn"  (click)="send(newMessage, false)" >
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
             </div>
         </div>

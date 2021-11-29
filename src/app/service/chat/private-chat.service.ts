@@ -32,7 +32,7 @@ export class PrivateChatService {
       recentMsgsForDonor: 0,
       recentMsgsForReceiver: 0,
     }, {merge: true}).then(()=> {
-      return this.sendMessage(listingID, groupID, message, createdBy, receiver, false);
+      return this.sendMessage(listingID, groupID, message, createdBy, receiver, false, false);
     });
   }
 
@@ -40,19 +40,21 @@ export class PrivateChatService {
     return this.afs.collection("chatrooms").doc(groupID).valueChanges();
   }
 
-  sendMessage(listingID: string, groupID: string, message: string, sentBy: string, receiver: string, isListingOwner: boolean) {
+  sendMessage(listingID: string, groupID: string, message: string, sentBy: string, 
+    receiver: string, isListingOwner: boolean, isStatusMessage: boolean) {
     let sentAt = new Date();
     return this.afs.collection("messages").doc(groupID).collection("messages").add({
       message: message,
       sentAt: sentAt,
-      sentBy: sentBy
+      sentBy: sentBy,
+      isStatusMessage: isStatusMessage
     })
     .then(() => {
       return this.afs.collection("messages").doc(groupID).set({
         listingID: listingID
       })
     }).then(() => {
-      return this.updateChatroomMessage(groupID, message, sentBy, sentAt);
+      return this.updateChatroomMessage(groupID, message, sentBy, sentAt, isStatusMessage);
     }).then(() => {
       return this.updateChatroomRecentMsgCount(groupID, isListingOwner);
     })
@@ -61,13 +63,14 @@ export class PrivateChatService {
     })
   }
 
-  updateChatroomMessage(groupID: string, message: string, sentBy: string, modifiedAt) {
+  updateChatroomMessage(groupID: string, message: string, sentBy: string, modifiedAt, isStatusMessage: boolean) {
     return this.afs.collection("chatrooms").doc(groupID).set({
       modifiedAt: modifiedAt,
       recentMessage: {
         message: message,
         sentBy: sentBy
-      }
+      },
+      isStatusMessage: isStatusMessage
     }, {merge: true});
   }
 
