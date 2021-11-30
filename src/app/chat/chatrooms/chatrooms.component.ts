@@ -102,6 +102,7 @@ export class ChatroomsComponent implements OnInit {
           this.chatrooms[chatroom["listingID"] + receiverID] = chatroom;
         }
       }
+      this.chatroomsLength = Object.keys(this.chatrooms).length;
     } else {
       for (const [key, chatroom] of Object.entries(this.allChatrooms)) {
         var receiverID = chatroom["members"][1];
@@ -109,6 +110,7 @@ export class ChatroomsComponent implements OnInit {
           this.chatrooms[chatroom["listingID"] + receiverID] = chatroom;
         }
       }
+      this.chatroomsLength = Object.keys(this.chatrooms).length;
     }
   }
 
