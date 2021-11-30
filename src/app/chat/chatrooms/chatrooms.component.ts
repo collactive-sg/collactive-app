@@ -97,15 +97,16 @@ export class ChatroomsComponent implements OnInit {
     if (isDonor) {
       for (const [key, chatroom] of Object.entries(this.allChatrooms)) {
         var donorID = chatroom["members"][0];
+        var receiverID = chatroom["members"][1];
         if (donorID === this.currentUser.uid) {
-          this.chatrooms[chatroom["listingID"] + donorID] = chatroom
+          this.chatrooms[chatroom["listingID"] + receiverID] = chatroom;
         }
       }
     } else {
       for (const [key, chatroom] of Object.entries(this.allChatrooms)) {
         var receiverID = chatroom["members"][1];
         if (receiverID === this.currentUser.uid) {
-          this.chatrooms[chatroom["listingID"] + donorID] = chatroom
+          this.chatrooms[chatroom["listingID"] + receiverID] = chatroom;
         }
       }
     }

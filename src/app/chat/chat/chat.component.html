@@ -20,6 +20,10 @@
                     class="mt-2 mb-2 request-button"  id="request-sent"  (click)="handleListingRequest('')">
                         Cancel Request
                 </div>
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'reserved'" 
+                    class="mt-2 mb-2 request-button" id="request-sent">
+                        Breastmilk donation reserved
+                </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'" 
                     class="mt-2 mb-2 request-button" id="accepted" (click)="handleListingRequest('')">
                         Breastmilk donation accepted
@@ -68,8 +72,7 @@
             Your email is not verified. Please verify it before chatting. 
             <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
         </div>
-        <div class="verify" *ngIf="!this.isEmailVerified && this.isEmailVerificationSent">
-            Your email is not verified. Please verify it before chatting. 
+        <div class="verify" *ngIf="!this.isEmailVerified">
             <div class="prompt-button" (click)="reloadPageUponEmailVerified()">I have verified my email</div>
         </div>
         <div class="verify" *ngIf="!this.isCompleteProfile">

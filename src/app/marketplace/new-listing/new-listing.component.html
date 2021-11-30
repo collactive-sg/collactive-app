@@ -6,8 +6,7 @@
             Your email is not verified. 
             <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
         </div>
-        <div class="verify" *ngIf="!this.isEmailVerified && this.isEmailVerificationSent">
-            Your email is not verified. Please verify it before chatting. 
+        <div class="verify" *ngIf="!this.isEmailVerified">
             <div class="prompt-button" (click)="reloadPageUponEmailVerified()">I have verified my email</div>
         </div>
         <div class="verify" *ngIf="!this.isCompleteProfile">

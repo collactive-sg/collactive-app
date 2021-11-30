@@ -113,6 +113,10 @@ export class PrivateChatService {
     return this.afs.collection("chatrooms", ref => {return ref.orderBy("modifiedAt", "desc").where('members', 'array-contains', userID)}).valueChanges();
   }
 
+  getChatroomsByListingID(listingID: string) {
+    return this.afs.collection("chatrooms").ref.where('listingID', '==', listingID).get();
+  }
+
   // getChatRoomsByStatus(userID: string, isDonor: boolean) {
   //   if (isDonor) {
   //     return this.afs.collection("chatrooms").ref

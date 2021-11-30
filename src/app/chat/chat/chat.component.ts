@@ -193,33 +193,50 @@ export class ChatComponent implements OnInit {
 
   changeListingRequestStatusAsDonor(donorRequestAction: string) {
     if (this.currentGroupDetails.requestStatus === "requested") {
+      
       if (donorRequestAction === "accept") {
+        
         this.chatService.updateChatroomRequest(this.currentGroupID, "accepted");
         this.listingService.editlisting({"status": "accepted"}, this.listingID);
+        
         let recentMessage = "Accepted request for donation";
         this.send(recentMessage, true);
         this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
-      } else if (donorRequestAction === "reject" || donorRequestAction === "reset") {
-        if (confirm(`Are you sure you want to ${donorRequestAction} this listing?`)) {
+        
+        this.notifyOtherUsersWhenListingStatusUpdated("accepted");
+
+    } else if (donorRequestAction === "reject" || donorRequestAction === "reset") {
+      
+      if (confirm(`Are you sure you want to ${donorRequestAction} this listing?`)) {
           this.chatService.updateChatroomRequest(this.currentGroupID, "none");
-          let recentMessage = "Rejected request for donation";
+          // get upper case of first letter
+          donorRequestAction = donorRequestAction.charAt(0).toUpperCase() + donorRequestAction.slice(1);
+          let recentMessage = donorRequestAction + "ed request for donation";
           this.send(recentMessage, true);
           this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
         }
       }
+
     } else if (this.currentGroupDetails.requestStatus === "accepted") {
       if (donorRequestAction === "collacted") {
         this.chatService.updateChatroomRequest(this.currentGroupID, "collacted");
+        
         let recentMessage = "Awesome! The donation is collacted";
         this.send(recentMessage, true);
         this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
+        
         this.listingService.editlisting({"status": "collacted"}, this.listingID);
+
+        this.notifyOtherUsersWhenListingStatusUpdated("collacted");
+
       } else if (donorRequestAction === "reset") {
         this.chatService.updateChatroomRequest(this.currentGroupID, "none");
         let recentMessage = "Reset the donation listing";
         this.send(recentMessage, true);
         this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
         this.listingService.editlisting({"status": "live"}, this.listingID);
+
+        this.notifyOtherUsersWhenListingStatusUpdated("none");
       }
     } else if (this.listingDetails.status === "collacted") {
       if (donorRequestAction === "reset") {
@@ -228,8 +245,64 @@ export class ChatComponent implements OnInit {
         this.send(recentMessage, true);
         this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
         this.listingService.editlisting({"status": "live"}, this.listingID);
+
+        this.notifyOtherUsersWhenListingStatusUpdated("none");
       }
     }
+  }
+
+  notifyOtherUsersWhenListingStatusUpdated(newStatus) {
+    return this.chatService.getChatroomsByListingID(this.listingID).then(chatrooms => {
+      if (newStatus === "accepted") {
+        chatrooms.forEach(c => {
+          if (!c) { return; }
+          var chatroom = c.data();
+          var receiverID = chatroom["members"][1]
+          var chatroomID = chatroom["listingID"] + receiverID;
+          if (chatroomID !== this.currentGroupID) {
+            this.chatService.updateChatroomRequest(chatroomID, "reserved");
+            let recentMessage = "Sorry, the donation has been reserved by another user. Will let you know if it's available again!";
+            this.sendBroadcast(chatroomID, recentMessage, receiverID, true);
+            this.chatService.updateChatroomMessage(chatroomID, recentMessage, this.currentUser.uid, new Date(), true);
+          }
+        })
+      
+      } else if (newStatus === "collacted") {
+        chatrooms.forEach(c => {
+          if (!c) { return; }
+          var chatroom = c.data();
+          var receiverID = chatroom["members"][1]
+          var chatroomID = chatroom["listingID"] + receiverID;
+          
+          if (chatroomID !== this.currentGroupID) {
+            this.chatService.updateChatroomRequest(chatroomID, "collacted");
+            let recentMessage = "Sorry, the donation has been collacted by another receiver. Will let you know if it's available again!";
+            this.sendBroadcast(chatroomID, recentMessage, receiverID, true);
+            this.chatService.updateChatroomMessage(chatroomID, recentMessage, this.currentUser.uid, new Date(), true);
+          }
+        })
+
+      } else if (newStatus === "none") {
+        chatrooms.forEach(c => {
+          if (!c) { return; }
+          var chatroom = c.data();
+          var receiverID = chatroom["members"][1]
+          var chatroomID = chatroom["listingID"] + receiverID;
+          
+          if (chatroomID !== this.currentGroupID) {
+            this.chatService.updateChatroomRequest(chatroomID, "none");
+            let recentMessage = "Hey! The donation is available now. Would you be interested?";
+            this.sendBroadcast(chatroomID, recentMessage, receiverID, true);
+            this.chatService.updateChatroomMessage(chatroomID, recentMessage, this.currentUser.uid, new Date(), true);
+          }
+        })
+      }
+    })
+  }
+
+  sendBroadcast(chatroomID: string, message, receiverID: string, isStatusMessage: boolean) {
+    return this.chatService.sendMessage(this.listingID, chatroomID, message, 
+        this.currentUser.uid, receiverID, this.isListingOwner, isStatusMessage);
   }
 
   // checking for valid profile settings start here
