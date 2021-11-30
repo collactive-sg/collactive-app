@@ -115,7 +115,6 @@ export class NewListingComponent implements OnInit {
 
     var expressedTimestamp = new Date(this.expressedDate['year'],this.expressedDate['month']-1,this.expressedDate['day']).getTime();
     
-
     if (isNaN(parseInt(this.NumberOfPacks.value))) {
       window.alert("Please fill in a valid date for the Number of Packs");
       document.getElementById("numberOfPacks").style.border = "1px solid red";
@@ -130,6 +129,14 @@ export class NewListingComponent implements OnInit {
     
     if (expressedTimestamp > Date.now()) {
       window.alert("Please fill in a past date for the date expressed");
+      document.getElementById("expressedDate").style.border = "1px solid red";
+      return;
+    }
+    
+    let dateLessThan6Months = new Date().setMonth(new Date().getMonth() - 6)
+
+    if (expressedTimestamp < dateLessThan6Months) {
+      window.alert("Please list milk expressed 6 months and less");
       document.getElementById("expressedDate").style.border = "1px solid red";
       return;
     }

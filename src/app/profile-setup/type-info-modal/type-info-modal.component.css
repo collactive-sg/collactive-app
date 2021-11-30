@@ -5,15 +5,14 @@
 }
 
 .info-text {
-    width: 48%;
+    width: 50%;
 }
 
 .full-modal {
-    padding: 5px;
+    padding: 1rem;
 }
 
 .close {
     display: flex;
     justify-content: flex-end;
-    padding-right: 10px;
 }

@@ -45,7 +45,6 @@ export class ListingPageComponent implements OnInit {
       this.listingService.getLikedListingIDsByUserID(this.currentUser.uid).then(arr => {
         this.isLiked = arr.filter((listingID:any) => listingID === this.listingID).length !== 0 
       });
-       
      }})
     
     this.listingService.getListingByID(this.listingID).pipe().subscribe((res:any) => {

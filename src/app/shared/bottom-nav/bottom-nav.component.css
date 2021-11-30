@@ -12,6 +12,12 @@
     box-shadow: 0px -1px 10px 0px #00000040;
 }
 
+.container-nav {
+    width: 5.25rem;
+    display: flex;
+    justify-content: center;
+}
+
 .a {
     color: #546684;
     text-decoration: none;

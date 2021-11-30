@@ -1,15 +1,21 @@
 <div class="bottom-navbar">
-    <div class="nav-item" (click)="navigatePath('/home')" [ngStyle]=" {'color' : this.currentPath == '/home' ? '#F38397' : '#546684' }" >
-        <i class="fa fa-home" ></i>
-        Home
+    <div class="container-nav">
+        <div class="nav-item" (click)="navigatePath('/home')" [ngStyle]=" {'color' : this.currentPath == '/home' ? '#F38397' : '#546684' }" >
+            <i class="fa fa-home" ></i>
+            Home
+        </div>
     </div>
-    <div class="nav-item" (click)="navigatePath('/marketplace')" [ngStyle]=" {'color' : this.currentPath == '/marketplace' ? '#F38397' : '#546684' }" >
-        <i class="fa fa-shopping-bag" ></i>
-        Marketplace
+    <div class="container-nav">
+        <div class="nav-item" (click)="navigatePath('/marketplace')" [ngStyle]=" {'color' : this.currentPath == '/marketplace' ? '#F38397' : '#546684' }" >
+            <i class="fa fa-shopping-bag" ></i>
+            Marketplace
+        </div>
     </div>
-    <div class="nav-item" (click)="navigatePath('/landing/articles')" [ngStyle]=" {'color' : this.currentPath == '/landing/articles' ? '#F38397' : '#546684' }" >
-        <i class="fa fa-book"></i>
-        Education
+    <div class="container-nav">
+        <div class="nav-item" (click)="navigatePath('/landing/articles')" [ngStyle]=" {'color' : this.currentPath == '/landing/articles' ? '#F38397' : '#546684' }" >
+            <i class="fa fa-book"></i>
+            Education
+        </div>
     </div>
 </div>
 <a (click)="navigatePath('/new-listing')">
