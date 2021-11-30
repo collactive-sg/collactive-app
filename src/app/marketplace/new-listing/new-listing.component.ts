@@ -18,8 +18,9 @@ export class NewListingComponent implements OnInit {
   currentUser;
   currentUserDetails;
   childrenDetails;
-  isEmailVerified: boolean;
-  isCompleteProfile: boolean;
+  isEmailVerified = true;
+  isEmailVerificationSent = false;
+  isCompleteProfile = true;
 
   listingDetailsForm;
   expressedDate;
@@ -151,6 +152,7 @@ export class NewListingComponent implements OnInit {
   resendVerificationEmail() {
     this.auth.resendEmailVerification(this.currentUser);
     window.alert("Email verfication sent and will arrive shortly! Please chack your email for it.");
+    this.isEmailVerificationSent = true;
   }
 
   checkIfCompleteProfile(userDetails, childrenDetails) {
@@ -179,5 +181,9 @@ export class NewListingComponent implements OnInit {
       return false;
     }
     return true;
+  }
+
+  reloadPageUponEmailVerified() {
+    window.location.reload();
   }
 }

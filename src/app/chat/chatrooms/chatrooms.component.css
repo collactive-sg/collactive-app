@@ -57,11 +57,11 @@
     width: 80%;
 }
 
-.recipient-name {
+.listing-details {
     font-size: 20px;
 }
 
-.last-message {
+.recipient-name-or-last-message {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

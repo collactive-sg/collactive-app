@@ -18,7 +18,11 @@
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" 
                     class="mt-2 mb-2 request-button"  id="request-sent"  (click)="handleListingRequest('')">
-                        Request Sent
+                        Cancel Request
+                </div>
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'reserved'" 
+                    class="mt-2 mb-2 request-button" id="request-sent">
+                        Breastmilk donation reserved
                 </div>
                 <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'" 
                     class="mt-2 mb-2 request-button" id="accepted" (click)="handleListingRequest('')">
@@ -44,15 +48,15 @@
                     <div class="mt-2 mb-2 request-button" id="collact" (click)="handleListingRequest('collacted')">
                         Mark this collacted
                     </div>
-                    <!-- <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
+                    <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
                         Reset listing
-                    </div> -->
+                    </div>
                 </div>
-                <!-- <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'">
+                <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'">
                     <div class="mt-2 mb-2 request-button" (click)="handleListingRequest('reset')">
                         Reset listing to live
                     </div>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -64,9 +68,12 @@
 </div>
 <div *ngIf="this.currentUserDetails && !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
     <div>
-        <div class="verify" *ngIf="!this.isEmailVerified">
+        <div class="verify" *ngIf="!this.isEmailVerified && !this.isEmailVerificationSent">
             Your email is not verified. Please verify it before chatting. 
             <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
+        </div>
+        <div class="verify" *ngIf="!this.isEmailVerified">
+            <div class="prompt-button" (click)="reloadPageUponEmailVerified()">I have verified my email</div>
         </div>
         <div class="verify" *ngIf="!this.isCompleteProfile">
             Your profile setup is incomplete. Please complete it before chatting.
@@ -101,8 +108,8 @@
     
     <div class="new-message">
         <div class="new-message-area">
-            <textarea class="new-message-box" role="textbox" maxlines="5" (keydown.enter)="send(newMessage)" [(ngModel)]="newMessage" contenteditable></textarea>
-            <div class="send-btn"  (click)="send(newMessage)" >
+            <textarea class="new-message-box" role="textbox" maxlines="5" (keydown.enter)="send(newMessage, false)" [(ngModel)]="newMessage" contenteditable></textarea>
+            <div class="send-btn"  (click)="send(newMessage, false)" >
                 <i class="fa fa-paper-plane" aria-hidden="true"></i>
             </div>
         </div>
