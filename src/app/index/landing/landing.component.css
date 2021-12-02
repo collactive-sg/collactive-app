@@ -8,8 +8,14 @@ img {
     display: block;
 }
 
+.carousel-caption {
+    filter: invert(100%);
+}
+
 .carousel-img {
     filter: invert(100%);
+    width: 80vw;
+    margin-bottom: 8rem;
 }
 
 .carousel-box {
