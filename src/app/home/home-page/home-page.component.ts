@@ -19,6 +19,7 @@ export class HomePageComponent implements OnInit {
   isCompleteProfile = true;
   isEmailVerificationSent = false;
   childrenDetails;
+  unreadMessageCount = 0;
 
   recentListings = [];
   currentUserListings = [];
@@ -47,6 +48,7 @@ export class HomePageComponent implements OnInit {
           .subscribe((userData) => {
             this.currentUserData = userData;
             this.isDonor = userData["isDonor"];
+            this.getTotalUnreadMessagesCount();
             this.userDataService.getChildren(user.uid).then((res) => {
               this.childrenDetails = [];
               res.forEach((child) => this.childrenDetails.push(child.data()));
@@ -142,7 +144,20 @@ export class HomePageComponent implements OnInit {
 
   getTotalUnreadMessagesCount() {
     if (this.currentUser) {
-      return this.chatService.getTotalUnreadMessagesCount(this.currentUser.uid, this.isDonor);
+      return this.chatService.getAllChatrooms(this.currentUser.uid).pipe().subscribe(chatrooms => {
+        this.unreadMessageCount = 0;
+        if (this.isDonor) {
+          chatrooms.forEach(chatroom => {
+            var chatroomData = chatroom;
+            this.unreadMessageCount += chatroomData["recentMsgsForDonor"];
+          })
+        } else {
+          chatrooms.forEach(chatroom => {
+            var chatroomData = chatroom;
+            this.unreadMessageCount += chatroomData["recentMsgsForReceiver"];
+          })
+        }
+      })
     }
   }
 }
