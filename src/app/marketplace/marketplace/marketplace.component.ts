@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { PrivateChatService } from 'src/app/service/chat/private-chat.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 import { FilterPageComponent } from '../filter-page/filter-page.component';
@@ -47,6 +48,7 @@ export class MarketplaceComponent implements OnInit {
     public listingService: ListingService,
     private auth: AuthService,
     private userDataService: UserDataService,
+    private chatService: PrivateChatService
   ) {}
 
   ngOnInit(): void {
@@ -203,4 +205,11 @@ export class MarketplaceComponent implements OnInit {
       });
     })
   }
+
+  getTotalUnreadMessagesCount() {
+    if (this.currentUser) {
+      return this.chatService.getTotalUnreadMessagesCount(this.currentUser.uid, this.isDonor);
+    }
+  }
+
 }

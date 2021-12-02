@@ -117,6 +117,24 @@ export class PrivateChatService {
     return this.afs.collection("chatrooms").ref.where('listingID', '==', listingID).get();
   }
 
+  getTotalUnreadMessagesCount(userID: string, isDonor: boolean) {
+    return this.getAllChatrooms(userID).pipe().subscribe(chatrooms => {
+      var count = 0;
+      if (isDonor) {
+        chatrooms.forEach(chatroom => {
+          var chatroomData = chatroom;
+          count += chatroomData["recentMsgsForDonor"];
+        })
+      } else {
+        chatrooms.forEach(chatroom => {
+          var chatroomData = chatroom;
+          count += chatroomData["recentMsgsForReceiver"];
+        })
+      }
+      return count;
+    })
+  }
+
   // getChatRoomsByStatus(userID: string, isDonor: boolean) {
   //   if (isDonor) {
   //     return this.afs.collection("chatrooms").ref

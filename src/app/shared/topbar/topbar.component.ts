@@ -14,6 +14,7 @@ export class TopbarComponent implements OnInit {
   @Input() isShowBackButton;
   @Input() isShowMenu;
   @Input() isShowChats;
+  @Input() chatCount;
 
   constructor(
     private modalService: NgbModal, 
@@ -32,6 +33,9 @@ export class TopbarComponent implements OnInit {
   }
 
   openChats() {
+    if (this.chatCount) {
+      console.log(this.chatCount);
+    }
     this.router.navigate(["chatrooms"]);
   }
 

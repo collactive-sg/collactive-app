@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "src/app/service/auth/auth.service";
+import { PrivateChatService } from "src/app/service/chat/private-chat.service";
 import { ListingService } from "src/app/service/listing/listing.service";
 import { NotificationsService } from "src/app/service/notif/notifications.service";
 import { UserDataService } from "src/app/service/user-data/user-data.service";
@@ -29,6 +30,7 @@ export class HomePageComponent implements OnInit {
     private auth: AuthService,
     private userDataService: UserDataService,
     private notificationService: NotificationsService,
+    private chatService: PrivateChatService,
     public router: Router
   ) {}
 
@@ -136,5 +138,11 @@ export class HomePageComponent implements OnInit {
 
   reloadPageUponEmailVerified() {
     window.location.reload();
+  }
+
+  getTotalUnreadMessagesCount() {
+    if (this.currentUser) {
+      return this.chatService.getTotalUnreadMessagesCount(this.currentUser.uid, this.isDonor);
+    }
   }
 }
