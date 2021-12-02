@@ -84,7 +84,6 @@ export class ChatComponent implements OnInit {
 
         this.listingService.getListingByID(this.listingID).pipe().subscribe((listing: any) => {
           this.listingDetails = listing;
-  
           this.isListingOwner = listing.donorID === this.currentUser.uid
           if (this.isListingOwner) {
             this.currentGroupID = this.listingID + this.receiverID;
@@ -100,12 +99,19 @@ export class ChatComponent implements OnInit {
           }
         });
       })
-     }})
+    }})
+  }
+  navigateToListing() {
+    this.router.navigate([`listing/${this.listingID}`])
   }
 
   send(message, isStatusMessage: boolean) {
     
     if (this.notifyUserVerification()) {
+      return;
+    }
+    
+    if (message.trim().length < 1) {
       return;
     }
 
@@ -190,7 +196,23 @@ export class ChatComponent implements OnInit {
       this.chatService.updateChatroomMessage(this.currentGroupID, recentMessage, this.currentUser.uid, new Date(), true);
     }
   }
-
+  convertExpressedDateTimestampToDateString() {
+    if (this.listingDetails.dateExpressed !== undefined) {
+      var dateExpressedDaysAgo = "on Invalid Date"
+      if(!isNaN(this.listingDetails.dateExpressed)) {
+        var diffInDays = (new Date().getTime() - this.listingDetails.dateExpressed) / (1000 * 3600 * 24);
+        if (diffInDays == 0) {
+          dateExpressedDaysAgo = "today";
+        } else if (diffInDays > 0) {
+          dateExpressedDaysAgo = `${Math.round(diffInDays)} days ago` 
+        } 
+      }
+      return dateExpressedDaysAgo;
+      
+    } else {
+      return "on Unknown Date"
+    }
+  }
   changeListingRequestStatusAsDonor(donorRequestAction: string) {
     if (this.currentGroupDetails.requestStatus === "requested") {
       

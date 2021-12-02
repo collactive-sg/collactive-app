@@ -2,5 +2,54 @@
     <div class="img-container">
         <img src="assets/collactive.png" style="height: 2rem;" alt="COLLACTIVE" />
     </div>
-    <div class="next-button" (click)="onNextButtonClick()">Next</div>
+
+    <div class='container-fluid carousel-box'>  
+        <div class='col-12'>  
+            <ngb-carousel [showNavigationIndicators]="true" > 
+                <ng-template ngbSlide > 
+                    <img class="carousel-img" src="../../../assets/breastmilk-sharing-landing.svg" >  
+                    <div class="carousel-caption">  
+                        <h3>Breast milk sharing</h3>
+                        <h6>We are a breastmilk sharing platform, connecting mothers in Singapore</h6>
+                    </div>  
+                </ng-template> 
+                <ng-template ngbSlide > 
+                    <img class="carousel-img" src="../../../assets/donate-landing.svg" >  
+                    <div class="carousel-caption">  
+                        <h3>Donate</h3>
+                        <h6>Share your excess breastmilk with other mothers who need it</h6>
+                    </div>  
+                </ng-template> 
+                <ng-template ngbSlide >   
+                    <img  class="carousel-img" src="../../../assets/receive-landing.svg" >  
+                    <div class="carousel-caption">  
+                        <h3>Receive</h3>
+                        <h6>Find suitable breastmilk donors with our curated and in-depth filters</h6>
+                    </div>  
+                </ng-template> 
+                <ng-template ngbSlide > 
+                    <img class="carousel-img" src="../../../assets/join-community-landing.svg" >  
+                    <div class="carousel-caption">  
+                        <h3>Join the community</h3>
+                        <h6>We aim to build a community of strong and empowered mothers</h6>
+                    </div>  
+                </ng-template> 
+            </ngb-carousel>  
+        </div>  
+      
+    </div>  
+    
+    <div class="next-button" (click)="onNextButtonClick()">Join</div>
+    <div class="next-button" *ngIf="this.promptEvent"  (click)="onAddToScreenButtonClick()">Next</div>
+
+    <div >
+        <div class="caption" >
+            Add this app to your home screen on iPhone
+        </div>
+        <img class="guide-img"  src="../../../assets/iPhone-Guide.png">
+        <div class="caption" >
+            Add this app to your home screen on Android
+        </div>
+        <img class="guide-img"  src="../../../assets/Android-Guide.png">
+    </div>
 </div>

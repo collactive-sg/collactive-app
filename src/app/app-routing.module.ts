@@ -29,7 +29,7 @@ import { ChangeStatusComponent } from './home/change-status/change-status.compon
 
 const routes: Routes = [
   {path: '', component: LandingComponent},
-  {path: 'landing/articles', component: ArticlesComponent},
+  // {path: 'landing/articles', component: ArticlesComponent},
   {path: 'landing/breast-milk-sharing', component: BreastMilkSharingComponent},
   {path: 'landing/donate', component: DonateComponent},
   {path: 'landing/join-the-community', component: JoinTheCommunityComponent},

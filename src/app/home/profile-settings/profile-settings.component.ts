@@ -134,7 +134,39 @@ export class ProfileSettingsComponent implements OnInit {
 
     return str;
   }
-  
+
+  convertDietaryRestrictionsToString() {
+    let str = "";
+    this.dietaryRestrictions.forEach(element => {
+      if (element.checked) {
+        str = str.concat(element.name);
+        str = str.concat("_ ")
+      }
+    });
+
+    if (str.length == 0) {
+      str = "None";
+    } else {
+      str = str.replace(/_([^_]*)$/, '$1')
+      str = str.replace(/_/g, ', ')
+    }
+    return str;
+  }
+
+  onImgSelected(e) {
+    let selectedFile = e.target.files[0];
+    if (selectedFile.size > 5200000) {
+      window.alert("The image uploaded has a very high resolution. Please choose an image that is less than 5MB");
+    } else {
+      this.userDataService.uploadProfileImg(this.currentUser.uid, selectedFile).then(() => {
+        const url = URL.createObjectURL(selectedFile);
+        this.showProfileImg(url);
+      }).catch(err => {
+        window.alert("We are unable to upload your picture right now. Please try again later.");
+      })
+    }
+  }
+
   showProfileImg(url:string) {
     const frame = document.getElementById('frame');
     if (url.length > 0) {

@@ -5,9 +5,10 @@
   </div>
   <div class="basic-details-show">
     <div class="profile-photo">
-      <div class="image photo-upload" id="frame" >
+      <div class="image photo-upload" id="frame" onclick="document.getElementById('getFile').click()">
           <i class="fa fa-plus" id="plus-icon"></i>
       </div>
+      <input type='file' id="getFile" style="display:none" (change)="onImgSelected($event)">
     </div>
     <div class="basic-details-text-show">
       <div style="font-size: 1.5rem;">{{firstName}} {{lastName}}</div>
@@ -84,16 +85,11 @@
     </div>
   </div>
   <div class="clause-box">
-    <div *ngFor="let restriction of dietaryRestrictions let i = index">
-      <div class="one-clause" *ngIf="restriction.checked ">
-        <hr *ngIf="i != 0" >
-        {{restriction.name}}
-      </div>
-    </div>
+    {{this.convertDietaryRestrictionsToString()}}
   </div>
 </div>
 
-<div *ngIf="this.isDonor" class="start-page">
+<div class="start-page">
   <div class="clause-edit-btn" >
     <h4>Child's Profile</h4>
     <div (click)="this.router.navigateByUrl('profile-setup/child-profile', {state: {type: 'Settings'}})" >

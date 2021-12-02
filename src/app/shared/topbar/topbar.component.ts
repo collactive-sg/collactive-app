@@ -33,7 +33,6 @@ export class TopbarComponent implements OnInit {
   }
 
   openChats() {
-    console.log(this.unreadMessageCount);
     this.router.navigate(["chatrooms"]);
   }
 

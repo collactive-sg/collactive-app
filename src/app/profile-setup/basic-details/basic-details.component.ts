@@ -30,7 +30,7 @@ export class BasicDetailsComponent implements OnInit {
   dateOfBirth;
   areasOptions = ["North", "East", "West", "South", "Central"];
   maxDate = {
-    year: new Date().getFullYear(),
+    year: new Date().getFullYear() - 18,
     month: new Date().getMonth() + 1,
     day: new Date().getDate(),
   }

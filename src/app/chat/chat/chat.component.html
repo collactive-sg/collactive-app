@@ -1,22 +1,44 @@
-
-<div class="start-page">
-    <div class="top-bar">
-        <i class="fa fa-arrow-left"  (click)="this.updateLastSeen()" style="margin-right: 1.5rem;"></i>
-        <div *ngIf="receiverDetails">
-                {{receiverDetails.firstName}} {{receiverDetails.lastName}}
-        </div>
+<div *ngIf="!this.currentUserDetails || !this.receiverDetails || !this.listingID" class="loading">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
     </div>
-    <div *ngIf="this.listingDetails !== undefined">
-        <!-- <div class="listingDetails">
-            
-        </div> -->
+</div>
+
+<div class="all-parts">
+    <div class="start-page">
+        <div class="top-bar">
+            <i class="fa fa-arrow-left"  (click)="this.updateLastSeen()" style="margin-right: 1.5rem;"></i>
+            <div *ngIf="receiverDetails">
+                    {{receiverDetails.firstName}} {{receiverDetails.lastName}}
+            </div>
+        </div>
+        <div class="listing-details" *ngIf="this.listingDetails !== undefined" (click)="this.navigateToListing()" >
+            <span>
+                <i class="fa fa-calendar"></i>
+                <span> Expressed <span class="bold">{{this.convertExpressedDateTimestampToDateString()}} </span> </span>
+            </span>
+            <div class="second-row">
+                <span>
+                    <img src="../../../assets/packet.svg" width="18px" style="margin-left: -3px;" >
+                    <span class="bold"> {{this.listingDetails.numberOfPacks}}</span> packs of <span class="bold">{{this.listingDetails.volumePerPack}}ml</span>
+                </span>
+                <span style="margin-left: 2.5rem;">
+                    <img src="../../../assets/milk-bottle.png" width="18px" style="margin-left: -3px;" >
+                    <span>{{this.listingDetails.typeOfMilk}}</span>
+                </span>
+            </div>
+        </div>
         <div *ngIf="this.currentGroupDetails !== undefined && this.isEmailVerified && this.isCompleteProfile ">
             <div *ngIf="!this.isListingOwner">
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'none'" 
+                <div *ngIf="this.listingDetails.status === 'collacted' && this.currentGroupDetails.requestStatus !== 'collacted'" 
+                    class="mt-2 mb-2" id="c"  (click)="handleListingRequest('')">
+                        This listing has been collacted already.
+                </div>
+                <div *ngIf="this.listingDetails.status !== 'collacted' && this.currentGroupDetails.requestStatus === 'none'" 
                     class="mt-2 mb-2 request-button"  id="request"  (click)="handleListingRequest('')">
                         Request for breastmilk
                 </div>
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" 
+                <div *ngIf="this.listingDetails.status !== 'collacted' && this.currentGroupDetails.requestStatus === 'requested'" 
                     class="mt-2 mb-2 request-button"  id="request-sent"  (click)="handleListingRequest('')">
                         Cancel Request
                 </div>
@@ -24,19 +46,22 @@
                     class="mt-2 mb-2 request-button" id="request-sent">
                         Breastmilk donation reserved
                 </div>
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'accepted'" 
+                <div *ngIf="this.listingDetails.status !== 'collacted' && this.currentGroupDetails.requestStatus === 'accepted'" 
                     class="mt-2 mb-2 request-button" id="accepted" (click)="handleListingRequest('')">
                         Breastmilk donation accepted
                 </div>
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'collacted'" 
+                <div *ngIf="this.listingDetails.status === 'collacted' && this.currentGroupDetails.requestStatus === 'collacted'" 
                     class="mt-2 mb-2 request-button"  id="collacted"  >
                         Breastmilk donation collacted!
                 </div>
             </div>
         </div>
         <div *ngIf="this.currentGroupDetails !== undefined && this.isEmailVerified && this.isCompleteProfile">
-            <div *ngIf="this.isListingOwner">
-                <div *ngIf="this.currentGroupDetails.requestStatus === 'requested'" class="side-by-side-btns" >
+            <div *ngIf="this.isListingOwner" >
+                <div *ngIf=" this.listingDetails.status === 'collacted'" style="text-align: center;">
+                    This listing has been collacted already.
+                </div>
+                <div *ngIf=" this.listingDetails.status !== 'collacted' && this.currentGroupDetails.requestStatus === 'requested'" class="side-by-side-btns" >
                     <div class="mt-2 mb-2 request-button"  id="accept"  (click)="handleListingRequest('accept')">
                         Accept
                     </div>
@@ -66,7 +91,7 @@
         <span class="sr-only">Loading...</span>
     </div>
 </div>
-<div *ngIf="this.currentUserDetails" class="loading" >
+<div *ngIf="this.currentUserDetails && !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
     <div>
         <div class="verify" *ngIf="!this.isEmailVerified && !this.isEmailVerificationSent">
             Your email is not verified. 
@@ -94,15 +119,12 @@
                 <div *ngIf="message.sentBy == this.currentUserDetails.userID">
                     <div class="message-area-sender">
                         <div class="message-sender"> {{message.message}}</div>
-                        <div class="photo-upload photo-sender" 
-                        [ngStyle] = "{'background-image' :'url(' + this.senderProfilePhoto + ')' }"
-                        ></div>
+                        <div class="photo-upload photo-sender" [ngStyle] = "{'background-image' :'url(' + this.senderProfilePhoto + ')' }"></div>
                     </div> 
                 </div>
             </div>
         </div>
     </div>
-    
     <div class="new-message">
         <div class="new-message-area">
             <textarea class="new-message-box" role="textbox" maxlines="5" (keydown.enter)="send(newMessage, false)" [(ngModel)]="newMessage" contenteditable></textarea>
@@ -112,3 +134,5 @@
         </div>
     </div>
 </div>
+
+

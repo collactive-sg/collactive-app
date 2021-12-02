@@ -37,7 +37,7 @@ export class CompletedProfileSetupComponent implements OnInit {
   }
 
   onNextButtonClick() {
-    this.router.navigate(['marketplace']);
+    this.router.navigate(['home']);
   }
 
 }

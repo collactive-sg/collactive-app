@@ -12,7 +12,7 @@ export class NotificationBoxComponent implements OnInit {
   @Input() senderFirstName:string;
   @Input() senderLastName:string;
   @Input() type:string;
-  @Input() dateOfNotification:number;
+  @Input() dateOfNotification;
   @Input() notificationID:string;
   @Input() listingID;
   @Input() isRead;
@@ -29,11 +29,15 @@ export class NotificationBoxComponent implements OnInit {
 
   convertNotificationTimeToString() {
     if ((((new Date().getTime() - this.dateOfNotification)/1000)/3600) < 1) {
-      return `${Math.round(((new Date().getTime() - this.dateOfNotification)/1000)/60)} minutes ago`
+      let num = Math.round(((new Date().getTime() - this.dateOfNotification)/1000)/60);
+      return num < 2 ? `1 minute ago` : `${num} minutes ago`
     } else if ((((new Date().getTime() - this.dateOfNotification)/1000)/3600) < 25) {
-      return `${Math.round(((new Date().getTime() - this.dateOfNotification)/1000)/3600)} hours ago`
+      let num = Math.round(((new Date().getTime() - this.dateOfNotification)/1000)/3600);
+      return num == 1 ? `${num} hour ago` : `${num} hours ago`
     } else {
-      return `${Math.round((((new Date().getTime() - this.dateOfNotification)/1000)/3600)/24)} days ago`
+      let num = Math.round((((new Date().getTime() - this.dateOfNotification)/1000)/3600)/24);
+      return num == 1 ? `${num} day ago` : `${num} days ago`
+
     }
   }
 
