@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { PrivateChatService } from 'src/app/service/chat/private-chat.service';
+import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 
 @Component({
@@ -14,16 +15,18 @@ export class ChatroomsComponent implements OnInit {
   currentUser;
   currentUserDetails;
 
-  chatrooms = [];
-  allChatrooms = [];
-  receiverID: string;
+  chatrooms = {};
+  allChatrooms = {};
+  chatroomsLength = 0;
 
+  receiverID: string;
 
   constructor(
     private router: Router,
     private auth: AuthService,
     private chatService: PrivateChatService,
-    private userDataService: UserDataService
+    private userDataService: UserDataService,
+    private listingService: ListingService
   ) { }
 
   ngOnInit(): void {
@@ -35,14 +38,17 @@ export class ChatroomsComponent implements OnInit {
          
         this.currentUserDetails = res.data();
 
-        this.chatService.getAllChatrooms(this.currentUser.uid).pipe().subscribe(
+        this.chatService.getAllChatrooms(this.currentUser.uid).subscribe(
           (chatrooms) => {
             if (chatrooms) {
-              this.chatrooms = [];
-              this.allChatrooms = [];
               chatrooms.forEach(chatroom => {
-                this.addNameToChatroom(chatroom);
                 chatroom["isListingOwner"] = (chatroom["members"][0] === this.currentUser.uid);
+                this.listingService.getListingByID(chatroom["listingID"]).subscribe(listingDetails => {
+                  chatroom["numberOfPacks"] = listingDetails["numberOfPacks"];
+                  chatroom["typeOfMilk"] = listingDetails["typeOfMilk"];
+                  chatroom["volumePerPack"] = listingDetails["volumePerPack"];
+                  this.addNameToChatroom(chatroom);
+                })
               });
             }
           }
@@ -80,25 +86,31 @@ export class ChatroomsComponent implements OnInit {
         chatroomData["receiverPhotoUrl"] = url;
       })
 
-      this.chatrooms.push(chatroomData);
-      this.allChatrooms.push(chatroomData);
+      this.chatrooms[chatroomData["listingID"] + receiver] = chatroomData;
+      this.allChatrooms[chatroomData["listingID"] + receiver] = chatroomData;
+      this.chatroomsLength = Object.keys(this.chatrooms).length;
     })
   }
 
   filterByAsDonor(isDonor: boolean) {
-    this.chatrooms = [];
+    this.chatrooms = {};
     if (isDonor) {
-      this.allChatrooms.forEach(chatroom => {
-        if (chatroom["members"][0] === this.currentUser.uid) {
-          this.chatrooms.push(chatroom);
+      for (const [key, chatroom] of Object.entries(this.allChatrooms)) {
+        var donorID = chatroom["members"][0];
+        var receiverID = chatroom["members"][1];
+        if (donorID === this.currentUser.uid) {
+          this.chatrooms[chatroom["listingID"] + receiverID] = chatroom;
         }
-      });
+      }
+      this.chatroomsLength = Object.keys(this.chatrooms).length;
     } else {
-      this.allChatrooms.forEach(chatroom => {
-        if (chatroom["members"][0] !== this.currentUser.uid) {
-          this.chatrooms.push(chatroom);
+      for (const [key, chatroom] of Object.entries(this.allChatrooms)) {
+        var receiverID = chatroom["members"][1];
+        if (receiverID === this.currentUser.uid) {
+          this.chatrooms[chatroom["listingID"] + receiverID] = chatroom;
         }
-      });
+      }
+      this.chatroomsLength = Object.keys(this.chatrooms).length;
     }
   }
 
@@ -112,6 +124,10 @@ export class ChatroomsComponent implements OnInit {
       frame.style.backgroundImage = `url(${url})`;
       frame.style.backgroundSize = `cover`;
     }
+  }
+
+  asIsOrder() {
+    return 1;
   }
 
 }

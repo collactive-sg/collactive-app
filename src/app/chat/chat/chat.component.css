@@ -172,7 +172,7 @@
 
 .message-receiver {
     background: #546684;
-    width: 60%;
+    max-width: 60%;
     padding: 5px;
     margin-left: 0.25rem;
     color: #fff;
@@ -183,7 +183,7 @@
 .message-sender {
     padding: 5px;
     margin-right: 1.25rem;
-    width: 60%;
+    max-width: 60%;
     background: #F9F9F9;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
     border-radius: 10px;
