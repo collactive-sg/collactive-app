@@ -12,6 +12,7 @@
     </div>
     <div *ngIf='isShowMenu' class="icon">
         <i class="fa fa-comments" style="margin-top: 1px;" (click)="openChats()" ></i>
+        <div *ngIf="this.unreadMessageCount !== 0" class="chat-counter">{{this.unreadMessageCount}}</div>
     </div>
 
 </div>
