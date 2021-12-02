@@ -146,17 +146,13 @@ export class HomePageComponent implements OnInit {
     if (this.currentUser) {
       return this.chatService.getAllChatrooms(this.currentUser.uid).pipe().subscribe(chatrooms => {
         this.unreadMessageCount = 0;
-        if (this.isDonor) {
-          chatrooms.forEach(chatroom => {
-            var chatroomData = chatroom;
-            this.unreadMessageCount += chatroomData["recentMsgsForDonor"];
-          })
-        } else {
-          chatrooms.forEach(chatroom => {
-            var chatroomData = chatroom;
-            this.unreadMessageCount += chatroomData["recentMsgsForReceiver"];
-          })
-        }
+        chatrooms.forEach(chatroom => {
+          if (this.currentUser.uid === chatroom["members"][0]) {
+            this.unreadMessageCount += chatroom["recentMsgsForDonor"];
+          } else {
+            this.unreadMessageCount += chatroom["recentMsgsForReceiver"];
+          }
+        })
       })
     }
   }
