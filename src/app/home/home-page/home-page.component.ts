@@ -111,7 +111,7 @@ export class HomePageComponent implements OnInit {
   }
 
   navigateToProfileSettings() {
-    this.router.navigate(["/profile-settings"]);
+    this.router.navigate(["/profile-setup/type-setup"]);
   }
 
   resendVerificationEmail() {

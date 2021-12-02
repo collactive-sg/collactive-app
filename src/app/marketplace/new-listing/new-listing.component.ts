@@ -146,7 +146,7 @@ export class NewListingComponent implements OnInit {
 
   // below are checks for profile validation
   navigateToProfileSettings() {
-    this.router.navigate(["/profile-settings"]);
+    this.router.navigate(["/profile-setup/type-setup"]);
   }
 
   resendVerificationEmail() {

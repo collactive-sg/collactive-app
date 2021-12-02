@@ -307,7 +307,7 @@ export class ChatComponent implements OnInit {
 
   // checking for valid profile settings start here
   navigateToProfileSettings() {
-    this.router.navigate(["/profile-settings"]);
+    this.router.navigate(["/profile-setup/type-setup"]);
   }
 
   resendVerificationEmail() {
