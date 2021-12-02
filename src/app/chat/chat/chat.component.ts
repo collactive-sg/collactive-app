@@ -307,13 +307,27 @@ export class ChatComponent implements OnInit {
 
   // checking for valid profile settings start here
   navigateToProfileSettings() {
-    this.router.navigate(["/profile-settings"]);
+    this.router.navigate(["/profile-setup/type-setup"]);
+  }
+
+  verifyEmail() {
+    this.resendVerificationEmail();
+    this.redirectToSignInPage();
   }
 
   resendVerificationEmail() {
     this.auth.resendEmailVerification(this.currentUser);
-    window.alert("Email verfication sent and will arrive shortly! Please chack your email for it.");
-    this.isEmailVerificationSent = true;
+    if (window.confirm("Would you like another email verification sent to your email?")) {
+      window.alert(
+        "Email verfication sent and will arrive shortly! Please chack your email for it."
+      );
+      this.isEmailVerificationSent = true;
+    }
+  }
+
+  redirectToSignInPage() {
+    window.alert("A verification email has been sent to your inbox. You will be redirected to the sign-in page. Please sign in again after verifying your email.")
+    this.router.navigate(["login"]);
   }
 
   notifyUserVerification() {

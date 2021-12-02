@@ -2,16 +2,15 @@
 <div>
     <div class="header">Make a posting</div>
     <div *ngIf="this.currentUser !== undefined">
-        <div class="verify" *ngIf="!this.isEmailVerified && !this.isEmailVerificationSent">
-            Your email is not verified. 
-            <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
-        </div>
-        <div class="verify" *ngIf="!this.isEmailVerified">
-            <div class="prompt-button" (click)="reloadPageUponEmailVerified()">I have verified my email</div>
-        </div>
-        <div class="verify" *ngIf="!this.isCompleteProfile">
-            Your profile setup is incomplete. Please complete it before making a posting.
-            <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
+        <div>
+            <div class="verify" *ngIf="!this.isEmailVerified && !this.isEmailVerificationSent">
+                Your email is not verified. 
+                <div class="prompt-button" (click)="verifyEmail()">Verify my email</div>
+            </div>
+            <div class="verify" *ngIf="!this.isCompleteProfile">
+                Your profile setup is incomplete. 
+                <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
+            </div>
         </div>
     </div>
     <form class="form-inline" [formGroup]="listingDetailsForm">

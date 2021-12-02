@@ -1,4 +1,5 @@
-<app-topbar [isShowBackButton]="false" [isShowMenu]="true"></app-topbar>
+<app-topbar [isShowBackButton]="false" [isShowMenu]="true" [unreadMessageCount]="this.unreadMessageCount"></app-topbar>
+<!-- [chatCount]="this.getTotalUnreadMessagesCount()"></app-topbar> -->
 <div *ngIf="this.currentUser !== undefined && this.currentUserData !== undefined">
 
     <div class="welcome-header">
@@ -47,14 +48,11 @@
                 </div>
             </div>
         </div>
-        <div *ngIf=" !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
+        <div class="loading" >
             <div>
                 <div class="verify" *ngIf="!this.isEmailVerified && !this.isEmailVerificationSent">
                     Your email is not verified. 
-                    <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
-                </div>
-                <div class="verify" *ngIf="!this.isEmailVerified">
-                    <div class="prompt-button" (click)="reloadPageUponEmailVerified()">I have verified my email</div>
+                    <div class="prompt-button" (click)="verifyEmail()">Verify my email</div>
                 </div>
                 <div class="verify" *ngIf="!this.isCompleteProfile">
                     Your profile setup is incomplete. 
@@ -98,14 +96,14 @@
                 </div>
             </div>
         </div>
-        <div *ngIf=" !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
+        <div class="loading" >
             <div>
-                <div class="verify" *ngIf="!this.isEmailVerified">
-                    Your email is not verified. Please verify it.
-                    <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
+                <div class="verify" *ngIf="!this.isEmailVerified && !this.isEmailVerificationSent">
+                    Your email is not verified. 
+                    <div class="prompt-button" (click)="verifyEmail()">Verify my email</div>
                 </div>
                 <div class="verify" *ngIf="!this.isCompleteProfile">
-                    Your profile setup is incomplete. Please complete it.
+                    Your profile setup is incomplete. 
                     <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
                 </div>
             </div>

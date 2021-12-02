@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { PrivateChatService } from 'src/app/service/chat/private-chat.service';
 import { ListingService } from 'src/app/service/listing/listing.service';
 import { UserDataService } from 'src/app/service/user-data/user-data.service';
 import { FilterPageComponent } from '../filter-page/filter-page.component';
@@ -39,6 +40,7 @@ export class MarketplaceComponent implements OnInit {
   donorBabyAge:string = "";
   isOnHealthSupplements:boolean = false;
   isHealthSupplementsFilterChosen:boolean = false;
+  unreadMessageCount = 0;
 
   @ViewChild(FilterPageComponent) FilterPage;
   @ViewChild(SortPageComponent) SortPage;
@@ -47,6 +49,7 @@ export class MarketplaceComponent implements OnInit {
     public listingService: ListingService,
     private auth: AuthService,
     private userDataService: UserDataService,
+    private chatService: PrivateChatService
   ) {}
 
   ngOnInit(): void {
@@ -57,6 +60,7 @@ export class MarketplaceComponent implements OnInit {
           this.userDataService.getUserDoc(user.uid).pipe().subscribe(userData => {
             this.currentUserData = userData;
             this.isDonor = userData['isDonor'];
+            this.getTotalUnreadMessagesCount();
           })
         }
       });
@@ -203,4 +207,20 @@ export class MarketplaceComponent implements OnInit {
       });
     })
   }
+
+  getTotalUnreadMessagesCount() {
+    if (this.currentUser) {
+      return this.chatService.getAllChatrooms(this.currentUser.uid).pipe().subscribe(chatrooms => {
+        this.unreadMessageCount = 0;
+        chatrooms.forEach(chatroom => {
+          if (this.currentUser.uid === chatroom["members"][0]) {
+            this.unreadMessageCount += chatroom["recentMsgsForDonor"];
+          } else {
+            this.unreadMessageCount += chatroom["recentMsgsForReceiver"];
+          }
+        })
+      })
+    }
+  }
+
 }
