@@ -18,6 +18,16 @@ img {
     margin-bottom: 8rem;
 }
 
+.guide-img {
+    margin-top: 1rem;
+    width: 70vw;
+}
+
+.caption {
+    margin-top: 1rem;
+    text-align: center;
+}
+
 .carousel-box {
     height: 50vh;
     margin-top: 1rem;
@@ -31,4 +41,8 @@ img {
 
 .col-12 {
     filter: invert(100%);
+}
+
+.next-button {
+    margin-bottom: 2rem;
 }

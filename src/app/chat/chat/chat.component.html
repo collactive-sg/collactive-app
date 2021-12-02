@@ -119,9 +119,7 @@
                 <div *ngIf="message.sentBy == this.currentUserDetails.userID">
                     <div class="message-area-sender">
                         <div class="message-sender"> {{message.message}}</div>
-                        <div class="photo-upload photo-sender" 
-                        [ngStyle] = "{'background-image' :'url(' + this.senderProfilePhoto + ')' }"
-                        ></div>
+                        <div class="photo-upload photo-sender" [ngStyle] = "{'background-image' :'url(' + this.senderProfilePhoto + ')' }"></div>
                     </div> 
                 </div>
             </div>
