@@ -66,17 +66,14 @@
         <span class="sr-only">Loading...</span>
     </div>
 </div>
-<div *ngIf="this.currentUserDetails && !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
+<div *ngIf="this.currentUserDetails" class="loading" >
     <div>
         <div class="verify" *ngIf="!this.isEmailVerified && !this.isEmailVerificationSent">
-            Your email is not verified. Please verify it before chatting. 
-            <div class="prompt-button" (click)="resendVerificationEmail()">Resend verfication email</div>
-        </div>
-        <div class="verify" *ngIf="!this.isEmailVerified">
-            <div class="prompt-button" (click)="reloadPageUponEmailVerified()">I have verified my email</div>
+            Your email is not verified. 
+            <div class="prompt-button" (click)="verifyEmail()">Verify my email</div>
         </div>
         <div class="verify" *ngIf="!this.isCompleteProfile">
-            Your profile setup is incomplete. Please complete it before chatting.
+            Your profile setup is incomplete. 
             <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
         </div>
     </div>
