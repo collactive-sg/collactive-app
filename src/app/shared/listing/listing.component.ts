@@ -17,6 +17,8 @@ export class ListingComponent implements OnInit {
   donorFirstName;
   donorProfilePhotoUrl;
   dateExpressed;
+  typeOfMilk;
+  status;
   dateExpressedDaysAgo: string;
   isLiked = false;
 
@@ -37,6 +39,8 @@ export class ListingComponent implements OnInit {
         this.showProfileImg(imgUrl);
     }, err => {})
     this.dateExpressed = new Date(this.listing['dateExpressed']);
+    this.typeOfMilk = new Date(this.listing['typeOfMilk']);
+    this.status = new Date(this.listing['status']);
     var diffInDays = (new Date().getTime() - this.dateExpressed.getTime()) / (1000 * 3600 * 24);
     if (diffInDays == 0) {
       this.dateExpressedDaysAgo = "today";

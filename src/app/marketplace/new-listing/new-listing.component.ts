@@ -153,8 +153,9 @@ export class NewListingComponent implements OnInit {
       typeOfMilk: this.MilkType.value,
     }
 
+
     this.listingService.addNewListing(listingData).then(res => {
-      this.router.navigate([`/listing/${res}`]);
+      window.location.replace(`/listing/${res}`);
     });
   }
 
