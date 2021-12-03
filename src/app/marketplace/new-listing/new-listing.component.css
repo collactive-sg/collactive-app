@@ -28,11 +28,9 @@
 }
 
 #expressed-date-title {
-    display: flex;
     margin-top: 10px;
-    align-items: center;
-    justify-content: space-between;
 }
+
 .form-control {
     margin-top: 10px;
 }
