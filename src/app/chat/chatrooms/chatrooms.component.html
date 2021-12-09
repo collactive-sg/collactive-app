@@ -21,25 +21,27 @@
             <div class="one-chat" (click)="onClickChatroom(chatroom.value)">
                 <div class="photo-upload" id="frame-{{chatroom.value.receiverID}}"></div>
                 <div class="details">
-                    <div class="recipient-name-or-last-message">
-                        {{chatroom.value.firstName}} {{chatroom.value.lastName}}
+                    <div style="width: 90%;">
+                        <div class="recipient-name-or-last-message">
+                            {{chatroom.value.firstName}} {{chatroom.value.lastName}}
+                        </div>
+                        <div class="listing-details">
+                            {{chatroom.value.numberOfPacks}} x {{chatroom.value.volumePerPack}}ml {{chatroom.value.typeOfMilk}} milk
+                        </div>
+                        
+                        <div *ngIf="chatroom.value.recentMessage.sentBy === this.currentUser.uid" class="recipient-name-or-last-message">
+                            You: {{chatroom.value.recentMessage.message}}
+                        </div>
+                        <div *ngIf="chatroom.value.recentMessage.sentBy !== this.currentUser.uid" class="recipient-name-or-last-message">
+                            {{chatroom.value.firstName}} {{chatroom.value.lastName}}: {{chatroom.value.recentMessage.message}}
+                        </div>
                     </div>
-                    <div class="listing-details">
-                        {{chatroom.value.numberOfPacks}} x {{chatroom.value.volumePerPack}}ml {{chatroom.value.typeOfMilk}} milk
+                    <div *ngIf="chatroom.value.isListingOwner && chatroom.value.recentMsgsForDonor !== 0" class="chat-counter pull-right">
+                        {{chatroom.value.recentMsgsForDonor}}
                     </div>
-                    
-                    <div *ngIf="chatroom.value.recentMessage.sentBy === this.currentUser.uid" class="recipient-name-or-last-message">
-                        You: {{chatroom.value.recentMessage.message}}
+                    <div *ngIf="!chatroom.value.isListingOwner && chatroom.value.recentMsgsForReceiver" class="chat-counter pull-right">
+                        {{chatroom.value.recentMsgsForReceiver}}
                     </div>
-                    <div *ngIf="chatroom.value.recentMessage.sentBy !== this.currentUser.uid" class="recipient-name-or-last-message">
-                        {{chatroom.value.firstName}} {{chatroom.value.lastName}}: {{chatroom.value.recentMessage.message}}
-                    </div>
-                </div>
-                <div *ngIf="chatroom.value.isListingOwner && chatroom.value.recentMsgsForDonor !== 0" class="chat-counter pull-right">
-                    {{chatroom.value.recentMsgsForDonor}}
-                </div>
-                <div *ngIf="!chatroom.value.isListingOwner && chatroom.value.recentMsgsForReceiver" class="chat-counter pull-right">
-                    {{chatroom.value.recentMsgsForReceiver}}
                 </div>
             </div>
         </div>

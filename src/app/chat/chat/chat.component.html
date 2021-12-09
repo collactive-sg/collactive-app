@@ -104,35 +104,35 @@
     </div>
 </div>
 
-<div *ngIf="this.currentUserDetails && this.isEmailVerified && this.isCompleteProfile ">
-    <div *ngIf="receiverDetails && listingID" #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages-area">
-        <div *ngIf="messages" class="message-list">
-            <div *ngFor="let message of messages">
-                <div *ngIf="message.sentBy == this.receiverDetails.userID">
-                    <div class="message-area-receiver">
-                        <div class="photo-upload photo-receiver" 
-                        [ngStyle] = "{'background-image' :'url(' + this.receiverProfilePhoto + ')' }"
-                        ></div>
-                        <div class="message-receiver"> {{message.message}}</div>
-                    </div> 
-                </div>
-                <div *ngIf="message.sentBy == this.currentUserDetails.userID">
-                    <div class="message-area-sender">
-                        <div class="message-sender"> {{message.message}}</div>
-                        <div class="photo-upload photo-sender" [ngStyle] = "{'background-image' :'url(' + this.senderProfilePhoto + ')' }"></div>
-                    </div> 
-                </div>
+
+<div *ngIf=" this.currentUserDetails && this.isEmailVerified && this.isCompleteProfile && receiverDetails && listingID" #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages-area">
+    <div *ngIf="messages" class="message-list">
+        <div *ngFor="let message of messages">
+            <div *ngIf="message.sentBy == this.receiverDetails.userID">
+                <div class="message-area-receiver">
+                    <div class="photo-upload photo-receiver" 
+                    [ngStyle] = "{'background-image' :'url(' + this.receiverProfilePhoto + ')' }"
+                    ></div>
+                    <div class="message-receiver"> {{message.message}}</div>
+                </div> 
             </div>
-        </div>
-    </div>
-    <div class="new-message">
-        <div class="new-message-area">
-            <textarea class="new-message-box" role="textbox" maxlines="5" (keydown.enter)="send(newMessage, false)" [(ngModel)]="newMessage" contenteditable></textarea>
-            <div class="send-btn"  (click)="send(newMessage, false)" >
-                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+            <div *ngIf="message.sentBy == this.currentUserDetails.userID">
+                <div class="message-area-sender">
+                    <div class="message-sender"> {{message.message}}</div>
+                    <div class="photo-upload photo-sender" [ngStyle] = "{'background-image' :'url(' + this.senderProfilePhoto + ')' }"></div>
+                </div> 
             </div>
         </div>
     </div>
 </div>
+<div *ngIf="this.currentUserDetails && this.isEmailVerified && this.isCompleteProfile" class="new-message">
+    <div class="new-message-area">
+        <textarea class="new-message-box" role="textbox" maxlines="5" (keydown.enter)="send(newMessage, false)" [(ngModel)]="newMessage" contenteditable></textarea>
+        <div class="send-btn"  (click)="send(newMessage, false)" >
+            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </div>
+    </div>
+</div>
+
 
 

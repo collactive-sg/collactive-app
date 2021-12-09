@@ -63,6 +63,8 @@
     align-items: center;
 }
 .details {
+    display: flex;
+    align-items: center;
     width: 80%;
 }
 

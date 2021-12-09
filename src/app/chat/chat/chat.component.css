@@ -80,7 +80,8 @@
     border: 1px solid #F38397;
     box-sizing: border-box;
     border-radius: 40px;
-    color: #F38397;
+    background: #F38397;
+    color: #fff;
 }
 
 #collact {
@@ -220,6 +221,7 @@
 
 .listing-details {
     padding: 0.25rem 0.5rem;
+    z-index: 80;
 }
 
 .photo-receiver {
