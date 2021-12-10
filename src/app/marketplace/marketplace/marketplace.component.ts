@@ -120,6 +120,8 @@ export class MarketplaceComponent implements OnInit {
       this.liveListings = this.liveListings.sort((a, b) => a["dateCreated"] - b["dateCreated"]);
       break;
     default:
+      // default for most recently expressed as top
+      this.liveListings = this.liveListings.sort((a, b) => b["dateExpressed"] - a["dateExpressed"]);
       break;
     }
     // filter by date expressed
