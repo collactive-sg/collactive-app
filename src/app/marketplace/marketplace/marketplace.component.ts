@@ -18,7 +18,7 @@ export class MarketplaceComponent implements OnInit {
   currentUserData;
   isDonor;
   showFilterPage:boolean = false;
-  DateExpressedSortSelectedHighLow = 'DatePostedSortSelectedHighLow';
+  DateExpressedSortSelectedHighLow = 'DateExpressedSortSelectedHighLow';
   DateExpressedSortSelectedLowHigh = 'DateExpressedSortSelectedLowHigh';
   DatePostedSortSelectedHighLow = 'DatePostedSortSelectedHighLow';
   DatePostedSortSelectedLowHigh = 'DatePostedSortSelectedLowHigh';
