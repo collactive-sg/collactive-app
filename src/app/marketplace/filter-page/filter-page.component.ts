@@ -70,6 +70,8 @@ export class FilterPageComponent implements OnInit {
     this.milkType = "";
     this.donorBabyAge= "";
     this.isOnHealthSupplements = false;
+    this.setStyleOfHealthSupplements(false);
+    this.isHealthSupplementsFilterChosen = false;
   }
 
 }

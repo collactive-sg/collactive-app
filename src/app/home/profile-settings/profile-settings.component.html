@@ -27,8 +27,11 @@
       <i class="fa fa-edit" ></i>
     </div>
   </div>
-  <div class="clause-box">
-    <span class="declare">All health declarations have been agreed upon</span>
+  <div class="clause-box" *ngIf="!this.isHealthDeclarationsChecked" (click)="this.router.navigateByUrl('profile-setup/health-declaration', {state: {type: 'Settings'}})" >
+    <span class="declare">Please agree to the health declarations.</span>
+  </div>
+  <div class="clause-box" *ngIf="this.isHealthDeclarationsChecked" >
+    <span class="declare">All health declarations have been agreed upon.</span>
     <div class="one-clause">
       I have not had any body piercing or tattooing done in the last 12 months including acupuncture and eyebrow embroidery.
     </div>
