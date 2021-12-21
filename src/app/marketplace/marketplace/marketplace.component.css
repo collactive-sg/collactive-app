@@ -18,6 +18,11 @@
     text-decoration: underline;
 }
 
+.main-page-content {
+    height: 86vh;
+}
+
+
 .top-icons {
     display: flex; 
     color:#3B485F; 
