@@ -1,124 +1,125 @@
 <app-topbar [isShowBackButton]="true"></app-topbar>
-<div class="start-page">
-  <div class="edit-btn" (click)="this.router.navigateByUrl('profile-setup/basic-details', {state: {type: 'Settings'}})" >
-    <i class="fa fa-edit"></i>
-  </div>
-  <div class="basic-details-show">
-    <div class="profile-photo">
-      <div class="image photo-upload" id="frame" onclick="document.getElementById('getFile').click()">
-          <i class="fa fa-plus" id="plus-icon"></i>
+<div class="settings">
+  <div class="start-page">
+    <div class="edit-btn" (click)="this.router.navigateByUrl('profile-setup/basic-details', {state: {type: 'Settings'}})" >
+      <i class="fa fa-edit"></i>
+    </div>
+    <div class="basic-details-show">
+      <div class="profile-photo">
+        <div class="image photo-upload" id="frame" onclick="document.getElementById('getFile').click()">
+            <i class="fa fa-plus" id="plus-icon"></i>
+        </div>
+        <input type='file' id="getFile" style="display:none" (change)="onImgSelected($event)">
       </div>
-      <input type='file' id="getFile" style="display:none" (change)="onImgSelected($event)">
-    </div>
-    <div class="basic-details-text-show">
-      <div style="font-size: 1.5rem;">{{firstName}} {{lastName}}</div>
-      <div>{{dobString}}</div>
-      <div>Residency: {{areasOptions[areaOfResidency]}}</div>
-      <div class="donor-label"  *ngIf="this.isDonor" >
-        Donor
-      </div>
-    </div>
-  </div>
-</div>
-<div *ngIf="this.isDonor" class="start-page">
-  <div class="clause-edit-btn" >
-    <h4>Health Declarations</h4>
-    <div (click)="this.router.navigateByUrl('profile-setup/health-declaration', {state: {type: 'Settings'}})" >
-      <i class="fa fa-edit" ></i>
-    </div>
-  </div>
-  <div class="clause-box" *ngIf="!this.isHealthDeclarationsChecked" (click)="this.router.navigateByUrl('profile-setup/health-declaration', {state: {type: 'Settings'}})" >
-    <span class="declare">Please agree to the health declarations.</span>
-  </div>
-  <div class="clause-box" *ngIf="this.isHealthDeclarationsChecked" >
-    <span class="declare">All health declarations have been agreed upon.</span>
-    <div class="one-clause">
-      I have not had any body piercing or tattooing done in the last 12 months including acupuncture and eyebrow embroidery.
-    </div>
-    <hr>
-    <div class="one-clause">
-      I have not lived in or travelled to the UK between 1980 and 1996 for a total or cumulative period of 6 months.
-    </div>
-    <hr>
-    <div class="one-clause">
-      I have not tested positive fo r HIV, Hepatitis B and C or Syphilis.
-    </div>
-    <hr>
-    <div class="one-clause">
-      I do not use illegal drugs or other prohibited substances.
-    </div>
-  </div>
-</div>
-<div *ngIf="this.isDonor" class="start-page">
-  <div class="clause-edit-btn" >
-    <h4>Lifestyle Information</h4>
-    <div (click)="this.router.navigateByUrl('profile-setup/lifestyle-information', {state: {type: 'Settings'}})" >
-      <i class="fa fa-edit" ></i>
-    </div>
-  </div>
-  <div class="clause-box">
-    <span class="declare">All health declarations have been agreed upon</span>
-    <div class="one-clause single-row">
-      I do not smoke
-      <div class="clause-choice">
-        No
-      </div>
-    </div>
-    <hr>
-    <div class="one-clause single-row">
-      I do not drink alcohol
-      <div class="clause-choice">
-        No
-      </div>
-    </div>
-    <hr>
-    <div class="one-clause single-row">
-      Do not routinely consume three or more cups of coffee, tea, or other caffeine stimulant drinks per day including cola and stimulant drinks.
-      <div class="clause-choice">
-        No
-      </div>
-    </div>
-  </div>
-</div>
-<div *ngIf="this.isDonor" class="start-page">
-  <div class="clause-edit-btn" >
-    <h4>Dietary Restrictions</h4>
-    <div (click)="this.router.navigateByUrl('profile-setup/dietary-restrictions', {state: {type: 'Settings'}})" >
-      <i class="fa fa-edit" ></i>
-    </div>
-  </div>
-  <div class="clause-box">
-    {{this.convertDietaryRestrictionsToString()}}
-  </div>
-</div>
-
-<div class="start-page">
-  <div class="clause-edit-btn" >
-    <h4>Child's Profile</h4>
-    <div (click)="this.router.navigateByUrl('profile-setup/child-profile', {state: {type: 'Settings'}})" >
-      <i class="fa fa-edit" ></i>
-    </div>
-  </div>
-  <div class="clause-box">
-    <div *ngFor="let child of childrenProfiles let i = index">
-      <hr *ngIf="i != 0" >
-      <div class="one-clause" >
-        <div class="single-row">
-          <span>
-            {{child['dateOfBirth']['year'] !== maxDate.year 
-            ? maxDate.year - child['dateOfBirth']['year'] + " year"
-            : child['dateOfBirth']['month'] !== maxDate.month
-                ? maxDate.month - child['dateOfBirth']['month'] + " month"
-                : maxDate.day - child['dateOfBirth']['day'] + " day"}}
-            old 
-          </span>
-          <span>
-            {{child['gender'] === 'F' ? "Female" : "Male"}}
-          </span>
+      <div class="basic-details-text-show">
+        <div style="font-size: 1.5rem;">{{firstName}} {{lastName}}</div>
+        <div>{{dobString}}</div>
+        <div>Residency: {{areasOptions[areaOfResidency]}}</div>
+        <div class="donor-label"  *ngIf="this.isDonor" >
+          Donor
         </div>
       </div>
-      <div>
-       {{this.convertAllergiesToString(child.allergies)}}
+    </div>
+  </div>
+  <div *ngIf="this.isDonor" class="start-page">
+    <div class="clause-edit-btn" >
+      <h4>Health Declarations</h4>
+      <div (click)="this.router.navigateByUrl('profile-setup/health-declaration', {state: {type: 'Settings'}})" >
+        <i class="fa fa-edit" ></i>
+      </div>
+    </div>
+    <div class="clause-box" *ngIf="!this.isHealthDeclarationsChecked" (click)="this.router.navigateByUrl('profile-setup/health-declaration', {state: {type: 'Settings'}})" >
+      <span class="declare">Please agree to the health declarations.</span>
+    </div>
+    <div class="clause-box" *ngIf="this.isHealthDeclarationsChecked" >
+      <span class="declare">All health declarations have been agreed upon.</span>
+      <div class="one-clause">
+        I have not had any body piercing or tattooing done in the last 12 months including acupuncture and eyebrow embroidery.
+      </div>
+      <hr>
+      <div class="one-clause">
+        I have not lived in or travelled to the UK between 1980 and 1996 for a total or cumulative period of 6 months.
+      </div>
+      <hr>
+      <div class="one-clause">
+        I have not tested positive fo r HIV, Hepatitis B and C or Syphilis.
+      </div>
+      <hr>
+      <div class="one-clause">
+        I do not use illegal drugs or other prohibited substances.
+      </div>
+    </div>
+  </div>
+  <div *ngIf="this.isDonor" class="start-page">
+    <div class="clause-edit-btn" >
+      <h4>Lifestyle Information</h4>
+      <div (click)="this.router.navigateByUrl('profile-setup/lifestyle-information', {state: {type: 'Settings'}})" >
+        <i class="fa fa-edit" ></i>
+      </div>
+    </div>
+    <div class="clause-box">
+      <span class="declare">All health declarations have been agreed upon</span>
+      <div class="one-clause single-row">
+        I do not smoke
+        <div class="clause-choice">
+          No
+        </div>
+      </div>
+      <hr>
+      <div class="one-clause single-row">
+        I do not drink alcohol
+        <div class="clause-choice">
+          No
+        </div>
+      </div>
+      <hr>
+      <div class="one-clause single-row">
+        Do not routinely consume three or more cups of coffee, tea, or other caffeine stimulant drinks per day including cola and stimulant drinks.
+        <div class="clause-choice">
+          No
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="this.isDonor" class="start-page">
+    <div class="clause-edit-btn" >
+      <h4>Dietary Restrictions</h4>
+      <div (click)="this.router.navigateByUrl('profile-setup/dietary-restrictions', {state: {type: 'Settings'}})" >
+        <i class="fa fa-edit" ></i>
+      </div>
+    </div>
+    <div class="clause-box">
+      {{this.convertDietaryRestrictionsToString()}}
+    </div>
+  </div>
+  <div class="start-page">
+    <div class="clause-edit-btn" >
+      <h4>Child's Profile</h4>
+      <div (click)="this.router.navigateByUrl('profile-setup/child-profile', {state: {type: 'Settings'}})" >
+        <i class="fa fa-edit" ></i>
+      </div>
+    </div>
+    <div class="clause-box">
+      <div *ngFor="let child of childrenProfiles let i = index">
+        <hr *ngIf="i != 0" >
+        <div class="one-clause" >
+          <div class="single-row">
+            <span>
+              {{child['dateOfBirth']['year'] !== maxDate.year 
+              ? maxDate.year - child['dateOfBirth']['year'] + " year"
+              : child['dateOfBirth']['month'] !== maxDate.month
+                  ? maxDate.month - child['dateOfBirth']['month'] + " month"
+                  : maxDate.day - child['dateOfBirth']['day'] + " day"}}
+              old 
+            </span>
+            <span>
+              {{child['gender'] === 'F' ? "Female" : "Male"}}
+            </span>
+          </div>
+        </div>
+        <div>
+         {{this.convertAllergiesToString(child.allergies)}}
+        </div>
       </div>
     </div>
   </div>
