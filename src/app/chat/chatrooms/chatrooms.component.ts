@@ -44,9 +44,11 @@ export class ChatroomsComponent implements OnInit {
               chatrooms.forEach(chatroom => {
                 chatroom["isListingOwner"] = (chatroom["members"][0] === this.currentUser.uid);
                 this.listingService.getListingByID(chatroom["listingID"]).subscribe(listingDetails => {
-                  chatroom["numberOfPacks"] = listingDetails["numberOfPacks"];
-                  chatroom["typeOfMilk"] = listingDetails["typeOfMilk"];
-                  chatroom["volumePerPack"] = listingDetails["volumePerPack"];
+                  if (listingDetails) {
+                    chatroom["numberOfPacks"] = listingDetails["numberOfPacks"];
+                    chatroom["typeOfMilk"] = listingDetails["typeOfMilk"];
+                    chatroom["volumePerPack"] = listingDetails["volumePerPack"];
+                  } else {} // listing deleted
                   this.addNameToChatroom(chatroom);
                 })
               });

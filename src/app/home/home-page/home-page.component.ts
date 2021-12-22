@@ -23,6 +23,7 @@ export class HomePageComponent implements OnInit {
 
   recentListings = [];
   currentUserListings = [];
+  likedListings = [];
 
   notifications = [];
 
@@ -61,25 +62,34 @@ export class HomePageComponent implements OnInit {
             });
           });
 
-        this.listingService
-          .getAllLiveListings()
-          .pipe()
-          .subscribe((res) => {
-            var sortedRecentListings = res.sort(
-              (a, b) => b["dateExpressed"] - a["dateExpressed"]
-            );
-            for (let i = 0; i < 4; i++) {
-              if (sortedRecentListings[i] == undefined) {
-                break;
-              }
-              this.recentListings.push(sortedRecentListings[i]);
-            }
-          });
+        // this.listingService
+        //   .getAllLiveListings()
+        //   .pipe()
+        //   .subscribe((res) => {
+        //     var sortedRecentListings = res.sort(
+        //       (a, b) => b["dateExpressed"] - a["dateExpressed"]
+        //     );
+        //     for (let i = 0; i < 4; i++) {
+        //       if (sortedRecentListings[i] == undefined) {
+        //         break;
+        //       }
+        //       this.recentListings.push(sortedRecentListings[i]);
+        //     }
+        //   });
+
+          this.listingService.getLikedListingIDsByUserID(this.currentUser.uid).then(listingIDs => {
+            listingIDs.forEach(listingID => {
+              this.listingService.getListingByID(listingID).pipe().subscribe(listing => {
+                this.likedListings.push(listing);
+              })
+            })
+          })
 
         this.listingService
           .getAllListingsByUser(this.currentUser.uid)
           .pipe()
           .subscribe((res) => {
+            res = res.filter(listing => listing["status"] !== 'archived');
             this.currentUserListings = res;
           });
 

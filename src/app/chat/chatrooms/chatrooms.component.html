@@ -26,8 +26,7 @@
                     </div>
                     <div class="listing-details">
                         {{chatroom.value.numberOfPacks}} x {{chatroom.value.volumePerPack}}ml {{chatroom.value.typeOfMilk}} milk
-                    </div>
-                    
+                    </div> 
                     <div *ngIf="chatroom.value.recentMessage.sentBy === this.currentUser.uid" class="recipient-name-or-last-message">
                         You: {{chatroom.value.recentMessage.message}}
                     </div>

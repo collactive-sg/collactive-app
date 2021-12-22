@@ -86,12 +86,12 @@
             <div style="text-decoration: underline; text-align: center; font-size: small;" (click)="this.goToNotificationPage()">See all</div>
         </div>
         <div class="mt-3" *ngIf="this.isEmailVerified && this.isCompleteProfile">
-            <h3>New postings</h3>
-            <div *ngIf="this.recentListings.length === 0">
-                <h6>There are no new posts here yet.</h6>
+            <h3>Liked postings</h3>
+            <div *ngIf="this.likedListings.length === 0">
+                <h6>There are no liked posts here yet. </h6>
             </div>
             <div class=" listings">
-                <div *ngFor="let listing of this.recentListings" id="{{listing.listingID}}" >
+                <div *ngFor="let listing of this.likedListings" id="{{listing.listingID}}" >
                     <app-listing [listing]="listing" [attr.id]="listing.ID" [currentUserID]="this.currentUser.uid" [listingID]="listing.listingID"></app-listing>
                 </div>
             </div>

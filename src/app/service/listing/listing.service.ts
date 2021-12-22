@@ -62,6 +62,10 @@ export class ListingService {
     });
   }
 
+  removeListingTemporarily(listingID:string) {
+    return this.afs.collection('listings').doc(`${listingID}`).set({status: 'archived'}, {merge: true});
+  }
+
   deleteListing(listingID:string) {
     return this.afs.collection('listings').doc(`${listingID}`).delete().then(() => {
       return this.afs.collection('notifications').ref.where("listingID", "==", listingID).get()

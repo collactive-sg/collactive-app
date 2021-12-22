@@ -15,7 +15,7 @@ export class ListingPageComponent implements OnInit {
   listingData;
   listingOwnerUID: string;
   listingOwnerDetails:any;
-  listingOwnerChildren: any[];
+  listingOwnerChildren: Set<any>;
   likedListing: any[]
   maxDate = {
     year: new Date().getFullYear(),
@@ -62,9 +62,9 @@ export class ListingPageComponent implements OnInit {
             this.listingOwnerDetails = res.data();
           });
     
-          this.listingOwnerChildren = [];
+          this.listingOwnerChildren = new Set<string>();
           this.userDataService.getChildren(this.listingOwnerUID).then(collection => {
-            collection.docs.forEach(docu => this.listingOwnerChildren.push(docu.data()))
+            collection.docs.forEach(docu => this.listingOwnerChildren.add(docu.data()))
           });
         }
       }
@@ -135,7 +135,7 @@ export class ListingPageComponent implements OnInit {
   deleteListing() {
     if (this.currentUser.uid === this.listingOwnerUID) {
       if (window.confirm("Are you sure you want to delete this listing?")) {
-        this.listingService.deleteListing(this.listingID).then(() => this.router.navigate(['marketplace']));
+        this.listingService.removeListingTemporarily(this.listingID).then(() => this.router.navigate(['marketplace']));
       }
     } else {
       window.alert("You cannot delete this listing.")

@@ -15,10 +15,10 @@
             <h3 style="text-align:left;">
                 {{this.listingOwnerDetails.firstName|| ""}} {{this.listingOwnerDetails.lastName || ""}}
             </h3>
-            <span *ngIf="this.listingOwnerChildren.length > 0">
+            <span *ngIf="this.listingOwnerChildren.size > 0">
                 <h5 style="text-align:left; opacity:0.6; margin-top:-5px"> 
-                    <span *ngIf="this.listingOwnerChildren.length > 1">Mother of {{this.listingOwnerChildren.length}} beautiful children</span> 
-                    <span *ngIf="this.listingOwnerChildren.length == 1">Mother of a beautiful {{this.listingOwnerChildren[0].gender == "F" ? 'daughter' : 'son'}}</span> 
+                    <span *ngIf="this.listingOwnerChildren.size > 1">Mother of {{this.listingOwnerChildren.size}} beautiful children</span> 
+                    <span *ngIf="this.listingOwnerChildren.size == 1">Mother of a beautiful {{this.listingOwnerChildren.values().next().value.gender == "F" ? 'daughter' : 'son'}}</span> 
                 </h5>
             </span>
         </div>

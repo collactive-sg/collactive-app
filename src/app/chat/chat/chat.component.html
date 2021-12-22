@@ -29,7 +29,7 @@
             </div>
         </div>
         <div *ngIf="this.currentGroupDetails !== undefined && this.isEmailVerified && this.isCompleteProfile ">
-            <div *ngIf="!this.isListingOwner">
+            <div *ngIf="!this.isListingOwner && this.listingDetails.status !== 'archived'">
                 <div *ngIf="this.listingDetails.status === 'collacted' && this.currentGroupDetails.requestStatus !== 'collacted'" 
                     class="mt-2 mb-2" id="c"  (click)="handleListingRequest('')">
                         This listing has been collacted already.
@@ -55,9 +55,13 @@
                         Breastmilk donation collacted!
                 </div>
             </div>
+            <div *ngIf="!this.isListingOwner && this.listingDetails.status === 'archived'" 
+                class="mt-2 mb-2 d-flex justify-content-center">
+                    This listing has been deleted.
+            </div>
         </div>
         <div *ngIf="this.currentGroupDetails !== undefined && this.isEmailVerified && this.isCompleteProfile">
-            <div *ngIf="this.isListingOwner" >
+            <div *ngIf="this.isListingOwner && this.listingDetails.status !== 'archived'">
                 <div *ngIf=" this.listingDetails.status === 'collacted'" style="text-align: center;">
                     This listing has been collacted already.
                 </div>
@@ -82,6 +86,10 @@
                         Reset listing to live
                     </div>
                 </div> -->
+            </div>
+            <div *ngIf="this.isListingOwner && this.listingDetails.status === 'archived'" 
+                class="mt-2 mb-2 d-flex justify-content-center">
+                    This listing has been deleted.
             </div>
         </div>
     </div>
