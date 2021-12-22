@@ -62,7 +62,7 @@ export class ListingPageComponent implements OnInit {
             this.listingOwnerDetails = res.data();
           });
     
-          this.listingOwnerChildren = new Set<string>();
+          this.listingOwnerChildren = new Set<any>();
           this.userDataService.getChildren(this.listingOwnerUID).then(collection => {
             collection.docs.forEach(docu => this.listingOwnerChildren.add(docu.data()))
           });
