@@ -13,12 +13,14 @@
     height: 4vh;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .logo-box {
     position: absolute;
     left: 50%;
-    top: 20px;
+    top: 2vh;
+    height: 3vh;
     margin-left: -51px;
 }
 

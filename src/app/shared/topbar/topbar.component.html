@@ -8,11 +8,10 @@
         <i class="fa fa-bars" style=" margin-top: 1px;" (click)="openSidebar()" ></i>
     </div>
     <div class="logo-box">
-        <img src="assets/collactive.png" style="height: 20px;" alt="COLLACTIVE" />
+        <img src="assets/collactive.png" style="height: 3vh;" alt="COLLACTIVE" />
     </div>
     <div *ngIf='isShowMenu' class="icon">
         <i class="fa fa-comments" style="margin-top: 1px;" (click)="openChats()" ></i>
         <div *ngIf="this.unreadMessageCount !== 0" class="chat-counter">{{this.unreadMessageCount}}</div>
     </div>
-
 </div>
