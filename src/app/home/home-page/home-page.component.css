@@ -4,12 +4,14 @@
     justify-content: space-between;
     overflow-y: scroll;
     height: 51vh;
-    margin-top: 10px;
+
 }
+
 .notifications {
     overflow-y: scroll;
-    max-height: 18vh;
+    height: 18vh;
 }
+
 .fa.fa-bell {
     margin-right: 5px;
 }
@@ -27,19 +29,27 @@
     height: 50px;
 }
 
+.main-page-content {
+    height: 86vh;
+}
+
 .single-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-top: 0.5rem;
+    height: 5vh;
 }
+
 .donor-label {
     font-size: small;
 }
+
 .welcome-header {
     display: flex;
     justify-content: space-between;
     align-items: center ;
+    height: 6vh;
 }
 .chat-button {
     background: #546684;

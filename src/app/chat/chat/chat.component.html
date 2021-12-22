@@ -1,10 +1,23 @@
-<div *ngIf="!this.currentUserDetails || !this.receiverDetails || !this.listingID" class="loading">
-    <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
+<div class="screen">    
+    <div *ngIf="!this.currentUserDetails || !this.receiverDetails || !this.listingID" class="loading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
-</div>
-
-<div class="all-parts">
+    
+    <div *ngIf="this.currentUserDetails && !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
+        <div>
+            <div class="verify" *ngIf="!this.isEmailVerified && !this.isEmailVerificationSent">
+                Your email is not verified. 
+                <div class="prompt-button" (click)="verifyEmail()">Verify my email</div>
+            </div>
+            <div class="verify" *ngIf="!this.isCompleteProfile">
+                Your profile setup is incomplete. 
+                <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
+            </div>
+        </div>
+    </div>
+    
     <div class="start-page">
         <div class="top-bar">
             <i class="fa fa-arrow-left"  (click)="this.updateLastSeen()" style="margin-right: 1.5rem;"></i>
@@ -85,27 +98,8 @@
             </div>
         </div>
     </div>
-</div>
-<div *ngIf="!this.currentUserDetails || !this.receiverDetails || !this.listingID" class="loading">
-    <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
-</div>
-<div *ngIf="this.currentUserDetails && !(this.isEmailVerified && this.isCompleteProfile)" class="loading" >
-    <div>
-        <div class="verify" *ngIf="!this.isEmailVerified && !this.isEmailVerificationSent">
-            Your email is not verified. 
-            <div class="prompt-button" (click)="verifyEmail()">Verify my email</div>
-        </div>
-        <div class="verify" *ngIf="!this.isCompleteProfile">
-            Your profile setup is incomplete. 
-            <div class="prompt-button" (click)="navigateToProfileSettings()">Complete profile setup</div>
-        </div>
-    </div>
-</div>
-
-<div *ngIf="this.currentUserDetails && this.isEmailVerified && this.isCompleteProfile ">
-    <div *ngIf="receiverDetails && listingID" #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages-area">
+    
+    <div *ngIf=" this.currentUserDetails && this.isEmailVerified && this.isCompleteProfile && receiverDetails && listingID" #scrollMe [scrollTop]="scrollMe.scrollHeight" class="messages-area">
         <div *ngIf="messages" class="message-list">
             <div *ngFor="let message of messages">
                 <div *ngIf="message.sentBy == this.receiverDetails.userID">
@@ -125,7 +119,9 @@
             </div>
         </div>
     </div>
-    <div class="new-message">
+    
+    
+    <div *ngIf="this.currentUserDetails && this.isEmailVerified && this.isCompleteProfile" class="new-message">
         <div class="new-message-area">
             <textarea class="new-message-box" role="textbox" maxlines="5" (keydown.enter)="send(newMessage, false)" [(ngModel)]="newMessage" contenteditable></textarea>
             <div class="send-btn"  (click)="send(newMessage, false)" >
@@ -134,5 +130,6 @@
         </div>
     </div>
 </div>
+
 
 

@@ -14,12 +14,14 @@
     border-radius: 50%;
 
 } 
+
 .loading {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .bold {
     font-weight: bold;
 }
@@ -60,6 +62,7 @@
     width: 100vw;
     position: absolute;
     /* max-width: 500px; */
+    height: 8vh;
     bottom: 1px;
     left: 0px;
     z-index: 90;
@@ -67,7 +70,7 @@
     box-shadow: 0px -1px 10px 0px #00000040;
 }
 .listing-information {
-    overflow-y: scroll;
+
     height: 85vh;
     margin-top: 10px;
     -ms-overflow-style: none;  /* IE and Edge */
@@ -105,6 +108,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    height: 5vh;
 }
 .edit-button {
     text-decoration: underline;
@@ -113,4 +117,7 @@
     margin-right: 4px;
     margin-left: 4px;
     color: #3B485F;
+}
+.listing-info {
+    overflow-y: scroll;
 }
