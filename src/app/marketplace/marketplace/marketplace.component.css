@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     overflow-y: scroll;
-    height: 85vh;
+    height: 80vh;
     margin-top: 5px;
 }
 
@@ -17,6 +17,11 @@
 .done-btn {
     text-decoration: underline;
 }
+
+.main-page-content {
+    height: 86vh;
+}
+
 
 .top-icons {
     display: flex; 

@@ -17,8 +17,13 @@
     margin-left: auto;
     margin-right: auto;
     box-shadow: 1px 4px 15px rgba(0, 0, 0, 0.25);
+}
 
-} 
+.settings {
+    height: 93vh;
+    overflow-y: scroll;
+}
+
 .photo-upload {
     height: 100px;
     /* darker beige */

@@ -1,14 +1,17 @@
 <app-topbar [isShowBackButton]="true"></app-topbar>
 <div *ngIf="this.currentUser !== undefined">
-    <div class="mt-1" style="font-size: 22px;">Notifications on my listings</div>
+    <div class="mt-1" style="font-size: 22px; height:5vh;">Notifications on my listings</div>
     <div *ngIf="this.notifications.length === 0">
         <div style="font-size: 14px; text-align:center;">You have no notifications.</div>
     </div>
+
+    <div *ngIf="this.notifications.length > 0" 
+        style="text-decoration: underline; font-size: small; height: 3vh;" 
+        (click)="this.readAllNotifications()">Read all
+    </div>
+
     <div class="notifications">
-        <div *ngIf="this.notifications.length > 0" 
-            style="text-decoration: underline; font-size: small;" 
-            (click)="this.readAllNotifications()">Read all</div>
-        <div  *ngFor="let notification of this.notifications">
+        <div  *ngFor="let notification of this.notifications" >
             <app-notification-box 
                 [senderFirstName]='notification.sender_firstname'
                 [senderLastName]='notification.sender_lastname'
@@ -20,7 +23,8 @@
                 [senderID]="notification.sender_userID"
             ></app-notification-box>
         </div>
-    </div>      
+    </div>
+
 </div>
 
 <app-bottom-nav [isDonor]="this.isDonor"></app-bottom-nav> 

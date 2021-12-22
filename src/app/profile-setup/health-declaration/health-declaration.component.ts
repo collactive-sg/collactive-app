@@ -63,6 +63,7 @@ export class HealthDeclarationComponent implements OnInit {
         this.didNotCheckAllBoxesMessage = "You did not check all boxes"
       }
     } else {
+      this.userDataService.updateUserDoc(this.currentUser.uid, {"isHealthDeclarationsChecked": true});
       if (this.type == TYPE_SETTINGS) this._location.back();
       else this.router.navigate(['profile-setup/lifestyle-information']);
     }

@@ -88,6 +88,7 @@ export class UserDataService {
     var dietaryPreferences = userDetails["dietary-restrictions"];
     var areaOfResidency = userDetails["areaOfResidency"];
     var dateOfBirth = userDetails["dateOfBirth"];
+    var isHealthDeclarationsChecked = userDetails["isHealthDeclarationsChecked"];
     if (isDonor) {
       return firstName 
         && lastName 
@@ -96,6 +97,7 @@ export class UserDataService {
         && lifestyleInfo
         && dietaryPreferences
         && childrenDetails
+        && isHealthDeclarationsChecked
         && childrenDetails.length > 0
         && dietaryPreferences.length > 8
         && Object.keys(lifestyleInfo).length > 2

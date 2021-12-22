@@ -133,25 +133,30 @@ export class MarketplaceComponent implements OnInit {
     // }
   }
 
-  clearFilters() {
-    // this.isDatePostedSortSelected = false;
-    // this.isDateExpressedSortSelected = false;
-    this.dietaryRestrictions = [
-      { name: "Halal", checked: false },
-      { name: "Vegan", checked: false },
-      { name: "Vegetarian", checked: false },
-      { name: "Kosher", checked: false },
-      { name: "Pescatarian", checked: false },
-      { name: "Dairy-free", checked: false },
-      { name: "Gluten-free", checked: false },
-      { name: "Nut-free", checked: false },
-      // { name: "Health supplements", checked: false }
-    ]
+  // clearFilters() {
+  //   this.dietaryRestrictions = [
+  //     { name: "Halal", checked: false },
+  //     { name: "Vegan", checked: false },
+  //     { name: "Vegetarian", checked: false },
+  //     { name: "Kosher", checked: false },
+  //     { name: "Pescatarian", checked: false },
+  //     { name: "Dairy-free", checked: false },
+  //     { name: "Gluten-free", checked: false },
+  //     { name: "Nut-free", checked: false },
+  //   ]
 
-    this.milkType = "";
-    this.donorBabyAge= "";
-    this.isOnHealthSupplements = false;
-  }
+  //   this.milkType = "";
+  //   this.donorBabyAge= "";
+  //   this.isOnHealthSupplements = false;
+  //   this.isHealthSupplementsFilterChosen = false;
+
+  //   this.FilterPage.milkType = this.milkType;
+  //   this.FilterPage.donorBabyAge = this.donorBabyAge;
+  //   this.FilterPage.isOnHealthSupplements = this.isOnHealthSupplements;
+  //   this.FilterPage.dietaryRestrictions = this.dietaryRestrictions;
+  //   this.FilterPage.isHealthSupplementsFilterChosen = this.isHealthSupplementsFilterChosen;
+
+  // }
 
   filterListing() {
     // get saved user filter pref if have

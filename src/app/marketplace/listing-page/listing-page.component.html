@@ -5,86 +5,88 @@
       </div>
 </div>
 <div *ngIf="this.listingOwnerDetails !== undefined" class="listing-information"  [ngStyle]="{'height':this.listingOwnerUID === this.currentUser.uid ? '93vh' : '81vh'}" >
-    <div>
+
         <span class="owner-options" *ngIf="this.listingOwnerUID === this.currentUser.uid" >
             <a class="edit-button" href="listing/{{this.listingID}}/edit" >Edit</a> |
             <a class="edit-button" (click)="deleteListing()">Delete</a>
         </span>
-        <div class="photo-upload" id="frame"></div>
-        <div class="name-header" style="margin-top:-20px;" >
-            <h3 style="text-align:left;">
-                {{this.listingOwnerDetails.firstName|| ""}} {{this.listingOwnerDetails.lastName || ""}}
-            </h3>
-            <span *ngIf="this.listingOwnerChildren.size > 0">
-                <h5 style="text-align:left; opacity:0.6; margin-top:-5px"> 
-                    <span *ngIf="this.listingOwnerChildren.size > 1">Mother of {{this.listingOwnerChildren.size}} beautiful children</span> 
-                    <span *ngIf="this.listingOwnerChildren.size == 1">Mother of a beautiful {{this.listingOwnerChildren.values().next().value.gender == "F" ? 'daughter' : 'son'}}</span> 
-                </h5>
-            </span>
-        </div>
-        <div class="listing-details">
-            <div class="row-details">
-                <i class="fa fa-calendar"></i> Expressed <span class="bold">{{this.convertExpressedDateTimestampToDateString()}}</span>
+        <div class="listing-info" [ngStyle]="{'height':this.listingOwnerUID === this.currentUser.uid ? '88vh' : '85vh'}" >
+            <div class="photo-upload" id="frame"></div>
+            <div class="name-header" style="margin-top:-20px;" >
+                <h3 style="text-align:left;">
+                    {{this.listingOwnerDetails.firstName|| ""}} {{this.listingOwnerDetails.lastName || ""}}
+                </h3>
+                <span *ngIf="this.listingOwnerChildren.size > 0">
+                    <h5 style="text-align:left; opacity:0.6; margin-top:-5px"> 
+                        <span *ngIf="this.listingOwnerChildren.size > 1">Mother of {{this.listingOwnerChildren.size}} beautiful children</span> 
+                        <span *ngIf="this.listingOwnerChildren.size == 1">Mother of a beautiful {{this.listingOwnerChildren.values().next().value.gender == "F" ? 'daughter' : 'son'}}</span> 
+                    </h5>
+                </span>
             </div>
-            <div class="row-details">
-                <img src="../../../assets/milk-bottle.png" width="18px" style="margin-left: -3px;" >
-                {{this.listingData.typeOfMilk}}
+            <div class="listing-details">
+                <div class="row-details">
+                    <i class="fa fa-calendar"></i> Expressed <span class="bold">{{this.convertExpressedDateTimestampToDateString()}}</span>
+                </div>
+                <div class="row-details">
+                    <img src="../../../assets/milk-bottle.png" width="18px" style="margin-left: -3px;" >
+                    {{this.listingData.typeOfMilk}}
+                </div>
+                <div class="row-details">
+                    <img src="../../../assets/packet.svg" width="18px" style="margin-left: -3px;" >
+                    <span class="bold"> {{this.listingData.numberOfPacks}}</span> packs of <span class="bold">{{this.listingData.volumePerPack}}ml</span>
+                </div>
+                <div class="row-details" *ngIf="this.listingData.additionalComments != '' ">
+                    <i class="fa fa-comment"></i>
+                    {{this.listingData.additionalComments}}
+                </div>
             </div>
-            <div class="row-details">
-                <img src="../../../assets/packet.svg" width="18px" style="margin-left: -3px;" >
-                <span class="bold"> {{this.listingData.numberOfPacks}}</span> packs of <span class="bold">{{this.listingData.volumePerPack}}ml</span>
-            </div>
-            <div class="row-details" *ngIf="this.listingData.additionalComments != '' ">
-                <i class="fa fa-comment"></i>
-                {{this.listingData.additionalComments}}
-            </div>
-        </div>
-        <div class="donor-details" style="margin-top:20px;">
-            <h4>Donor Details</h4>
-            <div  class="donor-details-card">
-                <div class="donor-details-card-entry">
-                    <span class="donor-card-field">Name:</span>{{this.listingOwnerDetails.firstName|| ""}} {{this.listingOwnerDetails.lastName || ""}}
-                </div>
-                <div class="donor-details-card-entry">
-                    <span class="donor-card-field">Date Of Birth:</span>{{this.convertDOBToDateString()}}
-                </div>
-                <div class="donor-details-card-entry">
-                    <span class="donor-card-field">Dietary Restrictions:</span>{{this.convertDietaryRestrictionsToString()}}
-                </div>
-                <div class="donor-details-card-entry">
-                    <span class="donor-card-field">Area of Residency:</span>{{this.listingOwnerDetails.areaOfResidency}}
-                </div>
-                <hr/>
-                <div *ngFor="let child of this.listingOwnerChildren;" style="margin-bottom: 10px;">
-                    <h5>{{child['dateOfBirth']['year'] !== maxDate.year 
-                        ? maxDate.year - child['dateOfBirth']['year'] + " year"
-                        : child['dateOfBirth']['month'] !== maxDate.month
-                            ? maxDate.month - child['dateOfBirth']['month'] + " month"
-                            : maxDate.day - child['dateOfBirth']['day'] + " day"}}
-                        old 
-                    {{child['gender'] === 'F' ? "daughter" : "son"}}</h5>
-                     
-                    <div *ngIf="this.getListingOwnerChilAllergies(child).length !== 0">
-                        <span>
-                            <span style="text-decoration: underline;">Allergic to: <br></span>
-                            <div *ngFor="let allergy of child['allergies'];"><span>{{allergy['checked'] ? allergy['name'] : null}}</span></div>
-                        </span>
-                        </div>
-                    <div *ngIf="this.getListingOwnerChilAllergies(child).length === 0">
-                        <span >No allergies <br></span>
+            <div class="donor-details" style="margin-top:20px;">
+                <h4>Donor Details</h4>
+                <div  class="donor-details-card">
+                    <div class="donor-details-card-entry">
+                        <span class="donor-card-field">Name:</span>{{this.listingOwnerDetails.firstName|| ""}} {{this.listingOwnerDetails.lastName || ""}}
                     </div>
-                        
+                    <div class="donor-details-card-entry">
+                        <span class="donor-card-field">Date Of Birth:</span>{{this.convertDOBToDateString()}}
+                    </div>
+                    <div class="donor-details-card-entry">
+                        <span class="donor-card-field">Dietary Restrictions:</span>{{this.convertDietaryRestrictionsToString()}}
+                    </div>
+                    <div class="donor-details-card-entry">
+                        <span class="donor-card-field">Area of Residency:</span>{{this.listingOwnerDetails.areaOfResidency}}
+                    </div>
+                    <hr/>
+                    <div *ngFor="let child of this.listingOwnerChildren;" style="margin-bottom: 10px;">
+                        <h5>{{child['dateOfBirth']['year'] !== maxDate.year 
+                            ? maxDate.year - child['dateOfBirth']['year'] + " year"
+                            : child['dateOfBirth']['month'] !== maxDate.month
+                                ? maxDate.month - child['dateOfBirth']['month'] + " month"
+                                : maxDate.day - child['dateOfBirth']['day'] + " day"}}
+                            old 
+                        {{child['gender'] === 'F' ? "daughter" : "son"}}</h5>
+                         
+                        <div *ngIf="this.getListingOwnerChilAllergies(child).length !== 0">
+                            <span>
+                                <span style="text-decoration: underline;">Allergic to: <br></span>
+                                <div *ngFor="let allergy of child['allergies'];"><span>{{allergy['checked'] ? allergy['name'] : null}}</span></div>
+                            </span>
+                            </div>
+                        <div *ngIf="this.getListingOwnerChilAllergies(child).length === 0">
+                            <span >No allergies <br></span>
+                        </div>
+                            
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-donor-bar" *ngIf="this.listingOwnerUID !== this.currentUser.uid">
+              
+                <div class="like-button">
+                    <i class="fa fa-heart" id="{{'like-button-' + this.listingID}}" (click)="likeListing()" [ngStyle]="{'color': this.isLiked ? '#F38397' : '#F9F9F9'}"></i>
+                </div>
+                <div class="chat-button" (click)="navigateToChat()">
+                    Chat with donor
                 </div>
             </div>
         </div>
-        <div class="bottom-donor-bar" *ngIf="this.listingOwnerUID !== this.currentUser.uid">
-          
-            <div class="like-button">
-                <i class="fa fa-heart" id="{{'like-button-' + this.listingID}}" (click)="likeListing()" [ngStyle]="{'color': this.isLiked ? '#F38397' : '#F9F9F9'}"></i>
-            </div>
-            <div class="chat-button" (click)="navigateToChat()">
-                Chat with donor
-            </div>
-        </div>
-    </div>
+
 </div>

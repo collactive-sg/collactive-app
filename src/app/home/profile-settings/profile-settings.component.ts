@@ -31,6 +31,7 @@ export class ProfileSettingsComponent implements OnInit {
     day: new Date().getDate(),
   }
 
+  isHealthDeclarationsChecked;
   lifestyleInfoForm;
   dietaryRestrictions;
   allergens = [
@@ -66,6 +67,7 @@ export class ProfileSettingsComponent implements OnInit {
 
         this.userDataService.getUserDoc(this.currentUser.uid).subscribe(userDoc => {
           this.isDonor = userDoc['isDonor'];
+          this.isHealthDeclarationsChecked = userDoc['isHealthDeclarationsChecked']
           this.donorForm = this.formBuilder.group({
             isDonor: new FormControl(userDoc['isDonor'], Validators.required),
           });
