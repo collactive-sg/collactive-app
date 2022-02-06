@@ -298,7 +298,7 @@ export class ChatComponent implements OnInit {
           
           if (chatroomID !== this.currentGroupID) {
             this.chatService.updateChatroomRequest(chatroomID, "collacted");
-            let recentMessage = "Sorry, the donation has been collacted by another receiver. Will let you know if it's available again!";
+            let recentMessage = "Sorry, the donation has been collacted by another receiver.";
             this.sendBroadcast(chatroomID, recentMessage, receiverID, true);
             this.chatService.updateChatroomMessage(chatroomID, recentMessage, this.currentUser.uid, new Date(), true);
           }
