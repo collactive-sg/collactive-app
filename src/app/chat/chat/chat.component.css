@@ -118,6 +118,7 @@
     overflow-y: scroll;
     position: fixed;
     top: 25vh;
+    left: 0;
     width: 100%;
 }
 
