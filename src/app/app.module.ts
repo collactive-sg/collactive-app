@@ -16,6 +16,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MarketplaceModule } from './marketplace/marketplace.module';
 import { HomeModule } from './home/home.module';
 import { ChatModule } from './chat/chat.module';
+import { HttpClientModule } from '@angular/common/http';
+// import { HttpModule } from '@angular/http';
+import { HttpClientJsonpModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -37,6 +40,8 @@ import { ChatModule } from './chat/chat.module';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
+    HttpClientJsonpModule
   ],
   providers: [],
   bootstrap: [AppComponent]
