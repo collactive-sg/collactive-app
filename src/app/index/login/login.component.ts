@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         } else if (err.code == "auth/wrong-password") {
           this.loginErrorMessage = "You have entered an invalid email or password.";
         } else {
-          this.loginErrorMessage = "Something went wrong, please try again later.";
+          this.loginErrorMessage = err.message;
         }
       });
     } else {
@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
         } else if (err.code == "auth/email-already-in-use") {
           this.signUpErrorMessage = "This email is already in use.";
         } else {
-          this.signUpErrorMessage = "Please try again later.";
+          this.signUpErrorMessage = err.message;
         }
       })
 
