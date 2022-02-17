@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../service/auth/auth.service';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserDataService } from 'src/app/service/user-data/user-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { TypeInfoModalComponent } from 'src/app/profile-setup/type-info-modal/type-info-modal.component';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +18,14 @@ export class LoginComponent implements OnInit {
   signUpForm: FormGroup;
   isSignUpTermsChecked = false;
   signUpErrorMessage = "";
+  isDonor;
 
   constructor(
     public auth: AuthService,
     public formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private userDataService: UserDataService,
+    private modalService: NgbModal
   ) {
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.email),
@@ -80,7 +86,12 @@ export class LoginComponent implements OnInit {
       this.SignUpPassword.value == this.SignUpConfirmPassword.value) {
       this.auth.register(this.SignUpEmail.value, this.SignUpPassword.value).then(res => {
         this.signUpErrorMessage = "";
-        this.router.navigate(['/profile-setup/type-setup']);
+        this.auth.getUserAuthState().onAuthStateChanged((user) => {
+          if (user) {
+            this.updateDonorStatus(user);
+          }
+        })
+        this.router.navigate(['/profile-setup/basic-details']);
       }).catch(err => {
         if (err.code == "auth/weak-password") {
           this.signUpErrorMessage = "Password should be at least 6 characters.";
@@ -133,6 +144,29 @@ export class LoginComponent implements OnInit {
     document.getElementById('signup-toggle-button').style.color = "#FFFFFF";
     document.getElementById('signup-toggle-button').style.background = "#E793A2";
     document.getElementById('header-text').innerHTML = "Create account";
+  }
+
+
+  // type set-up
+  openInfoModal() {
+    this.modalService.open(TypeInfoModalComponent, { centered: true });
+  }
+
+  updateDonorStatus(user) {
+    this.router.navigate(['profile-setup/basic-details']);
+    this.userDataService.updateUserDoc(user.uid, {"isDonor": this.isDonor});
+  }
+
+  onClickDonor() {
+    document.getElementById('donor').style.borderWidth = '4px';
+    document.getElementById('receiver').style.borderWidth = '0px';
+    this.isDonor = true;
+  }
+
+  onClickReceiver() {
+    document.getElementById('receiver').style.borderWidth = '4px';
+    document.getElementById('donor').style.borderWidth = '0px';
+    this.isDonor = false;
   }
 
 }

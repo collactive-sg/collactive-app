@@ -56,6 +56,22 @@
                 <span class="font-weight-bold"> Privacy Policy</span>.</span>
             <input class="form-check-input" type="checkbox" id="invalidCheck2" required (click)="onCheckBoxClick()"> 
         </div> 
+        
+        <!-- Type set-up -->
+        <div class="header-text">Join as a</div>
+        <div class="options">
+            <div class="type-option" id="donor"(click)="onClickDonor()" >
+                <img class="type-setup-img" src="../../assets/type-setup-donor.png" alt="Donor" />
+                <span class="type-setup-text">Donor</span>
+            </div>
+            <div class="type-option" id="receiver" (click)="onClickReceiver()">
+                <img class="type-setup-img" src="../../assets/type-setup-receiver.png" alt="Receiver" />
+                <span class="type-setup-text">Receiver</span>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;" (click)="this.openInfoModal()">
+            <i class="fa fa-question-circle-o"> </i>
+        </div>
         <div style="width: 100%">
             <button type="submit" class="btn btn-primary" >Sign Up</button>
             <div class="login-unsuccessful">{{this.signUpErrorMessage}}</div>
