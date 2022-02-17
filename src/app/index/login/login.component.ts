@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       password: new FormControl('', Validators.required)
     });
     this.signUpForm = new FormGroup({
+      firstName:new FormControl('', Validators.required),
       email: new FormControl('', Validators.email),
       password: new FormControl('', Validators.required),
       confirmPassword: new FormControl('', Validators.required)
@@ -45,6 +46,7 @@ export class LoginComponent implements OnInit {
   get LoginEmail() { return this.loginForm.get('email') }
   get LoginPassword() { return this.loginForm.get('password') }
   
+  get SignUpFirstName() { return this.signUpForm.get('firstName') }
   get SignUpEmail() { return this.signUpForm.get('email') }
   get SignUpPassword() { return this.signUpForm.get('password') }
   get SignUpConfirmPassword() { return this.signUpForm.get('confirmPassword') }
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit {
 
   onReset(): void {
     this.loginForm.setValue({email: '', password: '' });
-    this.signUpForm.setValue({email: '', password: '' , confirmPassword: ''});
+    this.signUpForm.setValue({firstName: '', email: '', password: '' , confirmPassword: ''});
   }
 
   onLoginButtonClick() {
@@ -88,7 +90,7 @@ export class LoginComponent implements OnInit {
         this.signUpErrorMessage = "";
         this.auth.getUserAuthState().onAuthStateChanged((user) => {
           if (user) {
-            this.updateDonorStatus(user);
+            this.updateUserInfo(user, this.SignUpFirstName.value);
           }
         })
         this.router.navigate(['/profile-setup/basic-details']);
@@ -152,9 +154,10 @@ export class LoginComponent implements OnInit {
     this.modalService.open(TypeInfoModalComponent, { centered: true });
   }
 
-  updateDonorStatus(user) {
+  updateUserInfo(user, firstName) {
     this.router.navigate(['profile-setup/basic-details']);
     this.userDataService.updateUserDoc(user.uid, {"isDonor": this.isDonor});
+    this.userDataService.updateUserDoc(user.uid, {"firstName": firstName});
   }
 
   onClickDonor() {
@@ -167,6 +170,11 @@ export class LoginComponent implements OnInit {
     document.getElementById('receiver').style.borderWidth = '4px';
     document.getElementById('donor').style.borderWidth = '0px';
     this.isDonor = false;
+  }
+
+  // first name
+  updateFirstName(user, firstName) {
+    this.userDataService.updateUserDoc(user.uid, {"firstName": firstName});
   }
 
 }

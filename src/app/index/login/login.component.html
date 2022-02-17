@@ -34,6 +34,10 @@
 
     <form [formGroup]="signUpForm" id="signUpForm" (ngSubmit)="onSignUpButtonClick()" >
         <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" id="firstName-signup">
+        </div>
+        <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email</label>
             <input type="text" formControlName="email" class="form-control" id="email-signup" aria-describedby="emailHelp">
             <div class="col-auto" *ngIf='this.SignUpEmail.invalid'>
