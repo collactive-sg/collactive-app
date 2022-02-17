@@ -2,7 +2,8 @@
 <!-- [chatCount]="this.getTotalUnreadMessagesCount()"></app-topbar> -->
 <div *ngIf="this.currentUser !== undefined && this.currentUserData !== undefined" class="main-page-content">
     <div class="welcome-header">
-        <div class="mt-3" style="font-size: 22px;">Hello, {{currentUserData.firstName}} {{currentUserData.lastName}}.</div>
+        <div *ngIf="currentUserData.lastName !== undefined" class="mt-3" style="font-size: 22px;">Hello, {{currentUserData.firstName}} {{currentUserData.lastName}}.</div>
+        <div *ngIf="currentUserData.lastName === undefined" class="mt-3" style="font-size: 22px;">Hello, {{currentUserData.firstName}}.</div>
         <div class="mt-3 donor-label" *ngIf="this.isDonor">
             Donor
         </div>
