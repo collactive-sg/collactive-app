@@ -25,7 +25,7 @@ export class TypeSetupComponent implements OnInit {
       .onAuthStateChanged((user) => {
         if (user) {
           this.currentUser = user;
-        } 
+        }
       })
   }
 

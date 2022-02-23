@@ -73,6 +73,10 @@ export class BasicDetailsComponent implements OnInit {
             }
             if (userDoc['firstName'] !== undefined && userDoc['lastName'] !== undefined) {
               this.nameForm.setValue({firstName: userDoc['firstName'], lastName: userDoc['lastName']});
+            } else if (userDoc['firstName'] !== undefined && userDoc['lastName'] == undefined) {
+              this.nameForm.setValue({firstName: userDoc['firstName'], lastName: ""});
+            } else {
+              this.nameForm.setValue({firstName: "", lastName: userDoc['lastName']});
             }
           })
 

@@ -34,6 +34,10 @@
 
     <form [formGroup]="signUpForm" id="signUpForm" (ngSubmit)="onSignUpButtonClick()" >
         <div class="mb-3">
+            <label for="firstName" class="form-label">First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" id="firstName-signup">
+        </div>
+        <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Email</label>
             <input type="text" formControlName="email" class="form-control" id="email-signup" aria-describedby="emailHelp">
             <div class="col-auto" *ngIf='this.SignUpEmail.invalid'>
@@ -56,6 +60,22 @@
                 <span class="font-weight-bold"> Privacy Policy</span>.</span>
             <input class="form-check-input" type="checkbox" id="invalidCheck2" required (click)="onCheckBoxClick()"> 
         </div> 
+        
+        <!-- Type set-up -->
+        <div class="header-text">Join as a</div>
+        <div class="options">
+            <div class="type-option" id="donor"(click)="onClickDonor()" >
+                <img class="type-setup-img" src="../../assets/type-setup-donor.png" alt="Donor" />
+                <span class="type-setup-text">Donor</span>
+            </div>
+            <div class="type-option" id="receiver" (click)="onClickReceiver()">
+                <img class="type-setup-img" src="../../assets/type-setup-receiver.png" alt="Receiver" />
+                <span class="type-setup-text">Receiver</span>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;" (click)="this.openInfoModal()">
+            <i class="fa fa-question-circle-o"> </i>
+        </div>
         <div style="width: 100%">
             <button type="submit" class="btn btn-primary" >Sign Up</button>
             <div class="login-unsuccessful">{{this.signUpErrorMessage}}</div>
